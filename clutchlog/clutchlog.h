@@ -8,6 +8,7 @@
 #include <limits>
 #include <sstream>
 #include <regex>
+#include <map>
 
 // #ifdef __unix__
 #include <execinfo.h>
@@ -39,7 +40,7 @@ class clutchlog
             return instance;
         }
 
-        enum level {quiet, error, warning, info, debug, xdebug};
+        enum level {quiet=0, error=1, warning=2, info=3, debug=4, xdebug=5};
 
         /** }@ High-level API */
 
@@ -59,7 +60,16 @@ class clutchlog
             _in_line(".*"),
             _show_name(true),
             _show_depth(true),
-            _show_location(true)
+            _show_location(true),
+            _show_level(true),
+            _level_letters({
+                {level::quiet,"Q"},
+                {level::error,"E"},
+                {level::warning,"W"},
+                {level::info,"I"},
+                {level::debug,"D"},
+                {level::xdebug,"X"}
+            })
         {}
 
     protected:
@@ -74,6 +84,8 @@ class clutchlog
         bool _show_name;
         bool _show_depth;
         bool _show_location;
+        bool _show_level;
+        const std::map<level,std::string> _level_letters;
 
         struct scope_t {
             bool matches;
@@ -140,6 +152,9 @@ class clutchlog
         void show_location(bool l) {_show_location = l;}
         bool show_location() const {return _show_location;}
 
+        void show_level(bool l) {_show_level = l;}
+        bool show_level() const {return _show_level;}
+
         /** }@ Configuration */
 
     public:
@@ -152,7 +167,10 @@ class clutchlog
 
             if(scope.matches) {
                 if(_show_name) {
-                    *_out << "[" << basename(getenv("_")) << "] ";
+                    *_out << "[" << basename(getenv("_")) << "]";
+                }
+                if(_show_level) {
+                    *_out << " " << _level_letters.at(stage) << ":";
                 }
                 if(_show_depth) {
                     for(size_t i = _strip_calls; i < scope.depth; ++i) {
