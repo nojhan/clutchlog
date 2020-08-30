@@ -30,6 +30,11 @@
 #endif
 
 #ifdef WITH_CLUTCHLOG
+
+#ifndef CLUTCHLOG_DEFAULT_FORMAT
+#define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+#endif
+
 #define CLUTCHLOC __FILE__, __FUNCTION__, __LINE__
 
 #define CLUTCHLOG( LEVEL, WHAT ) { \
@@ -81,7 +86,7 @@ class clutchlog
                 {level::debug,"D"},
                 {level::xdebug,"X"}
             }),
-            _format("[{name}] {level}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"),
+            _format(CLUTCHLOG_DEFAULT_FORMAT),
             _out(&std::clog),
             _depth(std::numeric_limits<size_t>::max() - _strip_calls),
             _stage(level::error),
