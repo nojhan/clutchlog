@@ -12,7 +12,8 @@ Clutchlog allows to select which log messages will be displayed, based on their 
 - source code location: you can ask to display messages called from given files, functions and line number, all based on
   regular expressions.
 
-Appart from those, Clutchlog have classical logging system features: output selection, default to unbuffered mode, etc.
+Appart from those, Clutchlog have classical logging system features: output selection and formatting,
+default to unbuffered mode, etc.
 
 Of course, Clutchlog is disabled by default if `NDEBUG` is not defined.
 
@@ -29,12 +30,12 @@ To configure the display, you indicate the three types of locations, for example
 ```cpp
     auto& log = clutchlog::logger();
     log.depth(2);                          // Log functions called from "main" but not below.
-    log.threshold(clutchlog::level::info); // Log "info", "warning", "error" or "quiet" messages.
+    log.threshold(clutchlog::level::info); // Log only "info", "warning", "error" or "quiet" messages.
     log.file("algebra/.*");                // Will match any file in the "algebra" directory.
     log.func("(mul|add|sub|div)");         // Will match "multiply", for instance.
 ```
 
-For more detailled examples, see the `tests` directory.
+For more detailled examples, see the "API documentation" section below and the `tests` directory.
 
 
 Rationale
@@ -45,7 +46,7 @@ database.
 Their aim is to provide a simple interface to efficiently store messages somewhere, which is appropriated when you have
 a well known service running and you want to be able to trace complex users interactions across its states.
 
-Clutchlog, however, targets the debugging of a (single-run) program.
+Clutchlog, however, targets the debugging of a (typically single-run) program.
 While you develop your software, it's common practice to output several detailled informations on the internal states
 around the feature you are currently programming.
 However, once the feature is up and running, those detailled informations are only useful if you encounter a bug
@@ -58,10 +59,95 @@ To solve this problem, Clutchlog allows to disengage your debug log messages in 
 allowing for the fast tracking of a bug across the execution.
 
 
+API documentation
+=================
+
+The main entrypoint is the `CLUTCHLOG` macro, which takes the desired log level and message.
+The message can be anything which can be output in an `ostringstream`.
+```cpp
+// Simple string:
+CLUTCHLOG(info, "hello world");
+
+// Serialisable variable:
+double value = 0;
+CLUTCHLOG(error, value);
+
+// passed using inline output stream operators:
+CLUTCHLOG(debug, "hello " << value << " world");
+```
+
+To configure the global behaviour of the logger, you must first get a reference on its instance:
+```cpp
+auto& log = clutchlog::logger();
+```
+
+The format of the messages can be defined with the `format` method, passing a string with standardized tags surrounded by `{}`:
+```cpp
+log.format("{msg}");
+```
+Available tags are:
+
+- `{msg}`: the logged message,
+- `{name}`: the name of the current binary,
+- `{level}`: the current log level (i.e. `Quiet`, `Error`, `Warning`, `Info`, `Debug` or `XDebug`),
+- `{level_letter}`: the first letter of the current log level,
+- `{file}`: the current file (absolute path),
+- `{func}`: the current function,
+- `{line}`: the current line number,
+- `{depth}`: the current depth of the call stack,
+- `{depth_marks}`: as many chevrons `>` as there is calls in the stack.
+
+The default format is `"[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"`,
+it can be overriden at compile time by defining the `CLUTCHLOG_DEFAULT_FORMAT` macro.
+
+The output stream can be configured using the `out` method:
+```cpp
+log.out(std::clog); // Defaults to clog.
+```
+
+One can configure the location(s) at which messages should actually be logged:
+```cpp
+log.depth(3); // Depth of the call stack, defaults to the maximum possible value.
+log.threshold(clutchlog::level::error); // Log level, defaults to error.
+```
+File, function and line are indicated using regular expression:
+```cpp
+log.file(".*"); // File location, defaults to any.
+log.func(".*"); // Function location, defaults to any.
+log.line(".*"); // Line location, defaults to any.
+```
+A shortcut function can be used to indicates file, function and line regular expression at once:
+```cpp
+log.location(file, func, line); // Defaults to any, second and last parameters being optional.
+```
+
+The mark used with the `{depth_marks}` tag can be configured with the `depth_mark` method,
+and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
+```cpp
+log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
+```
+
+All configuration setters have a getters counterpart, with the same name but taking no parameter,
+for example:
+```cpp
+std::string mark = log.depth_mark();
+```
+
+To control more precisely the logging, one can use the low-level `log` method:
+```cpp
+log.log(clutchlog::level::xdebug, "hello world", "main.cpp", "main", 122);
+```
+A helper macro can helps to fill in the location with the actual one, as seen by the compiler:
+```cpp
+log.log(clutchlog::level::xdebug, "hello world", CLUTCHLOC);
+```
+
+
 Limitations
 ===========
 
-Call stack depth is only implemented for Linux.
+Because the call stack depth and binary name access are system-dependent,
+Clutchlog is only implemented for Linux at the moment.
 
 
 Build and tests
