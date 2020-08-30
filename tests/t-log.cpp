@@ -27,9 +27,6 @@ int main(/*const int argc, char* argv[]*/)
     auto& log = clutchlog::logger();
 
     log.out(std::clog);
-    log.threshold(clutchlog::level::warning);
-    log.file("core");
-    log.func("(main|f)");
 
     std::clog << "depth: 99; threshold: xdebug; location: .*" << std::endl;
     log.depth(99);

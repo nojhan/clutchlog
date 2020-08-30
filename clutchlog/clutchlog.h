@@ -29,6 +29,25 @@
 #endif
 #endif
 
+#ifdef WITH_CLUTCHLOG
+#define CLUTCHLOC __FILE__, __FUNCTION__, __LINE__
+
+#define CLUTCHLOG( LEVEL, WHAT ) { \
+    auto& logger = clutchlog::logger(); \
+    std::ostringstream msg ; msg  << WHAT; \
+    logger.log(msg.str(), clutchlog::level::LEVEL, CLUTCHLOC); \
+}
+
+#define CLUTCHDUMP( LEVEL, CONTAINER ) { \
+    auto& logger = clutchlog::logger(); \
+    logger.dump(std::begin(CONTAINER), std::end(CONTAINER), clutchlog::level::LEVEL, CLUTCHLOC, "\n"); \
+}
+
+#else
+#define CLUTCHLOG  ( LEVEL, WHAT ) { do {/*nothing*/} while(false); }
+#define CLUTCHDUMP ( LEVEL, WHAT ) { do {/*nothing*/} while(false); }
+#endif
+
 class clutchlog
 {
     public:
@@ -52,16 +71,8 @@ class clutchlog
 
     private:
         clutchlog() :
-            _out(&std::clog),
-            _depth(std::numeric_limits<size_t>::max()),
-            _stage(level::error),
-            _in_file(".*"),
-            _in_func(".*"),
-            _in_line(".*"),
-            _show_name(true),
-            _show_depth(true),
-            _show_location(true),
-            _show_level(true),
+            // system, main, log
+            _strip_calls(3),
             _level_letters({
                 {level::quiet,"Q"},
                 {level::error,"E"},
@@ -69,12 +80,24 @@ class clutchlog
                 {level::info,"I"},
                 {level::debug,"D"},
                 {level::xdebug,"X"}
-            })
+            }),
+            _format("[{name}] {level}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"),
+            _out(&std::clog),
+            _depth(std::numeric_limits<size_t>::max() - _strip_calls),
+            _stage(level::error),
+            _in_file(".*"),
+            _in_func(".*"),
+            _in_line(".*"),
+            _show_name(true),
+            _show_depth(true),
+            _show_location(true),
+            _show_level(true)
         {}
 
     protected:
-        // system, main, log
-        const size_t _strip_calls = 3;
+        const size_t _strip_calls;
+        const std::map<level,std::string> _level_letters;
+        std::string _format;
         std::ostream* _out;
         size_t _depth;
         level _stage;
@@ -85,16 +108,20 @@ class clutchlog
         bool _show_depth;
         bool _show_location;
         bool _show_level;
-        const std::map<level,std::string> _level_letters;
 
         struct scope_t {
-            bool matches;
-            level stage;
-            size_t depth;
-            bool there;
+            bool matches; // everything is compatible
+            level stage; // current log level
+            size_t depth; // current depth
+            bool there; // location is compatible
         };
 
-        scope_t locate(level stage, std::string file, std::string func, size_t line)
+        scope_t locate(
+                const level& stage,
+                const std::string& file,
+                const std::string& func,
+                const size_t line
+            ) const
         {
             const size_t max_buffer = 4096;
             size_t stack_depth;
@@ -114,6 +141,7 @@ class clutchlog
             scope.matches =    scope.stage <= _stage
                            and scope.depth <= _depth + _strip_calls
                            and scope.there;
+
             return scope;
         }
 
@@ -122,6 +150,9 @@ class clutchlog
     public:
 
         /** Configuration accessors @{ */
+
+        void format(const std::string& format) {_format = format;}
+        std::string format() const {return _format;}
 
         void out(std::ostream& out) {_out = &out;}
         std::ostream& out() {return *_out;}
@@ -136,24 +167,16 @@ class clutchlog
         void func(std::string func) {_in_func = func;}
         void line(std::string line) {_in_line = line;}
 
-        void location(std::string in_file, std::string in_function=".*", std::string in_line=".*")
+        void location(
+                const std::string& in_file,
+                const std::string& in_function=".*",
+                const std::string& in_line=".*"
+            )
         {
             file(in_file);
             func(in_function);
             line(in_line);
         }
-
-        void show_name(bool n) {_show_name = n;}
-        bool show_name() const {return _show_name;}
-
-        void show_depth(bool d) {_show_depth = d;}
-        bool show_depth() const {return _show_depth;}
-
-        void show_location(bool l) {_show_location = l;}
-        bool show_location() const {return _show_location;}
-
-        void show_level(bool l) {_show_level = l;}
-        bool show_level() const {return _show_level;}
 
         /** }@ Configuration */
 
@@ -161,49 +184,135 @@ class clutchlog
 
         /** Low-level API @{ */
 
-        void log(std::string what, level stage, std::string file, std::string func, size_t line, bool newline)
+        std::string replace(
+                const std::string& form,
+                const std::string& mark,
+                const std::string& tag
+            ) const
+        {
+            std::regex re;
+            try {
+                re = std::regex(mark);
+
+            } catch(const std::regex_error& e) {
+                std::cerr << "ERROR with a regular expression \"" << mark << "\": ";
+                switch(e.code()) {
+                    case std::regex_constants::error_collate:
+                        std::cerr << "the expression contains an invalid collating element name";
+                        break;
+                    case std::regex_constants::error_ctype:
+                        std::cerr << "the expression contains an invalid character class name";
+                        break;
+                    case std::regex_constants::error_escape:
+                        std::cerr << "the expression contains an invalid escaped character or a trailing escape";
+                        break;
+                    case std::regex_constants::error_backref:
+                        std::cerr << "the expression contains an invalid back reference";
+                        break;
+                    case std::regex_constants::error_brack:
+                        std::cerr << "the expression contains mismatched square brackets ('[' and ']')";
+                        break;
+                    case std::regex_constants::error_paren:
+                        std::cerr << "the expression contains mismatched parentheses ('(' and ')')";
+                        break;
+                    case std::regex_constants::error_brace:
+                        std::cerr << "the expression contains mismatched curly braces ('{' and '}')";
+                        break;
+                    case std::regex_constants::error_badbrace:
+                        std::cerr << "the expression contains an invalid range in a {} expression";
+                        break;
+                    case std::regex_constants::error_range:
+                        std::cerr << "the expression contains an invalid character range (e.g. [b-a])";
+                        break;
+                    case std::regex_constants::error_space:
+                        std::cerr << "there was not enough memory to convert the expression into a finite state machine";
+                        break;
+                    case std::regex_constants::error_badrepeat:
+                        std::cerr << "one of *?+{ was not preceded by a valid regular expression";
+                        break;
+                    case std::regex_constants::error_complexity:
+                        std::cerr << "the complexity of an attempted match exceeded a predefined level";
+                        break;
+                    case std::regex_constants::error_stack:
+                        std::cerr << "there was not enough memory to perform a match";
+                        break;
+                    default:
+                        std::cerr << "unknown error";
+                }
+                std::cerr << std::endl;
+                throw;
+            } // catch
+
+            return std::regex_replace(form, re, tag);
+        }
+
+        std::string format(
+                std::string format,
+                const std::string& what,
+                const std::string& name,
+                const std::string& stage,
+                const std::string& file,
+                const std::string& func,
+                const std::string& line,
+                const size_t depth
+            ) const
+        {
+            format = replace(format, "\\{msg\\}", what);
+            format = replace(format, "\\{name\\}", name);
+            format = replace(format, "\\{level\\}", stage);
+            format = replace(format, "\\{file\\}", file);
+            format = replace(format, "\\{func\\}", func);
+            format = replace(format, "\\{line\\}", line);
+
+            std::ostringstream sdepth; sdepth << depth;
+            format = replace(format, "\\{depth\\}", sdepth.str());
+
+            std::ostringstream chevrons;
+            for(size_t i = _strip_calls; i < depth; ++i) {
+                chevrons << ">"; }
+            format = replace(format, "\\{depth_marks\\}", chevrons.str());
+
+            return format;
+        }
+
+        void log(
+                const std::string& what,
+                const level& stage, const std::string& file, const std::string& func, size_t line
+            ) const
         {
             scope_t scope = locate(stage, file, func, line);
 
             if(scope.matches) {
-                if(_show_name) {
-                    *_out << "[" << basename(getenv("_")) << "]";
-                }
-                if(_show_level) {
-                    *_out << " " << _level_letters.at(stage) << ":";
-                }
-                if(_show_depth) {
-                    for(size_t i = _strip_calls; i < scope.depth; ++i) {
-                        *_out << ">";
-                    }
-                    if(scope.depth > _strip_calls) {
-                        *_out << " ";
-                    }
-                }
+                std::ostringstream sline; sline << line;
+                *_out << format(_format, what, basename(getenv("_")),
+                                _level_letters.at(stage), file, func,
+                                sline.str(), scope.depth );
+            } // if scopes.matches
+        }
 
-                *_out << what;
+        template<class In>
+        void dump(
+                const In container_begin, const In container_end,
+                const level& stage, const std::string& file, const std::string& func, size_t line,
+                const std::string sep="\n"
+            ) const
+                   // FIXME use a file name as input
+        {
+            scope_t scope = locate(stage, file, func, line);
 
-                if(_show_location) {
-                    *_out << "\t\t\t\t\t" << file << ":" << line << " (" << func << ")";
-                }
-                if(newline) {
-                    *_out << std::endl;
-                }
-            }
+            if(scope.matches) {
+                std::ostringstream sline; sline << line;
+                *_out << "#"
+                      << format(_format, "", basename(getenv("_")),
+                                _level_letters.at(stage), file, func,
+                                sline.str(), scope.depth );
+
+                std::copy(container_begin, container_end,
+                    std::ostream_iterator<typename In::value_type>(*_out, sep.c_str()));
+            } // if scopes.matches
         }
 
         /** }@ Low-level API */
 };
-
-#ifdef WITH_CLUTCHLOG
-#define CLUTCHLOG( LEVEL, WHAT ) { \
-    auto& logger = clutchlog::logger(); \
-    std::ostringstream msg ; msg  << WHAT; \
-    logger.log(msg.str(), clutchlog::level::LEVEL, __FILE__, __FUNCTION__, __LINE__, true); \
-}
-
-#else
-#define CLUTCHLOG ( LEVEL, WHAT ) { do {/*nothing*/} while(false); }
-#endif
 
 #endif // __CLUTCHLOG_H__

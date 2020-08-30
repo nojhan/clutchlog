@@ -16,6 +16,9 @@ set(VERSION_MINOR 1 CACHE STRING "Minor version number" )
 set(VERSION_PATCH 0 CACHE STRING "Patch version number" )
 mark_as_advanced(VERSION_MAJOR VERSION_MINOR VERSION_PATCH)
 
+# There's no point building clutchlog tests in Release
+set(CMAKE_BUILD_TYPE Debug)
+
 
 ######################################################################################
 # Configurable user settings
