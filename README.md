@@ -1,5 +1,5 @@
-**Clutchlog is a logging system whith targets versatile debugging.**
-**It allows to (de)clutch messages either for a given: log level, source code location or call stack depth.**
+**Clutchlog is a logging system which targets versatile debugging.**
+**It allows to (de)clutch messages for a given: log level, source code location or call stack depth.**
 
 Features
 ========
