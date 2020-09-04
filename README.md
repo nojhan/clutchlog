@@ -1,19 +1,16 @@
-Clutchlog is a logging system whith targets versatile debugging.
-It allows to (de)clutch messages either for a given: log level, source code location or call stack depth.
+**Clutchlog is a logging system whith targets versatile debugging.**
+**It allows to (de)clutch messages either for a given: log level, source code location or call stack depth.**
 
 Features
 ========
 
 Clutchlog allows to select which log messages will be displayed, based on their locations:
 
-- classical log levels: each message has a given detail level and it is displayed if you ask for a at least the same one
-  (current ones: quiet, error, warning, info, debug, xdebug).
-- call stack depth: you can ask to display messages within functions which are called up to a given stack depth.
-- source code location: you can ask to display messages called from given files, functions and line number, all based on
+- *classical log levels*: each message has a given detail level and it is displayed if you ask for a at least the same
+  one.
+- *call stack depth*: you can ask to display messages within functions which are called up to a given stack depth.
+- *source code location*: you can ask to display messages called from given files, functions and line number, all based on
   regular expressions.
-
-Appart from those, Clutchlog have classical logging system features: output selection and formatting,
-default to unbuffered mode, etc.
 
 Of course, Clutchlog is disabled by default if `NDEBUG` is not defined.
 
@@ -21,7 +18,7 @@ Of course, Clutchlog is disabled by default if `NDEBUG` is not defined.
 Example
 =======
 
-Adding a message is a simple as calling a macro (which is declutched in Debug build type):
+Adding a message is a simple as calling a macro (which is declutched in Debug build type, when `NDEBUG` is not defined):
 ```cpp
 CLUTCHLOG(info, "matrix size: " << m << "x" << n);
 ```
@@ -81,7 +78,7 @@ CLUTCHLOG(debug, "hello " << value << " world");
 
 There is also a macro to dump the content of an iterable within a separate file: `CLUTCHDUMP`.
 This function takes care of incrementing a numeric suffix in the file name,
-if an existing file exists.
+if an existing file with this name exists.
 ```cpp
 std::vector<int> v(10);
 std::generate(v.begin(), v.end(), std::rand);
@@ -99,7 +96,7 @@ Note that if you pass a file name without the `{n}` tag, the file will be overwr
 Location filtering
 ------------------
 
-To configure the global behaviour of the logger, you must first get a reference on its instance:
+To configure the global behaviour of the logger, you must first get a reference on its (singleton) instance:
 ```cpp
 auto& log = clutchlog::logger();
 ```
@@ -114,13 +111,13 @@ Current levels are defined in an enumeration as `clutchlog::level`:
 enum level {quiet=0, error=1, warning=2, progress=3, info=4, debug=5, xdebug=6};
 ```
 
-File, function and line are indicated using regular expression:
+File, function and line filters are indicated using (ECMAScript) regular expressions:
 ```cpp
 log.file(".*"); // File location, defaults to any.
 log.func(".*"); // Function location, defaults to any.
 log.line(".*"); // Line location, defaults to any.
 ```
-A shortcut function can be used to indicates file, function and line regular expression at once:
+A shortcut function can be used to filter all at once:
 ```cpp
 log.location(file, func, line); // Defaults to any, second and last parameters being optional.
 ```
@@ -142,7 +139,7 @@ Available tags are:
 
 - `{msg}`: the logged message,
 - `{name}`: the name of the current binary,
-- `{level}`: the current log level (i.e. `Quiet`, `Error`, `Warning`, `Info`, `Debug` or `XDebug`),
+- `{level}`: the current log level (i.e. `Quiet`, `Error`, `Warning`, `Progress`, `Info`, `Debug` or `XDebug`),
 - `{level_letter}`: the first letter of the current log level,
 - `{file}`: the current file (absolute path),
 - `{func}`: the current function,
@@ -155,8 +152,9 @@ it can be overriden at compile time by defining the `CLUTCHLOG_DEFAULT_FORMAT` m
 
 The default format of the comment added with the dump macro is 
 `"# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"`.
-It can be modified at compile time with `CLUTCHDUMP_DEFAULT_FORMAT`.
+It can be edited with the `format_comment` method.
 If it is set to an empty string, then no comment line is added.
+The default can be modified at compile time with `CLUTCHDUMP_DEFAULT_FORMAT`.
 By default, the separator between items in the container is a new line.
 To change this behaviour, you can change `CLUTCHDUMP_DEFAULT_SEP` or
 call the low-level `dump` method.
