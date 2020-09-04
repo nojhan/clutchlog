@@ -19,6 +19,7 @@ mark_as_advanced(VERSION_MAJOR VERSION_MINOR VERSION_PATCH)
 # There's no point building clutchlog tests in Release
 set(CMAKE_BUILD_TYPE Debug)
 
+set(CMAKE_CXX_STANDARD_LIBRARIES -lstdc++fs)
 
 ######################################################################################
 # Configurable user settings

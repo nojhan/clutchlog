@@ -1,11 +1,13 @@
 #ifndef __CLUTCHLOG_H__
 #define __CLUTCHLOG_H__
 
+#include <filesystem>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <cassert>
 #include <cstdlib>
-#include <iomanip>
+// #include <iomanip>
 #include <string>
 #include <limits>
 #include <regex>
@@ -36,6 +38,16 @@
 #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
 #endif
 
+#ifndef CLUTCHDUMP_DEFAULT_FORMAT
+//! Default format of the comment line in file dump.
+#define CLUTCHDUMP_DEFAULT_FORMAT "# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"
+#endif
+
+#ifndef CLUTCHDUMP_DEFAULT_SEP
+//! Default item separator for dump.
+#define CLUTCHDUMP_DEFAULT_SEP "\n"
+#endif
+
 #ifndef CLUTCHLOG_DEFAULT_DEPTH_MARK
 #define CLUTCHLOG_DEFAULT_DEPTH_MARK ">"
 #endif
@@ -51,15 +63,15 @@
 }
 
 //! Dump the given container.
-#define CLUTCHDUMP( LEVEL, CONTAINER ) { \
+#define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { \
     auto& logger = clutchlog::logger(); \
-    logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), CLUTCHLOC, "\n"); \
+    logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP); \
 }
 
 #else
 // Disabled macros can still be used in Release builds.
 #define CLUTCHLOG  ( LEVEL, WHAT ) { do {/*nothing*/} while(false); }
-#define CLUTCHDUMP ( LEVEL, WHAT ) { do {/*nothing*/} while(false); }
+#define CLUTCHDUMP ( LEVEL, CONTAINER, FILENAME ) { do {/*nothing*/} while(false); }
 #endif
 
 /**********************************************************************
@@ -85,7 +97,7 @@ class clutchlog
         }
 
         //! Available log levels.
-        enum level {quiet=0, error=1, warning=2, info=3, debug=4, xdebug=5};
+        enum level {quiet=0, error=1, warning=2, progress=3, info=4, debug=5, xdebug=6};
 
         /** }@ High-level API */
 
@@ -103,11 +115,13 @@ class clutchlog
                 {level::quiet,"Quiet"},
                 {level::error,"Error"},
                 {level::warning,"Warning"},
+                {level::progress,"Progress"},
                 {level::info,"Info"},
                 {level::debug,"Debug"},
                 {level::xdebug,"XDebug"}
             }),
-            _format(CLUTCHLOG_DEFAULT_FORMAT),
+            _format_log(CLUTCHLOG_DEFAULT_FORMAT),
+            _format_dump(CLUTCHDUMP_DEFAULT_FORMAT),
             _out(&std::clog),
             _depth(std::numeric_limits<size_t>::max() - _strip_calls),
             _stage(level::error),
@@ -120,7 +134,8 @@ class clutchlog
     protected:
         const size_t _strip_calls;
         const std::map<level,std::string> _level_words;
-        std::string _format;
+        std::string _format_log;
+        std::string _format_dump;
         std::ostream* _out;
         size_t _depth;
         level _stage;
@@ -172,8 +187,11 @@ class clutchlog
 
         /** Configuration accessors @{ */
 
-        void format(const std::string& format) {_format = format;}
-        std::string format() const {return _format;}
+        void format(const std::string& format) {_format_log = format;}
+        std::string format() const {return _format_log;}
+
+        void format_comment(const std::string& format) {_format_dump = format;}
+        std::string format_comment() const {return _format_dump;}
 
         void out(std::ostream& out) {_out = &out;}
         std::ostream& out() {return *_out;}
@@ -268,8 +286,18 @@ class clutchlog
             //     throw;
             // } // catch
 
-            std::regex re(mark);
+            const std::regex re(mark);
             return std::regex_replace(form, re, tag);
+        }
+
+        std::string replace(
+                const std::string& form,
+                const std::string& mark,
+                const size_t tag
+            ) const
+        {
+            std::ostringstream stag; stag << tag;
+            return replace(form, mark, stag.str());
         }
 
         std::string format(
@@ -288,19 +316,16 @@ class clutchlog
             format = replace(format, "\\{file\\}", file);
             format = replace(format, "\\{func\\}", func);
             format = replace(format, "\\{level\\}", _level_words.at(stage));
+            format = replace(format, "\\{line\\}", line);
+            format = replace(format, "\\{depth\\}", depth);
 
-            std::ostringstream sline; sline << line;
-            format = replace(format, "\\{line\\}", sline.str());
-
-            std::string letter(1, _level_words.at(stage).at(0));
+            std::string letter(1, _level_words.at(stage).at(0)); // char -> string
             format = replace(format, "\\{level_letter\\}", letter);
-
-            std::ostringstream sdepth; sdepth << depth;
-            format = replace(format, "\\{depth\\}", sdepth.str());
 
             std::ostringstream chevrons;
             for(size_t i = _strip_calls; i < depth; ++i) {
-                chevrons << ">"; }
+                chevrons << ">";
+            }
             format = replace(format, "\\{depth_marks\\}", chevrons.str());
 
             return format;
@@ -315,7 +340,7 @@ class clutchlog
             scope_t scope = locate(stage, file, func, line);
 
             if(scope.matches) {
-                *_out << format(_format, what, basename(getenv("_")),
+                *_out << format(_format_log, what, basename(getenv("_")),
                                 stage, file, func,
                                 line, scope.depth );
                 _out->flush();
@@ -327,21 +352,44 @@ class clutchlog
                 const level& stage,
                 const In container_begin, const In container_end,
                 const std::string& file, const std::string& func, size_t line,
-                const std::string sep="\n"
+                const std::string& filename_template="dump_{n}.dat",
+                const std::string sep=CLUTCHDUMP_DEFAULT_SEP
             ) const
-                   // FIXME use a file name template as input
         {
             scope_t scope = locate(stage, file, func, line);
 
             if(scope.matches) {
-                *_out << "#" // FIXME add a _format_dump parameter?
-                      << format(_format, "", basename(getenv("_")),
-                                stage, file, func,
-                                line, scope.depth );
+                const std::string tag = "\\{n\\}";
+                const std::regex re(tag);
+                std::string outfile = "";
+
+                // If the file name template has the {n} tag.
+                if(std::regex_search(filename_template, re)) {
+                    // Increment n until a free one is found.
+                    size_t n = 0;
+                    do {
+                        outfile = replace(filename_template, tag, n);
+                        n++;
+                    } while( std::filesystem::exists( outfile ) );
+
+                } else {
+                    // Use the parameter as is.
+                    outfile = filename_template;
+                }
+
+                std::ofstream fd(outfile);
+
+                if(_format_dump.size() > 0) {
+                    fd << format(_format_dump, "", basename(getenv("_")),
+                            stage, file, func,
+                            line, scope.depth );
+                    fd << sep; // sep after comment line.
+                }
 
                 std::copy(container_begin, container_end,
-                    std::ostream_iterator<typename In::value_type>(*_out, sep.c_str()));
-                // No flush
+                    std::ostream_iterator<typename In::value_type>(fd, sep.c_str()));
+
+                fd.close();
             } // if scopes.matches
         }
 

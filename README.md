@@ -62,6 +62,9 @@ allowing for the fast tracking of a bug across the execution.
 API documentation
 =================
 
+Calls
+-----
+
 The main entrypoint is the `CLUTCHLOG` macro, which takes the desired log level and message.
 The message can be anything which can be output in an `ostringstream`.
 ```cpp
@@ -76,9 +79,59 @@ CLUTCHLOG(error, value);
 CLUTCHLOG(debug, "hello " << value << " world");
 ```
 
+There is also a macro to dump the content of an iterable within a separate file: `CLUTCHDUMP`.
+This function takes care of incrementing a numeric suffix in the file name,
+if an existing file exists.
+```cpp
+std::vector<int> v(10);
+std::generate(v.begin(), v.end(), std::rand);
+CLUTCHLOG(debug, vec, "test_{n}.dat");
+/* Will output in cat "rand_0.dat"
+* # [t-dump] Info in main (at depth 5) @ /home/nojhan/code/clutchlog/tests/t-dump.cpp:22
+* 1804289383
+* 846930886
+* 1681692777
+*/
+```
+Note that if you pass a file name without the `{n}` tag, the file will be overwritten as is.
+
+
+Location filtering
+------------------
+
 To configure the global behaviour of the logger, you must first get a reference on its instance:
 ```cpp
 auto& log = clutchlog::logger();
+```
+
+One can configure the location(s) at which messages should actually be logged:
+```cpp
+log.depth(3); // Depth of the call stack, defaults to the maximum possible value.
+log.threshold(clutchlog::level::error); // Log level, defaults to error.
+```
+Current levels are defined in an enumeration as `clutchlog::level`:
+```cpp
+enum level {quiet=0, error=1, warning=2, progress=3, info=4, debug=5, xdebug=6};
+```
+
+File, function and line are indicated using regular expression:
+```cpp
+log.file(".*"); // File location, defaults to any.
+log.func(".*"); // Function location, defaults to any.
+log.line(".*"); // Line location, defaults to any.
+```
+A shortcut function can be used to indicates file, function and line regular expression at once:
+```cpp
+log.location(file, func, line); // Defaults to any, second and last parameters being optional.
+```
+
+
+Output Configuration
+--------------------
+
+The output stream can be configured using the `out` method:
+```cpp
+log.out(std::clog); // Defaults to clog.
 ```
 
 The format of the messages can be defined with the `format` method, passing a string with standardized tags surrounded by `{}`:
@@ -97,35 +150,25 @@ Available tags are:
 - `{depth}`: the current depth of the call stack,
 - `{depth_marks}`: as many chevrons `>` as there is calls in the stack.
 
-The default format is `"[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"`,
+The default log format is `"[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"`,
 it can be overriden at compile time by defining the `CLUTCHLOG_DEFAULT_FORMAT` macro.
 
-The output stream can be configured using the `out` method:
-```cpp
-log.out(std::clog); // Defaults to clog.
-```
-
-One can configure the location(s) at which messages should actually be logged:
-```cpp
-log.depth(3); // Depth of the call stack, defaults to the maximum possible value.
-log.threshold(clutchlog::level::error); // Log level, defaults to error.
-```
-File, function and line are indicated using regular expression:
-```cpp
-log.file(".*"); // File location, defaults to any.
-log.func(".*"); // Function location, defaults to any.
-log.line(".*"); // Line location, defaults to any.
-```
-A shortcut function can be used to indicates file, function and line regular expression at once:
-```cpp
-log.location(file, func, line); // Defaults to any, second and last parameters being optional.
-```
+The default format of the comment added with the dump macro is 
+`"# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"`.
+It can be modified at compile time with `CLUTCHDUMP_DEFAULT_FORMAT`.
+If it is set to an empty string, then no comment line is added.
+By default, the separator between items in the container is a new line.
+To change this behaviour, you can change `CLUTCHDUMP_DEFAULT_SEP` or
+call the low-level `dump` method.
 
 The mark used with the `{depth_marks}` tag can be configured with the `depth_mark` method,
 and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
 ```cpp
 log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
 ```
+
+Low-level API
+-------------
 
 All configuration setters have a getters counterpart, with the same name but taking no parameter,
 for example:
@@ -141,6 +184,11 @@ A helper macro can helps to fill in the location with the actual one, as seen by
 ```cpp
 log.log(clutchlog::level::xdebug, "hello world", CLUTCHLOC);
 ```
+A similar `dump` method exists:
+```cpp
+log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), CLUTCHLOC, "dumped_{n}.dat", "\n");
+log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), "main.cpp", "main", 122, "dumped.dat", "\n\n");
+```
 
 
 Limitations
@@ -153,11 +201,14 @@ Clutchlog is only implemented for Linux at the moment.
 Build and tests
 ===============
 
+To use clutchlog, just include its header in your code.
+
 To build and run the tests, just use a classical CMake workflow:
 ```sh
 mkdir build
 cd build
-cmake ..
+# There's no point building in Release mode, at clutchlog is declutched.
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 make
 ctest
 ```
