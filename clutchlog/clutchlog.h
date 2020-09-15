@@ -1,5 +1,6 @@
 #ifndef __CLUTCHLOG_H__
 #define __CLUTCHLOG_H__
+#pragma once
 
 #include <filesystem>
 #include <iostream>
@@ -36,48 +37,74 @@
 #ifndef CLUTCHLOG_DEFAULT_FORMAT
 //! Default format of the messages.
 #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
-#endif
+#endif // CLUTCHLOG_DEFAULT_FORMAT
 
 #ifndef CLUTCHDUMP_DEFAULT_FORMAT
 //! Default format of the comment line in file dump.
 #define CLUTCHDUMP_DEFAULT_FORMAT "# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"
-#endif
+#endif // CLUTCHDUMP_DEFAULT_FORMAT
 
 #ifndef CLUTCHDUMP_DEFAULT_SEP
 //! Default item separator for dump.
 #define CLUTCHDUMP_DEFAULT_SEP "\n"
-#endif
+#endif // CLUTCHDUMP_DEFAULT_SEP
 
 #ifndef CLUTCHLOG_DEFAULT_DEPTH_MARK
 #define CLUTCHLOG_DEFAULT_DEPTH_MARK ">"
-#endif
+#endif // CLUTCHLOG_DEFAULT_DEPTH_MARK
+
+#ifndef CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG
+#define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::progress
+#endif // CLUTCHLOG_DEFAULT_DEPTH_BUILT
 
 //! Handy shortcuts to location.
 #define CLUTCHLOC __FILE__, __FUNCTION__, __LINE__
 
 //! Log a message at the given level.
+#ifndef NDEBUG
 #define CLUTCHLOG( LEVEL, WHAT ) { \
     auto& logger = clutchlog::logger(); \
     std::ostringstream msg ; msg << WHAT; \
     logger.log(clutchlog::level::LEVEL, msg.str(), CLUTCHLOC); \
 }
+#else // not Debug build.
+#define CLUTCHLOG( LEVEL, WHAT ) { \
+    if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
+        auto& logger = clutchlog::logger(); \
+        std::ostringstream msg ; msg << WHAT; \
+        logger.log(clutchlog::level::LEVEL, msg.str(), CLUTCHLOC); \
+    } \
+}
+#endif // NDEBUG
 
 //! Dump the given container.
+#ifndef NDEBUG
 #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { \
     auto& logger = clutchlog::logger(); \
-    logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP); \
+    logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \
+                CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP); \
 }
+#else // not Debug build.
+#define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { \
+    if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
+        auto& logger = clutchlog::logger(); \
+        logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \
+                    CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP); \
+    } \
+}
+#endif // NDEBUG
 
-#else
+#else // not WITH_CLUTCHLOG
 // Disabled macros can still be used in Release builds.
-#define CLUTCHLOG  ( LEVEL, WHAT ) { do {/*nothing*/} while(false); }
-#define CLUTCHDUMP ( LEVEL, CONTAINER, FILENAME ) { do {/*nothing*/} while(false); }
-#endif
+#define CLUTCHLOG( LEVEL, WHAT ) { do {/*nothing*/} while(false); }
+#define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { do {/*nothing*/} while(false); }
+#endif // WITH_CLUTCHLOG
 
 /**********************************************************************
  * Implementation
  **********************************************************************/
 
+#ifdef WITH_CLUTCHLOG
 //! Singleton class.
 class clutchlog
 {
@@ -149,6 +176,12 @@ class clutchlog
             level stage; // current log level
             size_t depth; // current depth
             bool there; // location is compatible
+            scope_t() :
+                matches(false),
+                stage(level::xdebug),
+                depth(0),
+                there(false)
+            {}
         };
 
         //! Gather information on the current location of the call.
@@ -159,24 +192,39 @@ class clutchlog
                 const size_t line
             ) const
         {
+            scope_t scope; // False scope by default.
+
+            /***** Log level stage *****/
+            // Test stage first, because it's fastest.
+            scope.stage = stage;
+            if(not (scope.stage <= _stage)) {
+                // Bypass useless computations if no match
+                // because of the stage.
+                return scope;
+            }
+
+            /***** Stack depth *****/
+            // Backtrace in second, quite fast.
             const size_t max_buffer = 4096;
             size_t stack_depth;
             void *buffer[max_buffer];
             stack_depth = backtrace(buffer, max_buffer);
-
-            scope_t scope;
-            scope.stage = stage;
             scope.depth = stack_depth;
+            if(not (scope.depth <= _depth + _strip_calls)) {
+                // Bypass if no match.
+                return scope;
+            }
 
+            /***** Location *****/
+            // Location last, slowest.
             std::ostringstream sline; sline << line;
             scope.there =
                        std::regex_search(file, _in_file)
                    and std::regex_search(func, _in_func)
                    and std::regex_search(sline.str(), _in_line);
 
-            scope.matches =    scope.stage <= _stage
-                           and scope.depth <= _depth + _strip_calls
-                           and scope.there;
+            // No need to retest stage and depth, which are true here.
+            scope.matches = scope.there;
 
             return scope;
         }
@@ -395,5 +443,109 @@ class clutchlog
 
         /** }@ Low-level API */
 };
+
+#else // not WITH_CLUTCHLOG
+
+// Equivalent class with empty methods, will be optimized out
+// while allowing to actually have calls implemented without WITH_CLUTCHLOG guards.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
+class clutchlog
+{
+    public:
+        static clutchlog& logger() { }
+        enum level {quiet=0, error=1, warning=2, progress=3, info=4, debug=5, xdebug=6};
+    public:
+        clutchlog(clutchlog const&)      = delete;
+        void operator=(clutchlog const&) = delete;
+    private:
+        clutchlog() {}
+    protected:
+        struct scope_t {};
+        scope_t locate(
+                const level&,
+                const std::string&,
+                const std::string&,
+                const size_t
+            ) const
+        { }
+    public:
+        void format(const std::string&) {}
+        std::string format() const {}
+
+        void format_comment(const std::string&) {}
+        std::string format_comment() const {}
+
+        void out(std::ostream&) {}
+        std::ostream& out() {}
+
+        void depth(size_t) {}
+        size_t depth() const {}
+
+        void depth_mark(std::string) {}
+        std::string depth_mark() const {}
+
+        void  threshold(level) {}
+        level threshold() const {}
+
+        void file(std::string) {}
+        void func(std::string) {}
+        void line(std::string) {}
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+        void location(
+                const std::string&,
+                const std::string& in_function=".*",
+                const std::string& in_line=".*"
+            )
+        { }
+#pragma GCC diagnostic pop
+    public:
+        std::string replace(
+                const std::string&,
+                const std::string&,
+                const std::string&
+            ) const
+        { }
+
+        std::string replace(
+                const std::string&,
+                const std::string&,
+                const size_t
+            ) const
+        { }
+
+        std::string format(
+                std::string,
+                const std::string&,
+                const std::string&,
+                const level&,
+                const std::string&,
+                const std::string&,
+                const size_t,
+                const size_t
+            ) const
+        { }
+
+        void log(
+                const level&,
+                const std::string&,
+                const std::string&, const std::string&, size_t
+            ) const
+        { }
+
+        template<class In>
+        void dump(
+                const level&,
+                const In, const In,
+                const std::string&, const std::string&, size_t,
+                const std::string&,
+                const std::string
+            ) const
+        { }
+};
+#pragma GCC diagnostic pop
+#endif // WITH_CLUTCHLOG
 
 #endif // __CLUTCHLOG_H__

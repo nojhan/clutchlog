@@ -12,7 +12,7 @@ Clutchlog allows to select which log messages will be displayed, based on their 
 - *source code location*: you can ask to display messages called from given files, functions and line number, all based on
   regular expressions.
 
-Of course, Clutchlog is disabled by default if `NDEBUG` is not defined.
+Of course, Clutchlog is disabled by default if not in "Debug" mode.
 
 
 Example
@@ -165,6 +165,37 @@ and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
 log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
 ```
 
+
+Disabled calls
+--------------
+
+By default, clutchlog is always enabled if the `NDEBUG` preprocessor variable is not defined
+(this variable is set by CMake in build types that differs from `Debug`).
+
+You can however force clutchlog to be enabled in any build type
+by setting the `WITH_CLUTCHLOG` preprocessor variable.
+
+When the `NDEBUG` preprocessor variable is set (e.g. in `Release` build),
+clutchlog will do its best to allow the compiler to optimize out any calls
+for log levels which are under or equal to `progress`.
+
+You can change this behavior at compile time by setting the
+`CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG` preprocessor variable
+to the desired maximum log level, for example:
+```
+// Will always allow to log everything even in Release mode.
+#define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::xdebug
+```
+
+Note that allowing a log level does not mean that it will actually output something.
+If the configured log level at runtime is lower than the log level of the message,
+it will still not be printed.
+
+This behavior intend to remove as many conditional statements as possible
+when not debugging, without having to use preprocessor guards around
+calls to clutchlog, thus saving run time at no readability cost.
+
+
 Low-level API
 -------------
 
@@ -199,15 +230,23 @@ Clutchlog is only implemented for Linux at the moment.
 Build and tests
 ===============
 
-To use clutchlog, just include its header in your code.
+To use clutchlog, just include its header in your code
+and either ensure that the `NDEBUG` preprocessor variable is not set,
+either define the `WITH_CLUTCHLOG` preprocessor variable.
+
+If you're using CMake (or another modern build system),
+it will unset `NDEBUG` ---and thus enable clutchlog---
+only for the "Debug" build type,
+which is usually what you want if you use clutchlog, anyway.
 
 To build and run the tests, just use a classical CMake workflow:
 ```sh
 mkdir build
 cd build
-# There's no point building in Release mode, at clutchlog is declutched.
-cmake -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DCMAKE_BUILD_TYPE=Debug -DWITH_CLUTCHLOG=ON ..
 make
 ctest
 ```
+
+There's a script which tests all the build types combinations: `./build_all.sh`.
 

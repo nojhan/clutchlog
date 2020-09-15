@@ -6,8 +6,6 @@
 
 int main(/*const int argc, char* argv[]*/)
 {
-#ifdef WITH_CLUTCHLOG
-
     auto& log = clutchlog::logger();
 
     log.out(std::clog);
@@ -20,5 +18,4 @@ int main(/*const int argc, char* argv[]*/)
     std::vector<int> v(3);
     std::generate(v.begin(), v.end(), std::rand);
     CLUTCHDUMP(info, v, "rand_{n}.dat");
-#endif
 }

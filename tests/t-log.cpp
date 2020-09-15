@@ -22,8 +22,6 @@ void f()
 
 int main(/*const int argc, char* argv[]*/)
 {
-#ifdef WITH_CLUTCHLOG
-
     auto& log = clutchlog::logger();
 
     log.out(std::clog);
@@ -57,6 +55,4 @@ int main(/*const int argc, char* argv[]*/)
     log.threshold(clutchlog::level::debug);
     log.location(".*","(g|h)");
     f();
-
-#endif
 }
