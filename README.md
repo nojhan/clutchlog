@@ -12,7 +12,8 @@ Clutchlog allows to select which log messages will be displayed, based on their 
 - *source code location*: you can ask to display messages called from given files, functions and line number, all based on
   regular expressions.
 
-Of course, Clutchlog is disabled by default if not in "Debug" mode.
+Additionally, Clutchlog will do its best to allow the compiler to optimize out calls,
+for instance debug messages in "Release" builds.
 
 
 Example
@@ -182,7 +183,7 @@ for log levels which are under or equal to `progress`.
 You can change this behavior at compile time by setting the
 `CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG` preprocessor variable
 to the desired maximum log level, for example:
-```
+```cpp
 // Will always allow to log everything even in Release mode.
 #define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::xdebug
 ```
@@ -223,8 +224,13 @@ log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), "main.cpp", "main",
 Limitations
 ===========
 
-Because the call stack depth and binary name access are system-dependent,
-Clutchlog is only implemented for Linux at the moment.
+Because the call stack depth and program name access are system-dependent,
+the features relying on the depth of the call stack and the display of the program name
+are only available for operating systems having the following headers:
+`execinfo.h`, `stdlib.h` and `libgen.h` (so far, tested with Linux).
+
+Clutchlog needs `C++-17` with the `filesystem` feature.
+You may need to indicate `-std=c++17 -lstdc++fs` to your compiler.
 
 
 Build and tests
@@ -235,7 +241,7 @@ and either ensure that the `NDEBUG` preprocessor variable is not set,
 either define the `WITH_CLUTCHLOG` preprocessor variable.
 
 If you're using CMake (or another modern build system),
-it will unset `NDEBUG` ---and thus enable clutchlog---
+it will unset `NDEBUG` —and thus enable clutchlog—
 only for the "Debug" build type,
 which is usually what you want if you use clutchlog, anyway.
 

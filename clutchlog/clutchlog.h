@@ -8,17 +8,19 @@
 #include <fstream>
 #include <cassert>
 #include <cstdlib>
-// #include <iomanip>
 #include <string>
 #include <limits>
 #include <regex>
 #include <map>
 
-// #ifdef __unix__
-#include <execinfo.h>
-#include <stdlib.h>
-#include <libgen.h>
-// #endif
+#if __has_include(<execinfo.h>) && __has_include(<stdlib.h>) && __has_include(<libgen.h>)
+#include <execinfo.h> // execinfo
+#include <stdlib.h>   // getenv
+#include <libgen.h>   // basename
+#define CLUTCHLOG_HAVE_UNIX_SYSINFO 1
+#else
+#define CLUTCHLOG_HAVE_UNIX_SYSINFO 0
+#endif
 
 /**********************************************************************
  * Enable by default in Debug builds.
@@ -36,12 +38,20 @@
 
 #ifndef CLUTCHLOG_DEFAULT_FORMAT
 //! Default format of the messages.
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
 #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+#else
+#define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+#endif
 #endif // CLUTCHLOG_DEFAULT_FORMAT
 
 #ifndef CLUTCHDUMP_DEFAULT_FORMAT
 //! Default format of the comment line in file dump.
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
 #define CLUTCHDUMP_DEFAULT_FORMAT "# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"
+#else
+#define CLUTCHDUMP_DEFAULT_FORMAT "# {level} in {func} @ {file}:{line}"
+#endif
 #endif // CLUTCHDUMP_DEFAULT_FORMAT
 
 #ifndef CLUTCHDUMP_DEFAULT_SEP
@@ -150,12 +160,14 @@ class clutchlog
             _format_log(CLUTCHLOG_DEFAULT_FORMAT),
             _format_dump(CLUTCHDUMP_DEFAULT_FORMAT),
             _out(&std::clog),
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
             _depth(std::numeric_limits<size_t>::max() - _strip_calls),
+            _depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK),
+#endif
             _stage(level::error),
             _in_file(".*"),
             _in_func(".*"),
-            _in_line(".*"),
-            _depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK)
+            _in_line(".*")
         {}
 
     protected:
@@ -164,22 +176,28 @@ class clutchlog
         std::string _format_log;
         std::string _format_dump;
         std::ostream* _out;
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
         size_t _depth;
+        std::string _depth_mark;
+#endif
         level _stage;
         std::regex _in_file;
         std::regex _in_func;
         std::regex _in_line;
-        std::string _depth_mark;
 
         struct scope_t {
             bool matches; // everything is compatible
             level stage; // current log level
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
             size_t depth; // current depth
+#endif
             bool there; // location is compatible
             scope_t() :
                 matches(false),
                 stage(level::xdebug),
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                 depth(0),
+#endif
                 there(false)
             {}
         };
@@ -203,6 +221,7 @@ class clutchlog
                 return scope;
             }
 
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
             /***** Stack depth *****/
             // Backtrace in second, quite fast.
             const size_t max_buffer = 4096;
@@ -214,6 +233,7 @@ class clutchlog
                 // Bypass if no match.
                 return scope;
             }
+#endif
 
             /***** Location *****/
             // Location last, slowest.
@@ -244,11 +264,13 @@ class clutchlog
         void out(std::ostream& out) {_out = &out;}
         std::ostream& out() {return *_out;}
 
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
         void depth(size_t d) {_depth = d;}
         size_t depth() const {return _depth;}
 
         void depth_mark(std::string mark) {_depth_mark = mark;}
         std::string depth_mark() const {return _depth_mark;}
+#endif
 
         void  threshold(level l) {_stage = l;}
         level threshold() const {return _stage;}
@@ -351,30 +373,38 @@ class clutchlog
         std::string format(
                 std::string format,
                 const std::string& what,
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                 const std::string& name,
+#endif
                 const level& stage,
                 const std::string& file,
                 const std::string& func,
-                const size_t line,
+                const size_t line
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                ,
                 const size_t depth
+#endif
             ) const
         {
             format = replace(format, "\\{msg\\}", what);
-            format = replace(format, "\\{name\\}", name);
             format = replace(format, "\\{file\\}", file);
             format = replace(format, "\\{func\\}", func);
             format = replace(format, "\\{level\\}", _level_words.at(stage));
             format = replace(format, "\\{line\\}", line);
-            format = replace(format, "\\{depth\\}", depth);
 
             std::string letter(1, _level_words.at(stage).at(0)); // char -> string
             format = replace(format, "\\{level_letter\\}", letter);
+
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+            format = replace(format, "\\{name\\}", name);
+            format = replace(format, "\\{depth\\}", depth);
 
             std::ostringstream chevrons;
             for(size_t i = _strip_calls; i < depth; ++i) {
                 chevrons << ">";
             }
             format = replace(format, "\\{depth_marks\\}", chevrons.str());
+#endif
 
             return format;
         }
@@ -388,9 +418,16 @@ class clutchlog
             scope_t scope = locate(stage, file, func, line);
 
             if(scope.matches) {
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                 *_out << format(_format_log, what, basename(getenv("_")),
                                 stage, file, func,
                                 line, scope.depth );
+#else
+                *_out << format(_format_log, what,
+                                stage, file, func,
+                                line );
+
+#endif
                 _out->flush();
             } // if scopes.matches
         }
@@ -428,9 +465,15 @@ class clutchlog
                 std::ofstream fd(outfile);
 
                 if(_format_dump.size() > 0) {
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                     fd << format(_format_dump, "", basename(getenv("_")),
                             stage, file, func,
                             line, scope.depth );
+#else
+                    fd << format(_format_dump, "",
+                            stage, file, func,
+                            line );
+#endif
                     fd << sep; // sep after comment line.
                 }
 
@@ -479,11 +522,13 @@ class clutchlog
         void out(std::ostream&) {}
         std::ostream& out() {}
 
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
         void depth(size_t) {}
         size_t depth() const {}
 
         void depth_mark(std::string) {}
         std::string depth_mark() const {}
+#endif
 
         void  threshold(level) {}
         level threshold() const {}
@@ -519,12 +564,17 @@ class clutchlog
         std::string format(
                 std::string,
                 const std::string&,
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                 const std::string&,
+#endif
                 const level&,
                 const std::string&,
                 const std::string&,
-                const size_t,
                 const size_t
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                ,
+                const size_t
+#endif
             ) const
         { }
 
