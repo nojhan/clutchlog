@@ -167,6 +167,62 @@ log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
 ```
 
 
+Output style
+------------
+
+The output can be colored differently depending on the log level.
+```cpp
+// Print error messages in bold red:
+log.style(clutchlog::level::error,
+    clutchlog::fmt(
+        clutchlog::fmt::fg::red,
+        clutchlog::fmt::typo::bold));
+```
+
+Using the `clutchlog::fmt` class, you can style:
+
+- the foreground color, passing a `clutchlog::fmt::fg`,
+- the background color, passing a `clutchlog::fmt::bg`,
+- some typographic style, passing a `clutchlog::fmt::typo`.
+
+Any of the three arguments may be passed, in any order,
+if an argument is omitted, it defaults to no color/style.
+
+Available colors are:
+
+- black,
+- red,
+- green,
+- yellow,
+- blue,
+- magenta,
+- cyan,
+- white,
+- none.
+
+Available typographies:
+
+- reset (remove any style),
+- bold,
+- underline,
+- inverse,
+- none.
+
+You may use styling within the format message template itself, to add even more colors:
+```cpp
+using fmt = clutchlog::fmt;
+std::ostringstream format;
+fmt discreet(fmt::fg::blue);
+format << "{level}: "
+    << discreet("{file}:") // Used as a function (inserts a reset at the end).
+    << fmt(fmt::fg::yellow) << "{line}" // Used as a tag (no reset inserted).
+    << fmt(fmt::typo::reset) << " {msg}" << std::endl; // This is a reset.
+log.format(format.str());
+```
+Note: messages at the "quiet", "error" and "warning" log levels are colored by default.
+You may want to set their style to `none` if you want to cleanly insert colors in the format template.
+
+
 Disabled calls
 --------------
 
@@ -229,6 +285,8 @@ the features relying on the depth of the call stack and the display of the progr
 are only available for operating systems having the following headers:
 `execinfo.h`, `stdlib.h` and `libgen.h` (so far, tested with Linux).
 
+Some colors/styles may not be supported by some exotic terminal emulators.
+
 Clutchlog needs `C++-17` with the `filesystem` feature.
 You may need to indicate `-std=c++17 -lstdc++fs` to your compiler.
 
@@ -255,4 +313,9 @@ ctest
 ```
 
 There's a script which tests all the build types combinations: `./build_all.sh`.
+
+
+How to
+======
+
 

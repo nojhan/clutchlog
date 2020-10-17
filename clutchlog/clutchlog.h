@@ -138,6 +138,121 @@ class clutchlog
 
         /** }@ High-level API */
 
+        /** Formating API @{ */
+
+        /** Color and style formatter for ANSI terminal escape sequences.
+         *
+         * @note All styles may not be supported by a given terminal/operating system.
+         */
+        class fmt {
+            public:
+                //! Foreground color codes.
+                enum class fg {
+                    black   = 30,
+                    red     = 31,
+                    green   = 32,
+                    yellow  = 33,
+                    blue    = 34,
+                    magenta = 35,
+                    cyan    = 36,
+                    white   = 37,
+                    none
+                } fore;
+
+                //! Background color codes.
+                enum class bg {
+                    black   = 40,
+                    red     = 41,
+                    green   = 42,
+                    yellow  = 43,
+                    blue    = 44,
+                    magenta = 45,
+                    cyan    = 46,
+                    white   = 47,
+                    none
+                } back;
+
+                //! Typographic style codes.
+                enum class typo {
+                    reset     =  0,
+                    bold      =  1,
+                    underline =  4,
+                    inverse   =  7,
+                    none
+                } style;
+
+                //! Empty constructor, only useful for a no-op formatter.
+                fmt() : fore(fg::none), back(bg::none), style(typo::none) { }
+
+                /** All combination of constructors with different parameters orders. @{ */
+                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
+                fmt(  fg f, typo s           ,   bg b =   bg::none) : fore(f), back(b), style(s) { }
+                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
+                fmt(  bg b, typo s           ,   fg f =   fg::none) : fore(f), back(b), style(s) { }
+                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : fore(f), back(b), style(s) { }
+                fmt(typo s,   bg b           ,   fg f =   fg::none) : fore(f), back(b), style(s) { }
+                /** @} */
+
+            protected:
+                //! Print the currently encoded format escape code on the given output stream.
+                std::ostream& print_on( std::ostream& os) const
+                {
+                    std::vector<int> codes; codes.reserve(3);
+                    if(this->fore  !=   fg::none) { codes.push_back(static_cast<int>(this->fore ));}
+                    if(this->back  !=   bg::none) { codes.push_back(static_cast<int>(this->back ));}
+                    if(this->style != typo::none) { codes.push_back(static_cast<int>(this->style));}
+                    if(codes.size() == 0) {return os;}
+
+                    os << "\033[";
+                    assert(codes.size() > 0);
+                    os << codes[0];
+                    for(size_t i=1; i < codes.size(); ++i) {
+                        os << ";" << codes[i];
+                    }
+                    os << "m";
+                    return os;
+                }
+
+            public:
+                /** Output stream overload.
+                 *
+                 * Allow to use a formatter as a tag within a stream:
+                 * @code
+                 * clutchlog::fmt end(clutchlog::fmt::typo::reset);
+                 * clutchlog::fmt error(clutchlog::fmt::fg::red, clutchlog::fmt::typo::bold);
+                 * std::cout << error << "ERROR" << end << std::endl;
+                 * @endcode
+                 *
+                 * @note An formatter called this way will NOT output a reset escape code.
+                 */
+                friend std::ostream& operator<<(std::ostream& os, const fmt& fmt)
+                {
+                    return fmt.print_on(os);
+                }
+
+                /** Format the given string with the currently encoded format.
+                 *
+                 * Allow to use a formatter as a function:
+                 * @code
+                 * clutchlog::fmt error(clutchlog::fmt::fg::red, clutchlog::fmt::typo::bold);
+                 * std::cout << error("ERROR") << std::endl;
+                 * @endcode
+                 *
+                 * @note A formatter called this way WILL output a reset escape code at the end.
+                 */
+                std::string operator()( const std::string& msg ) const
+                {
+                    std::ostringstream os;
+                    this->print_on(os);
+                    fmt end(fmt::typo::reset);
+                    os << msg;
+                    end.print_on(os);
+                    return os.str();
+                }
+        }; // fmt class
+
+        /** @} Formating API */
+
     /** Internal details @{ */
 
     public:
@@ -147,15 +262,24 @@ class clutchlog
     private:
         clutchlog() :
             // system, main, log
-            _strip_calls(3),
+            _strip_calls(5),
             _level_words({
-                {level::quiet,"Quiet"},
-                {level::error,"Error"},
-                {level::warning,"Warning"},
+                {level::quiet   ,"Quiet"},
+                {level::error   ,"Error"},
+                {level::warning ,"Warning"},
                 {level::progress,"Progress"},
-                {level::info,"Info"},
-                {level::debug,"Debug"},
-                {level::xdebug,"XDebug"}
+                {level::info    ,"Info"},
+                {level::debug   ,"Debug"},
+                {level::xdebug  ,"XDebug"}
+            }),
+            _level_fmt({
+                {level::quiet   ,fmt(fmt::bg::red,     fmt::typo::underline)},
+                {level::error   ,fmt(fmt::fg::red,     fmt::typo::bold)},
+                {level::warning ,fmt(fmt::fg::magenta, fmt::typo::bold)},
+                {level::progress,fmt()},
+                {level::info    ,fmt()},
+                {level::debug   ,fmt()},
+                {level::xdebug  ,fmt()}
             }),
             _format_log(CLUTCHLOG_DEFAULT_FORMAT),
             _format_dump(CLUTCHDUMP_DEFAULT_FORMAT),
@@ -173,6 +297,7 @@ class clutchlog
     protected:
         const size_t _strip_calls;
         const std::map<level,std::string> _level_words;
+        std::map<level,fmt> _level_fmt;
         std::string _format_log;
         std::string _format_dump;
         std::ostream* _out;
@@ -201,6 +326,7 @@ class clutchlog
                 there(false)
             {}
         };
+
 
         //! Gather information on the current location of the call.
         scope_t locate(
@@ -289,6 +415,9 @@ class clutchlog
             func(in_function);
             line(in_line);
         }
+
+        void style(level stage, fmt style) { _level_fmt.at(stage) = style; }
+        fmt style(level stage) const { return _level_fmt.at(stage); }
 
         /** }@ Configuration */
 
@@ -389,9 +518,9 @@ class clutchlog
             format = replace(format, "\\{msg\\}", what);
             format = replace(format, "\\{file\\}", file);
             format = replace(format, "\\{func\\}", func);
-            format = replace(format, "\\{level\\}", _level_words.at(stage));
             format = replace(format, "\\{line\\}", line);
 
+            format = replace(format, "\\{level\\}", _level_words.at(stage));
             std::string letter(1, _level_words.at(stage).at(0)); // char -> string
             format = replace(format, "\\{level_letter\\}", letter);
 
@@ -406,7 +535,7 @@ class clutchlog
             format = replace(format, "\\{depth_marks\\}", chevrons.str());
 #endif
 
-            return format;
+            return _level_fmt.at(stage)(format);
         }
 
         void log(
@@ -498,6 +627,24 @@ class clutchlog
     public:
         static clutchlog& logger() { }
         enum level {quiet=0, error=1, warning=2, progress=3, info=4, debug=5, xdebug=6};
+        class fmt {
+            public:
+                enum class fg { black, red, green, yellow, blue, magenta, cyan, white, none } fore;
+                enum class bg { black, red, green, yellow, blue, magenta, cyan, white, none } back;
+                enum class typo { reset, bold, underline, inverse, none } style;
+                fmt() : fore(fg::none), back(bg::none), style(typo::none) { }
+                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
+                fmt(  fg f, typo s           ,   bg b =   bg::none) : fore(f), back(b), style(s) { }
+                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
+                fmt(  bg b, typo s           ,   fg f =   fg::none) : fore(f), back(b), style(s) { }
+                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : fore(f), back(b), style(s) { }
+                fmt(typo s,   bg b           ,   fg f =   fg::none) : fore(f), back(b), style(s) { }
+            protected:
+                std::ostream& print_on(std::ostream&) const { }
+            public:
+                friend std::ostream& operator<<(std::ostream&, const fmt&) { }
+                std::string operator()(const std::string&) const { }
+        };
     public:
         clutchlog(clutchlog const&)      = delete;
         void operator=(clutchlog const&) = delete;
@@ -546,6 +693,8 @@ class clutchlog
             )
         { }
 #pragma GCC diagnostic pop
+        void style(level, fmt) { }
+        fmt style(level) const { }
     public:
         std::string replace(
                 const std::string&,
