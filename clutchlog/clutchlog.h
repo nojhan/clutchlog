@@ -134,7 +134,7 @@ class clutchlog
         }
 
         //! Available log levels.
-        enum level {quiet=0, error=1, warning=2, progress=3, info=4, debug=5, xdebug=6};
+        enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
 
         /** }@ High-level API */
 
@@ -244,9 +244,9 @@ class clutchlog
                 {
                     std::ostringstream os;
                     this->print_on(os);
-                    fmt end(fmt::typo::reset);
+                    fmt reset(fmt::typo::reset);
                     os << msg;
-                    end.print_on(os);
+                    reset.print_on(os);
                     return os.str();
                 }
         }; // fmt class
@@ -263,20 +263,22 @@ class clutchlog
         clutchlog() :
             // system, main, log
             _strip_calls(5),
-            _level_words({
-                {level::quiet   ,"Quiet"},
+            _level_word({
+                {level::critical,"Critical"},
                 {level::error   ,"Error"},
                 {level::warning ,"Warning"},
                 {level::progress,"Progress"},
+                {level::note    ,"Note"},
                 {level::info    ,"Info"},
                 {level::debug   ,"Debug"},
                 {level::xdebug  ,"XDebug"}
             }),
             _level_fmt({
-                {level::quiet   ,fmt(fmt::bg::red,     fmt::typo::underline)},
+                {level::critical,fmt(fmt::fg::red,     fmt::typo::underline)},
                 {level::error   ,fmt(fmt::fg::red,     fmt::typo::bold)},
                 {level::warning ,fmt(fmt::fg::magenta, fmt::typo::bold)},
                 {level::progress,fmt()},
+                {level::note    ,fmt()},
                 {level::info    ,fmt()},
                 {level::debug   ,fmt()},
                 {level::xdebug  ,fmt()}
@@ -292,11 +294,17 @@ class clutchlog
             _in_file(".*"),
             _in_func(".*"),
             _in_line(".*")
-        {}
+        {
+            // Reverse the level->word map into a word->level map.
+            for(auto& lw : _level_word) {
+                _word_level[lw.second] = lw.first;
+            }
+        }
 
     protected:
         const size_t _strip_calls;
-        const std::map<level,std::string> _level_words;
+        const std::map<level,std::string> _level_word;
+        std::map<std::string,level> _word_level;
         std::map<level,fmt> _level_fmt;
         std::string _format_log;
         std::string _format_dump;
@@ -416,8 +424,20 @@ class clutchlog
             line(in_line);
         }
 
+        template<class ... FMT>
+        void style(level stage, FMT... styles) { this->style(stage,fmt(styles...)); }
         void style(level stage, fmt style) { _level_fmt.at(stage) = style; }
-        fmt style(level stage) const { return _level_fmt.at(stage); }
+        fmt  style(level stage) const { return _level_fmt.at(stage); }
+
+        level level_of(const std::string name)
+        {
+            const auto ilevel = _word_level.find(name);
+            if( ilevel != std::end(_word_level)) {
+                return ilevel->second;
+            } else {
+                throw std::out_of_range("'" + name + "' is not a valid log level name");
+            }
+        }
 
         /** }@ Configuration */
 
@@ -520,8 +540,8 @@ class clutchlog
             format = replace(format, "\\{func\\}", func);
             format = replace(format, "\\{line\\}", line);
 
-            format = replace(format, "\\{level\\}", _level_words.at(stage));
-            std::string letter(1, _level_words.at(stage).at(0)); // char -> string
+            format = replace(format, "\\{level\\}", _level_word.at(stage));
+            std::string letter(1, _level_word.at(stage).at(0)); // char -> string
             format = replace(format, "\\{level_letter\\}", letter);
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
@@ -530,7 +550,7 @@ class clutchlog
 
             std::ostringstream chevrons;
             for(size_t i = _strip_calls; i < depth; ++i) {
-                chevrons << ">";
+                chevrons << _depth_mark;
             }
             format = replace(format, "\\{depth_marks\\}", chevrons.str());
 #endif
@@ -626,7 +646,7 @@ class clutchlog
 {
     public:
         static clutchlog& logger() { }
-        enum level {quiet=0, error=1, warning=2, progress=3, info=4, debug=5, xdebug=6};
+        enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
         class fmt {
             public:
                 enum class fg { black, red, green, yellow, blue, magenta, cyan, white, none } fore;
@@ -695,6 +715,7 @@ class clutchlog
 #pragma GCC diagnostic pop
         void style(level, fmt) { }
         fmt style(level) const { }
+        level level_of(const std::string) { }
     public:
         std::string replace(
                 const std::string&,

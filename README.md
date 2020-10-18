@@ -123,6 +123,12 @@ A shortcut function can be used to filter all at once:
 log.location(file, func, line); // Defaults to any, second and last parameters being optional.
 ```
 
+Strings may be used to set up the threshold, using `level_of`:
+```cpp
+log.threshold( log.level_of("XDebug") ); // You have to know the exact string.
+```
+Note that the case of the log levels strings matters (see below).
+
 
 Output Configuration
 --------------------
@@ -173,10 +179,17 @@ Output style
 The output can be colored differently depending on the log level.
 ```cpp
 // Print error messages in bold red:
-log.style(clutchlog::level::error,
-    clutchlog::fmt(
-        clutchlog::fmt::fg::red,
-        clutchlog::fmt::typo::bold));
+log.style(clutchlog::level::error, // First, the log level.
+    clutchlog::fmt::fg::red,       // Then the styles, in any order...
+    clutchlog::fmt::typo::bold);
+```
+
+Or, if you want to declare some semantics beforehand:
+```cpp
+// Print warning messages in bold magenta:
+using fmt = clutchlog::fmt;
+fmt warn(fmt::fg::magenta, fmt::typo::bold);
+log.style(clutchlog::level::magenta, warn);
 ```
 
 Using the `clutchlog::fmt` class, you can style:
@@ -220,7 +233,7 @@ format << "{level}: "
 log.format(format.str());
 ```
 Note: messages at the "quiet", "error" and "warning" log levels are colored by default.
-You may want to set their style to `none` if you want to cleanly insert colors in the format template.
+You may want to set their style to `none` if you want to stay in control of inserted colors in the format template.
 
 
 Disabled calls
@@ -276,6 +289,22 @@ log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), CLUTCHLOC, "dumped_
 log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), "main.cpp", "main", 122, "dumped.dat", "\n\n");
 ```
 
+Log level semantics
+===================
+
+Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:
+
+- *Critical*: an error which cannot be recovered. For instance, something which will make a server stop right here.
+- *Error*: an error which invalidates a function, but may still be recovered. For example, a bad user input which will make a server reset its state, but not crash.
+- *Warning*: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.
+- *Progress*: the state at which computation currently is.
+- *Note*: some state worth noting to understand what's going on.
+- *Info*: any information which would help ensuring that everything is going well.
+- *Debug*: data which would help debugging the program if there was a bug later on.
+- *XDebug*: debugging information which would be heavy to read.
+
+Note: the log levels constants are lower case (for example: `clutchlog::level:xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `level_of`).
+
 
 Limitations
 ===========
@@ -313,9 +342,4 @@ ctest
 ```
 
 There's a script which tests all the build types combinations: `./build_all.sh`.
-
-
-How to
-======
-
 
