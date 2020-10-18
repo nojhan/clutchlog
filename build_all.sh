@@ -23,3 +23,8 @@ for t in "Debug" "Release" "RelWithDebInfo"; do
     done
 done
 
+echo "Update documentation"
+cd Debug_ON
+make doc
+cp -r html/* ../docs/
+

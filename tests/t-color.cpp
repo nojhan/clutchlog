@@ -21,8 +21,8 @@ int main(/*const int argc, char* argv[]*/)
     log.threshold(clutchlog::level::info);
 
     // Change a style.
-    log.style(clutchlog::level::quiet, error);
-    CLUTCHLOG(quiet,"Styles demo");
+    log.style(clutchlog::level::critical, error);
+    CLUTCHLOG(critical,"Styles demo");
 
     CLUTCHLOG(info,"Either using functions...");
     std::cout << none("No style: ") << std::endl;
@@ -41,5 +41,5 @@ int main(/*const int argc, char* argv[]*/)
         << clutchlog::fmt(clutchlog::fmt::fg::yellow) << "{line}"
         << clutchlog::fmt(clutchlog::fmt::typo::reset) << " {msg} ! " << std::endl;
     log.format(format.str());
-    CLUTCHLOG(quiet,"After having inserted styles within a new format template");
+    CLUTCHLOG(critical,"After having inserted styles within a new format template");
 }
