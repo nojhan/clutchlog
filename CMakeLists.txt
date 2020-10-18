@@ -5,16 +5,12 @@
 
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
-project("clutchlog")
+project("clutchlog"
+    VERSION 0.5.0
+    DESCRIPTION "A logging system which targets versatile debugging")
 
 enable_language(CXX) # C++
 set(CMAKE_CXX_STANDARD 17)
-
-## Current version
-set(VERSION_MAJOR 0 CACHE STRING "Major version number" )
-set(VERSION_MINOR 3 CACHE STRING "Minor version number" )
-set(VERSION_PATCH 0 CACHE STRING "Patch version number" )
-mark_as_advanced(VERSION_MAJOR VERSION_MINOR VERSION_PATCH)
 
 set(CMAKE_CXX_STANDARD_LIBRARIES -lstdc++fs)
 
@@ -35,9 +31,29 @@ if(WITH_CLUTCHLOG)
     add_definitions(-DWITH_CLUTCHLOG)
 endif()
 
+# Do not build documentation by default.
+option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation (requires Doxygen)" OFF)
+
 ######################################################################################
 # Start building
 ######################################################################################
+
+# Doxygen (iff documentation is asked).
+if(BUILD_DOCUMENTATION)
+    find_package(Doxygen REQUIRED)
+
+    set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
+    set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+    configure_file(${doxyfile_in} ${doxyfile} @ONLY)
+
+    # ALL allows to build the docs together with any other target.
+    add_custom_target( doc ALL
+        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating API documentation with Doxygen"
+        VERBATIM )
+endif()
 
 enable_testing()
 add_subdirectory(tests)

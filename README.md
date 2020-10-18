@@ -28,7 +28,7 @@ To configure the display, you indicate the three types of locations, for example
 ```cpp
     auto& log = clutchlog::logger();
     log.depth(2);                          // Log functions called from "main" but not below.
-    log.threshold(clutchlog::level::info); // Log only "info", "warning", "error" or "quiet" messages.
+    log.threshold(clutchlog::level::info); // Log only "info", "warning", "error" or "critical" messages.
     log.file("algebra/.*");                // Will match any file in the "algebra" directory.
     log.func("(mul|add|sub|div)");         // Will match "multiply", for instance.
 ```
@@ -109,7 +109,7 @@ log.threshold(clutchlog::level::error); // Log level, defaults to error.
 ```
 Current levels are defined in an enumeration as `clutchlog::level`:
 ```cpp
-enum level {quiet=0, error=1, warning=2, progress=3, info=4, debug=5, xdebug=6};
+enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
 ```
 
 File, function and line filters are indicated using (ECMAScript) regular expressions:
@@ -146,7 +146,7 @@ Available tags are:
 
 - `{msg}`: the logged message,
 - `{name}`: the name of the current binary,
-- `{level}`: the current log level (i.e. `Quiet`, `Error`, `Warning`, `Progress`, `Info`, `Debug` or `XDebug`),
+- `{level}`: the current log level (i.e. `Critical`, `Error`, `Warning`, `Progress`, `Note`, `Info`, `Debug` or `XDebug`),
 - `{level_letter}`: the first letter of the current log level,
 - `{file}`: the current file (absolute path),
 - `{func}`: the current function,
@@ -232,7 +232,7 @@ format << "{level}: "
     << fmt(fmt::typo::reset) << " {msg}" << std::endl; // This is a reset.
 log.format(format.str());
 ```
-Note: messages at the "quiet", "error" and "warning" log levels are colored by default.
+Note: messages at the "critical", "error" and "warning" log levels are colored by default.
 You may want to set their style to `none` if you want to stay in control of inserted colors in the format template.
 
 

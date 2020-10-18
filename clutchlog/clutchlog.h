@@ -115,11 +115,15 @@
  **********************************************************************/
 
 #ifdef WITH_CLUTCHLOG
-//! Singleton class.
+/** Single class that holds everything.
+ *
+ * This is a Singleton class.
+ */
 class clutchlog
 {
     public:
-        /** High-level API @{ */
+        /** @name High-level API
+         * @{ */
 
         /** Get the logger instance.
          *
@@ -136,9 +140,10 @@ class clutchlog
         //! Available log levels.
         enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
 
-        /** }@ High-level API */
+        /** @} */
 
-        /** Formating API @{ */
+        /** @name Formating API
+         * @{ */
 
         /** Color and style formatter for ANSI terminal escape sequences.
          *
@@ -184,7 +189,8 @@ class clutchlog
                 //! Empty constructor, only useful for a no-op formatter.
                 fmt() : fore(fg::none), back(bg::none), style(typo::none) { }
 
-                /** All combination of constructors with different parameters orders. @{ */
+                /** @name All combination of constructors with different parameters orders.
+                 * @{ */
                 fmt(  fg f,   bg b = bg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
                 fmt(  fg f, typo s           ,   bg b =   bg::none) : fore(f), back(b), style(s) { }
                 fmt(  bg b,   fg f = fg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
@@ -251,9 +257,10 @@ class clutchlog
                 }
         }; // fmt class
 
-        /** @} Formating API */
+        /** @} */
 
-    /** Internal details @{ */
+    /** @name Internal details
+     * @{ */
 
     public:
         clutchlog(clutchlog const&)      = delete;
@@ -318,6 +325,7 @@ class clutchlog
         std::regex _in_func;
         std::regex _in_line;
 
+        //! Structure holding a location matching.
         struct scope_t {
             bool matches; // everything is compatible
             level stage; // current log level
@@ -334,7 +342,6 @@ class clutchlog
                 there(false)
             {}
         };
-
 
         //! Gather information on the current location of the call.
         scope_t locate(
@@ -383,36 +390,53 @@ class clutchlog
             return scope;
         }
 
-    /** }@ Internal details */
+    /** @}*/
 
     public:
 
-        /** Configuration accessors @{ */
+        /** @name Configuration accessors
+         * @{ */
 
+        //! Set the template string.
         void format(const std::string& format) {_format_log = format;}
+        //! Get the template string.
         std::string format() const {return _format_log;}
 
+        //! Set the template string for dumps.
         void format_comment(const std::string& format) {_format_dump = format;}
+        //! Get the template string for dumps.
         std::string format_comment() const {return _format_dump;}
 
+        //! Set the output stream on which to print.
         void out(std::ostream& out) {_out = &out;}
+        //! Get the output stream on which to print.
         std::ostream& out() {return *_out;}
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+        //! Set the stack depth above which logs are not printed.
         void depth(size_t d) {_depth = d;}
+        //! Get the stack depth above which logs are not printed.
         size_t depth() const {return _depth;}
 
+        //! Set the string mark with which stack depth is indicated.
         void depth_mark(std::string mark) {_depth_mark = mark;}
+        //! Get the string mark with which stack depth is indicated.
         std::string depth_mark() const {return _depth_mark;}
 #endif
 
+        //! Set the log level below which logs are not printed.
         void  threshold(level l) {_stage = l;}
+        //! Get the log level below which logs are not printed.
         level threshold() const {return _stage;}
 
+        //! Set the regular expression filtering the file location.
         void file(std::string file) {_in_file = file;}
+        //! Set the regular expression filtering the function location.
         void func(std::string func) {_in_func = func;}
+        //! Set the regular expression filtering the line location.
         void line(std::string line) {_in_line = line;}
 
+        //! Set the regular expressions filtering the location.
         void location(
                 const std::string& in_file,
                 const std::string& in_function=".*",
@@ -424,11 +448,21 @@ class clutchlog
             line(in_line);
         }
 
+        /** Set the style (color and typo) of the given log level.
+         *
+         * This version accept style arguments as if they were passed to `clutchlog::fmt`.
+         */
         template<class ... FMT>
         void style(level stage, FMT... styles) { this->style(stage,fmt(styles...)); }
+        //! Set the style (color and typo) of the given log level, passing a `fmt` instance.
         void style(level stage, fmt style) { _level_fmt.at(stage) = style; }
+        //! Get the configured fmt instance of the given log level.
         fmt  style(level stage) const { return _level_fmt.at(stage); }
 
+        /** Return the log level tag corresponding to the given pre-configured name.
+         *
+         * @note This is case sensitive, see the pre-configured `_level_word`.
+         */
         level level_of(const std::string name)
         {
             const auto ilevel = _word_level.find(name);
@@ -439,12 +473,20 @@ class clutchlog
             }
         }
 
-        /** }@ Configuration */
+        /** @} */
 
     public:
 
-        /** Low-level API @{ */
+        /** @name Low-level API
+         * @{ */
 
+        /** Replace `mark` by `tag` in `form`.
+         *
+         * @code
+         * log.replace("{greet} {world}", "\\{greet\\}", "hello");
+         * // returns "hello {world}"
+         * @endcode
+         */
         std::string replace(
                 const std::string& form,
                 const std::string& mark,
@@ -509,6 +551,7 @@ class clutchlog
             return std::regex_replace(form, re, tag);
         }
 
+        //! Replace `mark` by `tag` in `form`, converting tag to its string representation first.
         std::string replace(
                 const std::string& form,
                 const std::string& mark,
@@ -519,6 +562,7 @@ class clutchlog
             return replace(form, mark, stag.str());
         }
 
+        //! Substitute all tags in the format string with the corresponding information and apply the style corresponding to the log level.
         std::string format(
                 std::string format,
                 const std::string& what,
@@ -558,6 +602,7 @@ class clutchlog
             return _level_fmt.at(stage)(format);
         }
 
+        //! Print a log message IF the location matches the given one.
         void log(
                 const level& stage,
                 const std::string& what,
@@ -581,6 +626,7 @@ class clutchlog
             } // if scopes.matches
         }
 
+        //! Dump a serializable container after a comment line with log information.
         template<class In>
         void dump(
                 const level& stage,
@@ -633,10 +679,15 @@ class clutchlog
             } // if scopes.matches
         }
 
-        /** }@ Low-level API */
+        /** @} */
 };
 
 #else // not WITH_CLUTCHLOG
+
+
+/**********************************************************************
+ * Fake implementation
+ **********************************************************************/
 
 // Equivalent class with empty methods, will be optimized out
 // while allowing to actually have calls implemented without WITH_CLUTCHLOG guards.
