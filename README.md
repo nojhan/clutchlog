@@ -191,7 +191,7 @@ Or, if you want to declare some semantics beforehand:
 // Print warning messages in bold magenta:
 using fmt = clutchlog::fmt;
 fmt warn(fmt::fg::magenta, fmt::typo::bold);
-log.style(clutchlog::level::magenta, warn);
+log.style(clutchlog::level::warning, warn);
 ```
 
 Using the `clutchlog::fmt` class, you can style:
