@@ -2,6 +2,8 @@
 #define __CLUTCHLOG_H__
 #pragma once
 
+/** @file */
+
 #include <filesystem>
 #include <iostream>
 #include <sstream>
@@ -36,6 +38,9 @@
  **********************************************************************/
 #ifdef WITH_CLUTCHLOG
 
+/** @addtogroup DefaultConfigMacros Default configuration macros
+ * @{ **/
+
 #ifndef CLUTCHLOG_DEFAULT_FORMAT
 //! Default format of the messages.
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
@@ -66,6 +71,11 @@
 #ifndef CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG
 #define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::progress
 #endif // CLUTCHLOG_DEFAULT_DEPTH_BUILT
+
+/** @} */
+
+/** @addtogroup UseMacros High-level API macros
+ * @{ */
 
 //! Handy shortcuts to location.
 #define CLUTCHLOC __FILE__, __FUNCTION__, __LINE__
@@ -104,6 +114,8 @@
 }
 #endif // NDEBUG
 
+/** @} */
+
 #else // not WITH_CLUTCHLOG
 // Disabled macros can still be used in Release builds.
 #define CLUTCHLOG( LEVEL, WHAT ) { do {/*nothing*/} while(false); }
@@ -115,9 +127,12 @@
  **********************************************************************/
 
 #ifdef WITH_CLUTCHLOG
-/** Single class that holds everything.
+/** The single class which holds everything.
  *
  * This is a Singleton class.
+ *
+ * @addtogroup Main Main class
+ * @{
  */
 class clutchlog
 {
@@ -141,6 +156,9 @@ class clutchlog
         enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
 
         /** @} */
+
+        /** @addtogroup Formating Formating tools
+         * @{ */
 
         /** @name Formating API
          * @{ */
@@ -257,6 +275,7 @@ class clutchlog
                 }
         }; // fmt class
 
+        /** @} */
         /** @} */
 
     /** @name Internal details
@@ -681,6 +700,8 @@ class clutchlog
 
         /** @} */
 };
+
+/** @} */
 
 #else // not WITH_CLUTCHLOG
 

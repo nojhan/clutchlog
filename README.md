@@ -305,7 +305,7 @@ Log levels use a classical semantics for a human skilled in the art, in decreasi
 - *Debug*: data which would help debugging the program if there was a bug later on.
 - *XDebug*: debugging information which would be heavy to read.
 
-Note: the log levels constants are lower case (for example: `clutchlog::level:xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `level_of`).
+Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `level_of`).
 
 
 Limitations

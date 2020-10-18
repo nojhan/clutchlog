@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['replace',['replace',['../classclutchlog.html#a972f895c70edc335f3018a2c8971d59e',1,'clutchlog::replace(const std::string &amp;form, const std::string &amp;mark, const std::string &amp;tag) const'],['../classclutchlog.html#ae90d5a1a428587ad67b38b2ea4ca9fa2',1,'clutchlog::replace(const std::string &amp;form, const std::string &amp;mark, const size_t tag) const']]]
+  ['operator_28_29',['operator()',['../classclutchlog_1_1fmt.html#afeaedd18298498d1dcfcc15f5f17ac3c',1,'clutchlog::fmt']]],
+  ['operator_3c_3c',['operator&lt;&lt;',['../classclutchlog_1_1fmt.html#a96849ba427feac3a2eeaa1165e3845da',1,'clutchlog::fmt']]],
+  ['out',['out',['../classclutchlog.html#a7fd7c7bd3668c537061c314a619a336d',1,'clutchlog::out(std::ostream &amp;out)'],['../classclutchlog.html#a6c6ab42a1df147e6c2d115bc36ec8266',1,'clutchlog::out()']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['formating_20api',['Formating API',['../group__Formating.html',1,'']]]
+  ['high_2dlevel_20api_20macros',['High-level API macros',['../group__UseMacros.html',1,'']]]
 ];

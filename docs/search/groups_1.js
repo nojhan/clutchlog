@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['configuration_20accessors',['Configuration accessors',['../group__Config.html',1,'']]]
+  ['formating_20tools',['Formating tools',['../group__Formating.html',1,'']]]
 ];
