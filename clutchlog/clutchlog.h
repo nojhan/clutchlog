@@ -65,10 +65,12 @@
 #endif // CLUTCHDUMP_DEFAULT_SEP
 
 #ifndef CLUTCHLOG_DEFAULT_DEPTH_MARK
+//! Default mark for stack depth.
 #define CLUTCHLOG_DEFAULT_DEPTH_MARK ">"
 #endif // CLUTCHLOG_DEFAULT_DEPTH_MARK
 
 #ifndef CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG
+//! Default level over which calls to the logger are optimized out when NDEBUG is defined.
 #define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::progress
 #endif // CLUTCHLOG_DEFAULT_DEPTH_BUILT
 
@@ -114,12 +116,26 @@
 }
 #endif // NDEBUG
 
+//! Call an assert at the given level.
+#ifndef NDEBUG
+#define CLUTCHFUNC( LEVEL, FUNC, ... ) { \
+    auto& logger = clutchlog::logger(); \
+    clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+    if(scope.matches) { \
+        FUNC(__VA_ARGS__); \
+    } \
+}
+#else // not Debug build.
+#define CLUTCHFUNC( LEVEL, FUNC, ... ) { do {/*nothing*/} while(false); }
+#endif // NDEBUG
+
 /** @} */
 
 #else // not WITH_CLUTCHLOG
 // Disabled macros can still be used in Release builds.
-#define CLUTCHLOG( LEVEL, WHAT ) { do {/*nothing*/} while(false); }
+#define CLUTCHLOG(  LEVEL, WHAT ) { do {/*nothing*/} while(false); }
 #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { do {/*nothing*/} while(false); }
+#define CLUTCHFUNC( LEVEL, FUNC, ... ) { do {/*nothing*/} while(false); }
 #endif // WITH_CLUTCHLOG
 
 /**********************************************************************
@@ -344,71 +360,7 @@ class clutchlog
         std::regex _in_func;
         std::regex _in_line;
 
-        //! Structure holding a location matching.
-        struct scope_t {
-            bool matches; // everything is compatible
-            level stage; // current log level
-#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-            size_t depth; // current depth
-#endif
-            bool there; // location is compatible
-            scope_t() :
-                matches(false),
-                stage(level::xdebug),
-#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-                depth(0),
-#endif
-                there(false)
-            {}
-        };
-
-        //! Gather information on the current location of the call.
-        scope_t locate(
-                const level& stage,
-                const std::string& file,
-                const std::string& func,
-                const size_t line
-            ) const
-        {
-            scope_t scope; // False scope by default.
-
-            /***** Log level stage *****/
-            // Test stage first, because it's fastest.
-            scope.stage = stage;
-            if(not (scope.stage <= _stage)) {
-                // Bypass useless computations if no match
-                // because of the stage.
-                return scope;
-            }
-
-#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-            /***** Stack depth *****/
-            // Backtrace in second, quite fast.
-            const size_t max_buffer = 4096;
-            size_t stack_depth;
-            void *buffer[max_buffer];
-            stack_depth = backtrace(buffer, max_buffer);
-            scope.depth = stack_depth;
-            if(not (scope.depth <= _depth + _strip_calls)) {
-                // Bypass if no match.
-                return scope;
-            }
-#endif
-
-            /***** Location *****/
-            // Location last, slowest.
-            std::ostringstream sline; sline << line;
-            scope.there =
-                       std::regex_search(file, _in_file)
-                   and std::regex_search(func, _in_func)
-                   and std::regex_search(sline.str(), _in_line);
-
-            // No need to retest stage and depth, which are true here.
-            scope.matches = scope.there;
-
-            return scope;
-        }
-
+        static const size_t max_buffer = 4096;
     /** @}*/
 
     public:
@@ -498,6 +450,70 @@ class clutchlog
 
         /** @name Low-level API
          * @{ */
+
+        //! Structure holding a location matching.
+        struct scope_t {
+            bool matches; // everything is compatible
+            level stage; // current log level
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+            size_t depth; // current depth
+#endif
+            bool there; // location is compatible
+            scope_t() :
+                matches(false),
+                stage(level::xdebug),
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                depth(0),
+#endif
+                there(false)
+            {}
+        }; // scope_t
+
+
+        //! Gather information on the current location of the call.
+        scope_t locate(
+                const level& stage,
+                const std::string& file,
+                const std::string& func,
+                const size_t line
+            ) const
+        {
+            scope_t scope; // False scope by default.
+
+            /***** Log level stage *****/
+            // Test stage first, because it's fastest.
+            scope.stage = stage;
+            if(not (scope.stage <= _stage)) {
+                // Bypass useless computations if no match
+                // because of the stage.
+                return scope;
+            }
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+            /***** Stack depth *****/
+            // Backtrace in second, quite fast.
+            size_t stack_depth;
+            void *buffer[max_buffer];
+            stack_depth = backtrace(buffer, max_buffer);
+            scope.depth = stack_depth;
+            if(not (scope.depth <= _depth + _strip_calls)) {
+                // Bypass if no match.
+                return scope;
+            }
+#endif
+
+            /***** Location *****/
+            // Location last, slowest.
+            std::ostringstream sline; sline << line;
+            scope.there =
+                       std::regex_search(file, _in_file)
+                   and std::regex_search(func, _in_func)
+                   and std::regex_search(sline.str(), _in_line);
+
+            // No need to retest stage and depth, which are true here.
+            scope.matches = scope.there;
+
+            return scope;
+        } // locate
 
         /** Replace `mark` by `tag` in `form`.
          *

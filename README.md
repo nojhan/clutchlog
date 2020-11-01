@@ -1,5 +1,5 @@
-**Clutchlog is a logging system which targets versatile debugging.**
-**It allows to (de)clutch messages for a given: log level, source code location or call stack depth.**
+***Clutchlog is a logging system which targets versatile debugging.***
+***It allows to (de)clutch messages for a given: log level, source code location or call stack depth.***
 
 [TOC]
 
@@ -8,14 +8,21 @@ Features
 
 Clutchlog allows to select which log messages will be displayed, based on their locations:
 
-- *classical log levels*: each message has a given detail level and it is displayed if you ask for a at least the same
+- **Classical log levels**: each message has a given detail level and it is displayed if you ask for a at least the same
   one.
-- *call stack depth*: you can ask to display messages within functions which are called up to a given stack depth.
-- *source code location*: you can ask to display messages called from given files, functions and line number, all based on
+- **Call stack depth**: you can ask to display messages within functions which are called up to a given stack depth.
+- **Source code location**: you can ask to display messages called from given files, functions and line number, all based on
   regular expressions.
 
 Additionally, Clutchlog will do its best to allow the compiler to optimize out calls,
 for instance debug messages in "Release" builds.
+
+Additional features:
+
+- **Templated log format**, to easily design your own format.
+- **Colored log**. By default only important ones are colored (critical and error in red, warning in magenta).
+- **Macro to dump the content of a container in a file** with automatic naming (yes, it is useful for fast debugging).
+- **Generic clutching wrapper**, to wrap any function call. Useful to (de)clutch *asserts* for example.
 
 
 Example
@@ -291,6 +298,21 @@ log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), CLUTCHLOC, "dumped_
 log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), "main.cpp", "main", 122, "dumped.dat", "\n\n");
 ```
 
+
+(De)clutch any function call
+----------------------------
+
+The `CLUTHFUNC` macro allows to wrap any function within the current logger.
+
+For instance, this can be useful if you want to (de)clutch calls to `assert`s.
+To do that, just declare your own macro:
+```cpp
+#define ASSERT(LEVEL, ...) { CLUTCHFUNC(LEVEL, assert, __VA_ARGS__) }
+```
+Thus, any call like `ASSERT(error, x > 3);` will be declutchable
+with the same configuration than a call to `CLUTCHLOG`.
+
+
 Log level semantics
 ===================
 
@@ -319,7 +341,21 @@ are only available for operating systems having the following headers:
 Some colors/styles may not be supported by some exotic terminal emulators.
 
 Clutchlog needs `C++-17` with the `filesystem` feature.
-You may need to indicate `-std=c++17 -lstdc++fs` to your compiler.
+You may need to indicate `-std=c++17 -lstdc++fs` to some compilers.
+
+What Clutchlog do not provide at the moment (but may in a near future):
+
+- Super fast log writing.
+- Thread safety.
+
+What Clutchlog will most certainly never provide:
+
+- Round-robin log managers.
+- Duplicated messages management.
+- External output systems (only allow output stream, you can still do the proxy yourself).
+- External error handlers (not my job, come on).
+- Automatic argument parser (please, use a dedicated lib).
+- Signal handling (WTF would you do that, anyway?).
 
 
 Build and tests
