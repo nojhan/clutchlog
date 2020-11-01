@@ -25,6 +25,7 @@ done
 
 echo "Update documentation"
 cd Debug_ON
+cmake -DBUILD_DOCUMENTATION=ON ..
 make doc
 cp -r html/* ../docs/
 

@@ -143,6 +143,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:acebed8c9df9204f22bf8488e62e1cedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the log level tag corresponding to the given pre-configured name.  <a href="#acebed8c9df9204f22bf8488e62e1cedd">More...</a><br /></td></tr>
 <tr class="separator:acebed8c9df9204f22bf8488e62e1cedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Low-level API</div></td></tr>
+<tr class="memitem:a4ebdfcded6c56262676bf6926d63fc96"><td class="memItemLeft" align="right" valign="top"><a id="a4ebdfcded6c56262676bf6926d63fc96"></a>
+<a class="el" href="structclutchlog_1_1scope__t.html">scope_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a4ebdfcded6c56262676bf6926d63fc96">locate</a> (const <a class="el" href="classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928">level</a> &amp;stage, const std::string &amp;<a class="el" href="classclutchlog.html#a10064493c22f5c03b502a42d814c5c5c">file</a>, const std::string &amp;<a class="el" href="classclutchlog.html#ad32b5a0274dc03ee0004f67ba58b2447">func</a>, const size_t <a class="el" href="classclutchlog.html#aa26c6b81ebaeb9e9daa3457e3a3d17c9">line</a>) const</td></tr>
+<tr class="memdesc:a4ebdfcded6c56262676bf6926d63fc96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather information on the current location of the call. <br /></td></tr>
+<tr class="separator:a4ebdfcded6c56262676bf6926d63fc96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a972f895c70edc335f3018a2c8971d59e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a972f895c70edc335f3018a2c8971d59e">replace</a> (const std::string &amp;form, const std::string &amp;mark, const std::string &amp;tag) const</td></tr>
 <tr class="memdesc:a972f895c70edc335f3018a2c8971d59e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace <code>mark</code> by <code>tag</code> in <code>form</code>.  <a href="#a972f895c70edc335f3018a2c8971d59e">More...</a><br /></td></tr>
 <tr class="separator:a972f895c70edc335f3018a2c8971d59e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,16 +223,15 @@ std::regex&#160;</td><td class="memItemRight" valign="bottom"><b>_in_func</b></t
 <tr class="memitem:a41757198b29862832a14472a9e5e24c6"><td class="memItemLeft" align="right" valign="top"><a id="a41757198b29862832a14472a9e5e24c6"></a>
 std::regex&#160;</td><td class="memItemRight" valign="bottom"><b>_in_line</b></td></tr>
 <tr class="separator:a41757198b29862832a14472a9e5e24c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6a8aef8df1de520a42ee68ee756fbf3"><td class="memItemLeft" align="right" valign="top"><a id="ad6a8aef8df1de520a42ee68ee756fbf3"></a>
+static const size_t&#160;</td><td class="memItemRight" valign="bottom"><b>max_buffer</b> = 4096</td></tr>
+<tr class="separator:ad6a8aef8df1de520a42ee68ee756fbf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0906d74275cedcd403da94879764815e"><td class="memItemLeft" align="right" valign="top"><a id="a0906d74275cedcd403da94879764815e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog</b> (<a class="el" href="classclutchlog.html">clutchlog</a> const &amp;)=delete</td></tr>
 <tr class="separator:a0906d74275cedcd403da94879764815e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef653a9744a72a889ca8163269bb781e"><td class="memItemLeft" align="right" valign="top"><a id="aef653a9744a72a889ca8163269bb781e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classclutchlog.html">clutchlog</a> const &amp;)=delete</td></tr>
 <tr class="separator:aef653a9744a72a889ca8163269bb781e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ebdfcded6c56262676bf6926d63fc96"><td class="memItemLeft" align="right" valign="top"><a id="a4ebdfcded6c56262676bf6926d63fc96"></a>
-<a class="el" href="structclutchlog_1_1scope__t.html">scope_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a4ebdfcded6c56262676bf6926d63fc96">locate</a> (const <a class="el" href="classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928">level</a> &amp;stage, const std::string &amp;<a class="el" href="classclutchlog.html#a10064493c22f5c03b502a42d814c5c5c">file</a>, const std::string &amp;<a class="el" href="classclutchlog.html#ad32b5a0274dc03ee0004f67ba58b2447">func</a>, const size_t <a class="el" href="classclutchlog.html#aa26c6b81ebaeb9e9daa3457e3a3d17c9">line</a>) const</td></tr>
-<tr class="memdesc:a4ebdfcded6c56262676bf6926d63fc96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather information on the current location of the call. <br /></td></tr>
-<tr class="separator:a4ebdfcded6c56262676bf6926d63fc96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="acebed8c9df9204f22bf8488e62e1cedd"></a>
