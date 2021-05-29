@@ -313,6 +313,18 @@ Thus, any call like `ASSERT(error, x > 3);` will be declutchable
 with the same configuration than a call to `CLUTCHLOG`.
 
 
+(De)clutch any code section
+---------------------------
+
+The `CLUTCHCODE` macro allows to wrap any code within the current logger.
+
+For instance:
+```cpp
+CLUTCHCODE(info,
+    std::clog << "We are clutched!\n";
+);
+```
+
 Log level semantics
 ===================
 

@@ -116,7 +116,7 @@
 }
 #endif // NDEBUG
 
-//! Call an assert at the given level.
+//! Call any function if the scope matches.
 #ifndef NDEBUG
 #define CLUTCHFUNC( LEVEL, FUNC, ... ) { \
     auto& logger = clutchlog::logger(); \
@@ -126,16 +126,46 @@
     } \
 }
 #else // not Debug build.
-#define CLUTCHFUNC( LEVEL, FUNC, ... ) { do {/*nothing*/} while(false); }
+#define CLUTCHFUNC( LEVEL, FUNC, ... ) { \
+    if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
+        auto& logger = clutchlog::logger(); \
+        clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+        if(scope.matches) { \
+            FUNC(__VA_ARGS__); \
+        } \
+    } \
+}
+#endif // NDEBUG
+     
+//! Run any code if the scope matches.
+#ifndef NDEBUG
+#define CLUTCHCODE( LEVEL, CODE ) { \
+    auto& logger = clutchlog::logger(); \
+    clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+    if(scope.matches) { \
+        CODE \
+    } \
+}
+#else // not Debug build.
+#define CLUTCHCODE( LEVEL, CODE ) { \
+    if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
+        auto& logger = clutchlog::logger(); \
+        clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+        if(scope.matches) { \
+            CODE \
+        } \
+    } \
+}
 #endif // NDEBUG
 
 /** @} */
 
 #else // not WITH_CLUTCHLOG
-// Disabled macros can still be used in Release builds.
+// Disabled macros can still be called in Release builds.
 #define CLUTCHLOG(  LEVEL, WHAT ) { do {/*nothing*/} while(false); }
 #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { do {/*nothing*/} while(false); }
 #define CLUTCHFUNC( LEVEL, FUNC, ... ) { do {/*nothing*/} while(false); }
+#define CLUTCHCODE( LEVEL, CODE ) { do {/*nothing*/} while(false); }
 #endif // WITH_CLUTCHLOG
 
 /**********************************************************************
