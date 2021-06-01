@@ -92,7 +92,7 @@ if an existing file with this name exists.
 ```cpp
 std::vector<int> v(10);
 std::generate(v.begin(), v.end(), std::rand);
-CLUTCHLOG(debug, vec, "test_{n}.dat");
+CLUTCHDUMP(debug, vec, "test_{n}.dat");
 /* Will output in cat "rand_0.dat"
 * # [t-dump] Info in main (at depth 5) @ /home/nojhan/code/clutchlog/tests/t-dump.cpp:22
 * 1804289383
