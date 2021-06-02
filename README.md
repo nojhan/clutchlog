@@ -166,7 +166,7 @@ Available tags are:
 The default log format is `"[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"`,
 it can be overriden at compile time by defining the `CLUTCHLOG_DEFAULT_FORMAT` macro.
 
-The default format of the comment added with the dump macro is 
+The default format of the first line of comment added with the dump macro is 
 `"# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"`.
 It can be edited with the `format_comment` method.
 If it is set to an empty string, then no comment line is added.
