@@ -139,11 +139,11 @@
      
 //! Run any code if the scope matches.
 #ifndef NDEBUG
-#define CLUTCHCODE( LEVEL, CODE ) { \
+#define CLUTCHCODE( LEVEL, ... ) { \
     auto& logger = clutchlog::logger(); \
     clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
     if(scope.matches) { \
-        CODE \
+        __VA_ARGS__ \
     } \
 }
 #else // not Debug build.
