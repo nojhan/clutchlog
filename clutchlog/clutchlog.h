@@ -3,8 +3,15 @@
 #pragma once
 
 /** @file */
-
+#include <ciso646>
+#ifdef FSEXPERIMENTAL
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#else
 #include <filesystem>
+namespace fs = std::filesystem;
+#endif
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -715,7 +722,7 @@ class clutchlog
                     do {
                         outfile = replace(filename_template, tag, n);
                         n++;
-                    } while( std::filesystem::exists( outfile ) );
+                    } while( fs::exists( outfile ) );
 
                 } else {
                     // Use the parameter as is.
