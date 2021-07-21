@@ -12,7 +12,14 @@ project("clutchlog"
 enable_language(CXX) # C++
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_CXX_STANDARD_LIBRARIES -lstdc++fs)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU") 
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -std=c++17 -lstdc++fs")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 6.0 AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.0)
+        link_libraries(stdc++fs)
+        add_compile_definitions(FSEXPERIMENTAL)
+    endif()
+endif() 
+
 
 ######################################################################################
 # Configurable user settings
