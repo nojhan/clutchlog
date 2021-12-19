@@ -374,6 +374,12 @@ Clutchlog needs `C++-17` with the `filesystem` feature.
 You may need to indicate `-std=c++17 -lstdc++fs` to some compilers.
 
 
+### Variable names within the CLUTCHLOG macro
+
+Calling the `CLUTCHLOG` macro with a message using a variable named `clutchlog__msg` will end in
+an error. Avoid this kind of naming for the logger singleton, also.
+
+
 ### Features
 
 What Clutchlog do not provide at the moment (but may in a near future):

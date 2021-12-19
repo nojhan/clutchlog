@@ -98,16 +98,16 @@ namespace fs = std::filesystem;
 //! Log a message at the given level.
 #ifndef NDEBUG
 #define CLUTCHLOG( LEVEL, WHAT ) { \
-    auto& logger = clutchlog::logger(); \
-    std::ostringstream msg ; msg << WHAT; \
-    logger.log(clutchlog::level::LEVEL, msg.str(), CLUTCHLOC); \
+    auto& clutchlog__logger = clutchlog::logger(); \
+    std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT; \
+    clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), CLUTCHLOC); \
 }
 #else // not Debug build.
 #define CLUTCHLOG( LEVEL, WHAT ) { \
     if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
-        auto& logger = clutchlog::logger(); \
-        std::ostringstream msg ; msg << WHAT; \
-        logger.log(clutchlog::level::LEVEL, msg.str(), CLUTCHLOC); \
+        auto& clutchlog__logger = clutchlog::logger(); \
+        std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT; \
+        clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), CLUTCHLOC); \
     } \
 }
 #endif // NDEBUG
@@ -115,15 +115,15 @@ namespace fs = std::filesystem;
 //! Dump the given container.
 #ifndef NDEBUG
 #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { \
-    auto& logger = clutchlog::logger(); \
-    logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \
+    auto& clutchlog__logger = clutchlog::logger(); \
+    clutchlog__logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \
                 CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP); \
 }
 #else // not Debug build.
 #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { \
     if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
-        auto& logger = clutchlog::logger(); \
-        logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \
+        auto& clutchlog__logger = clutchlog::logger(); \
+        clutchlog__logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \
                     CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP); \
     } \
 }
@@ -132,18 +132,18 @@ namespace fs = std::filesystem;
 //! Call any function if the scope matches.
 #ifndef NDEBUG
 #define CLUTCHFUNC( LEVEL, FUNC, ... ) { \
-    auto& logger = clutchlog::logger(); \
-    clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
-    if(scope.matches) { \
+    auto& clutchlog__logger = clutchlog::logger(); \
+    clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+    if(clutchlog__scope.matches) { \
         FUNC(__VA_ARGS__); \
     } \
 }
 #else // not Debug build.
 #define CLUTCHFUNC( LEVEL, FUNC, ... ) { \
     if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
-        auto& logger = clutchlog::logger(); \
-        clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
-        if(scope.matches) { \
+        auto& clutchlog__logger = clutchlog::logger(); \
+        clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+        if(clutchlog__scope.matches) { \
             FUNC(__VA_ARGS__); \
         } \
     } \
@@ -153,18 +153,18 @@ namespace fs = std::filesystem;
 //! Run any code if the scope matches.
 #ifndef NDEBUG
 #define CLUTCHCODE( LEVEL, ... ) { \
-    auto& logger = clutchlog::logger(); \
-    clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
-    if(scope.matches) { \
+    auto& clutchlog__logger = clutchlog::logger(); \
+    clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+    if(clutchlog__scope.matches) { \
         __VA_ARGS__ \
     } \
 }
 #else // not Debug build.
 #define CLUTCHCODE( LEVEL, CODE ) { \
     if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
-        auto& logger = clutchlog::logger(); \
-        clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
-        if(scope.matches) { \
+        auto& clutchlog__logger = clutchlog::logger(); \
+        clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+        if(clutchlog__scope.matches) { \
             CODE \
         } \
     } \

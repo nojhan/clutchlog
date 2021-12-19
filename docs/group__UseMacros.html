@@ -116,9 +116,9 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
-<div class="line">    auto&amp; logger = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>(); \</div>
-<div class="line">    clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>); \</div>
-<div class="line">    if(scope.matches) { \</div>
+<div class="line">    auto&amp; clutchlog__logger = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>(); \</div>
+<div class="line">    clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>); \</div>
+<div class="line">    if(clutchlog__scope.matches) { \</div>
 <div class="line">        __VA_ARGS__ \</div>
 <div class="line">    } \</div>
 <div class="line">}</div>
@@ -159,8 +159,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
-<div class="line">    auto&amp; logger = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>(); \</div>
-<div class="line">    logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \</div>
+<div class="line">    auto&amp; clutchlog__logger = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>(); \</div>
+<div class="line">    clutchlog__logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \</div>
 <div class="line">                <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>, FILENAME, <a class="code" href="group__DefaultConfigMacros.html#ga54d29e956575e1c731eab5406135c5df">CLUTCHDUMP_DEFAULT_SEP</a>); \</div>
 <div class="line">}</div>
 </div><!-- fragment -->
@@ -200,9 +200,9 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
-<div class="line">    auto&amp; logger = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>(); \</div>
-<div class="line">    clutchlog::scope_t scope = logger.locate(clutchlog::level::LEVEL, <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>); \</div>
-<div class="line">    if(scope.matches) { \</div>
+<div class="line">    auto&amp; clutchlog__logger = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>(); \</div>
+<div class="line">    clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>); \</div>
+<div class="line">    if(clutchlog__scope.matches) { \</div>
 <div class="line">        FUNC(__VA_ARGS__); \</div>
 <div class="line">    } \</div>
 <div class="line">}</div>
@@ -237,9 +237,9 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
-<div class="line">    auto&amp; logger = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>(); \</div>
-<div class="line">    std::ostringstream msg ; msg &lt;&lt; WHAT; \</div>
-<div class="line">    logger.log(clutchlog::level::LEVEL, msg.str(), <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>); \</div>
+<div class="line">    auto&amp; clutchlog__logger = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>(); \</div>
+<div class="line">    std::ostringstream clutchlog__msg ; clutchlog__msg &lt;&lt; WHAT; \</div>
+<div class="line">    clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>); \</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 <p>Log a message at the given level. </p>

@@ -171,7 +171,8 @@ Output Configuration</h2>
 <p>The default log format is <code>"[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"</code>, it can be overriden at compile time by defining the <code>CLUTCHLOG_DEFAULT_FORMAT</code> macro.</p>
 <p>The default format of the first line of comment added with the dump macro is <code>"# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"</code>. It can be edited with the <code>format_comment</code> method. If it is set to an empty string, then no comment line is added. The default can be modified at compile time with <code>CLUTCHDUMP_DEFAULT_FORMAT</code>. By default, the separator between items in the container is a new line. To change this behaviour, you can change <code>CLUTCHDUMP_DEFAULT_SEP</code> or call the low-level <code>dump</code> method.</p>
 <p>The mark used with the <code>{depth_marks}</code> tag can be configured with the <code>depth_mark</code> method, and its default with the <code>CLUTCHLOG_DEFAULT_DEPTH_MARK</code> macro: </p><div class="fragment"><div class="line">log.depth_mark(<a class="code" href="group__DefaultConfigMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a>); <span class="comment">// Defaults to &quot;&gt;&quot;.</span></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
+</div><!-- fragment --><p>By default, clutchlog removes 5 levels of the calls stack, so that your <code>main</code> entrypoint corresponds to a depth of zero. You can change this behaviour by defining the <code>CLUTCHLOG_STRIP_CALLS</code> macro.</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
 Output style</h2>
 <p>The output can be colored differently depending on the log level. </p><div class="fragment"><div class="line"><span class="comment">// Print error messages in bold red:</span></div>
 <div class="line">log.style(clutchlog::level::error, <span class="comment">// First, the log level.</span></div>
@@ -268,6 +269,8 @@ Limitations</h1>
 </div><!-- fragment --><h3>Dependencies</h3>
 <p>Some colors/styles may not be supported by some exotic terminal emulators.</p>
 <p>Clutchlog needs <code>C++-17</code> with the <code>filesystem</code> feature. You may need to indicate <code>-std=c++17 -lstdc++fs</code> to some compilers.</p>
+<h3>Variable names within the CLUTCHLOG macro</h3>
+<p>Calling the <code>CLUTCHLOG</code> macro with a message using a variable named <code>clutchlog__msg</code> will end in an error. Avoid this kind of naming for the logger singleton, also.</p>
 <h3>Features</h3>
 <p>What Clutchlog do not provide at the moment (but may in a near future):</p>
 <ul>
