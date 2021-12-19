@@ -26,6 +26,7 @@ namespace fs = std::filesystem;
 #include <execinfo.h> // execinfo
 #include <stdlib.h>   // getenv
 #include <libgen.h>   // basename
+//! POSIX headers necessary for stack depth management are available.
 #define CLUTCHLOG_HAVE_UNIX_SYSINFO 1
 #else
 #define CLUTCHLOG_HAVE_UNIX_SYSINFO 0
@@ -36,6 +37,7 @@ namespace fs = std::filesystem;
  **********************************************************************/
 #ifndef WITH_CLUTCHLOG
 #ifndef NDEBUG
+//! Actually enable clutchlog features.
 #define WITH_CLUTCHLOG
 #endif
 #endif
@@ -662,7 +664,7 @@ class clutchlog
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
             format = replace(format, "\\{name\\}", name);
-            format = replace(format, "\\{depth\\}", depth);
+            format = replace(format, "\\{depth\\}", depth - _strip_calls);
 
             std::ostringstream chevrons;
             for(size_t i = _strip_calls; i < depth; ++i) {

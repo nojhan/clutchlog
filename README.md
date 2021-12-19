@@ -345,15 +345,32 @@ Note: the log levels constants are lower case (for example: `clutchlog::level::x
 Limitations
 ===========
 
+### System-dependent stack depth
+
 Because the call stack depth and program name access are system-dependent,
 the features relying on the depth of the call stack and the display of the program name
 are only available for operating systems having the following headers:
 `execinfo.h`, `stdlib.h` and `libgen.h` (so far, tested with Linux).
 
+Clutchlog sets the `CLUTCHLOG_HAVE_UNIX_SYSINFO` to 1 if the headers are
+available, and to 0 if they are not.
+You can make portable code using something like:
+```cpp
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+    log.depth( x );
+#endif 
+```
+
+
+### Dependencies
+
 Some colors/styles may not be supported by some exotic terminal emulators.
 
 Clutchlog needs `C++-17` with the `filesystem` feature.
 You may need to indicate `-std=c++17 -lstdc++fs` to some compilers.
+
+
+### Features
 
 What Clutchlog do not provide at the moment (but may in a near future):
 

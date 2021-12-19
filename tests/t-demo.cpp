@@ -49,7 +49,7 @@ int main(const int argc, char* argv[])
     } else {
         try {
             log.threshold(log.level_of(argv[1]));
-        } catch(std::out_of_range err) {
+        } catch(std::out_of_range& err) {
             CLUTCHLOG(critical,err.what());
             exit(100);
         }
