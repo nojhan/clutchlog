@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['level_63',['level',['../classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928',1,'clutchlog']]]
+  ['level_65',['level',['../classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928',1,'clutchlog']]]
 ];

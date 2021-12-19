@@ -1,12 +1,13 @@
 var indexSectionsWithContent =
 {
-  0: "bcdfhlmoprst",
+  0: "bcdfhlmoprstw",
   1: "cfs",
   2: "c",
   3: "dfloprst",
   4: "bflt",
   5: "o",
-  6: "dfhm"
+  6: "w",
+  7: "dfhm"
 };
 
 var indexSectionNames =
@@ -17,7 +18,8 @@ var indexSectionNames =
   3: "functions",
   4: "enums",
   5: "related",
-  6: "groups"
+  6: "defines",
+  7: "groups"
 };
 
 var indexSectionLabels =
@@ -28,6 +30,7 @@ var indexSectionLabels =
   3: "Functions",
   4: "Enumerations",
   5: "Friends",
-  6: "Modules"
+  6: "Macros",
+  7: "Modules"
 };
 

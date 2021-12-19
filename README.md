@@ -181,6 +181,10 @@ and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
 log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
 ```
 
+By default, clutchlog removes 5 levels of the calls stack, so that your `main`
+entrypoint corresponds to a depth of zero.
+You can change this behaviour by defining the `CLUTCHLOG_STRIP_CALLS` macro.
+
 
 Output style
 ------------

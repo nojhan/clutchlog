@@ -260,9 +260,15 @@ Log level semantics</h1>
 <p>Note: the log levels constants are lower case (for example: <code>clutchlog::level::xdebug</code>), but their string representation is not (e.g. "XDebug", this should be taken into account when using <code>level_of</code>).</p>
 <h1><a class="anchor" id="autotoc_md13"></a>
 Limitations</h1>
+<h3>System-dependent stack depth</h3>
 <p>Because the call stack depth and program name access are system-dependent, the features relying on the depth of the call stack and the display of the program name are only available for operating systems having the following headers: <code>execinfo.h</code>, <code>stdlib.h</code> and <code>libgen.h</code> (so far, tested with Linux).</p>
+<p>Clutchlog sets the <code>CLUTCHLOG_HAVE_UNIX_SYSINFO</code> to 1 if the headers are available, and to 0 if they are not. You can make portable code using something like: </p><div class="fragment"><div class="line"><span class="preprocessor">#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1</span></div>
+<div class="line">    log.depth( x );</div>
+<div class="line"><span class="preprocessor">#endif </span></div>
+</div><!-- fragment --><h3>Dependencies</h3>
 <p>Some colors/styles may not be supported by some exotic terminal emulators.</p>
 <p>Clutchlog needs <code>C++-17</code> with the <code>filesystem</code> feature. You may need to indicate <code>-std=c++17 -lstdc++fs</code> to some compilers.</p>
+<h3>Features</h3>
 <p>What Clutchlog do not provide at the moment (but may in a near future):</p>
 <ul>
 <li>Super fast log writing.</li>
@@ -289,13 +295,13 @@ Build and tests</h1>
 </div><!-- fragment --><p>There's a script which tests all the build types combinations: <code>./build_all.sh</code>. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
-<div class="ttc" id="agroup__UseMacros_html_ga6f86187e2b35e7e1907d688f504a197d"><div class="ttname"><a href="group__UseMacros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a></div><div class="ttdeci">#define CLUTCHLOG(LEVEL, WHAT)</div><div class="ttdoc">Log a message at the given level.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:94</div></div>
-<div class="ttc" id="agroup__UseMacros_html_gae8911119d726a43b77f5781cb5a72813"><div class="ttname"><a href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a></div><div class="ttdeci">#define CLUTCHLOC</div><div class="ttdoc">Handy shortcuts to location.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:90</div></div>
-<div class="ttc" id="agroup__UseMacros_html_gaaf2e85e1153e6c88b458dd49e3c37c73"><div class="ttname"><a href="group__UseMacros.html#gaaf2e85e1153e6c88b458dd49e3c37c73">CLUTCHCODE</a></div><div class="ttdeci">#define CLUTCHCODE(LEVEL,...)</div><div class="ttdoc">Run any code if the scope matches.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:149</div></div>
-<div class="ttc" id="aclassclutchlog_html_acfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:202</div></div>
-<div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:223</div></div>
-<div class="ttc" id="agroup__DefaultConfigMacros_html_ga45c4c964fad4ad1641d5c9c28c4645b9"><div class="ttname"><a href="group__DefaultConfigMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a></div><div class="ttdeci">#define CLUTCHLOG_DEFAULT_DEPTH_MARK</div><div class="ttdoc">Default mark for stack depth.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:76</div></div>
-<div class="ttc" id="agroup__UseMacros_html_ga572e3aa19d8b39e3ed0b9e91961104c2"><div class="ttname"><a href="group__UseMacros.html#ga572e3aa19d8b39e3ed0b9e91961104c2">CLUTCHDUMP</a></div><div class="ttdeci">#define CLUTCHDUMP(LEVEL, CONTAINER, FILENAME)</div><div class="ttdoc">Dump the given container.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:111</div></div>
+<div class="ttc" id="agroup__UseMacros_html_ga6f86187e2b35e7e1907d688f504a197d"><div class="ttname"><a href="group__UseMacros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a></div><div class="ttdeci">#define CLUTCHLOG(LEVEL, WHAT)</div><div class="ttdoc">Log a message at the given level.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:100</div></div>
+<div class="ttc" id="agroup__UseMacros_html_gae8911119d726a43b77f5781cb5a72813"><div class="ttname"><a href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a></div><div class="ttdeci">#define CLUTCHLOC</div><div class="ttdoc">Handy shortcuts to location.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:96</div></div>
+<div class="ttc" id="agroup__UseMacros_html_gaaf2e85e1153e6c88b458dd49e3c37c73"><div class="ttname"><a href="group__UseMacros.html#gaaf2e85e1153e6c88b458dd49e3c37c73">CLUTCHCODE</a></div><div class="ttdeci">#define CLUTCHCODE(LEVEL,...)</div><div class="ttdoc">Run any code if the scope matches.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:155</div></div>
+<div class="ttc" id="aclassclutchlog_html_acfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:208</div></div>
+<div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:229</div></div>
+<div class="ttc" id="agroup__DefaultConfigMacros_html_ga45c4c964fad4ad1641d5c9c28c4645b9"><div class="ttname"><a href="group__DefaultConfigMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a></div><div class="ttdeci">#define CLUTCHLOG_DEFAULT_DEPTH_MARK</div><div class="ttdoc">Default mark for stack depth.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:78</div></div>
+<div class="ttc" id="agroup__UseMacros_html_ga572e3aa19d8b39e3ed0b9e91961104c2"><div class="ttname"><a href="group__UseMacros.html#ga572e3aa19d8b39e3ed0b9e91961104c2">CLUTCHDUMP</a></div><div class="ttdeci">#define CLUTCHDUMP(LEVEL, CONTAINER, FILENAME)</div><div class="ttdoc">Dump the given container.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:117</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

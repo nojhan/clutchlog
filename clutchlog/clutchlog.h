@@ -83,6 +83,10 @@ namespace fs = std::filesystem;
 #define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::progress
 #endif // CLUTCHLOG_DEFAULT_DEPTH_BUILT
 
+#ifndef CLUTCHLOG_STRIP_CALLS
+//! Number of call stack levels to remove from depth display by default.
+#define CLUTCHLOG_STRIP_CALLS 5
+#endif // CLUTCHLOG_STRIP_CALLS
 /** @} */
 
 /** @addtogroup UseMacros High-level API macros
@@ -343,7 +347,7 @@ class clutchlog
     private:
         clutchlog() :
             // system, main, log
-            _strip_calls(5),
+            _strip_calls(CLUTCHLOG_STRIP_CALLS),
             _level_word({
                 {level::critical,"Critical"},
                 {level::error   ,"Error"},

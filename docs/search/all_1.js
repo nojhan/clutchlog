@@ -10,5 +10,6 @@ var searchData=
   ['clutchlog_2eh_8',['clutchlog.h',['../clutchlog_8h.html',1,'']]],
   ['clutchlog_5fdefault_5fdepth_5fbuilt_5fnodebug_9',['CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG',['../group__DefaultConfigMacros.html#ga8564be479b948ee3052b61783c66d415',1,'clutchlog.h']]],
   ['clutchlog_5fdefault_5fdepth_5fmark_10',['CLUTCHLOG_DEFAULT_DEPTH_MARK',['../group__DefaultConfigMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9',1,'clutchlog.h']]],
-  ['clutchlog_5fdefault_5fformat_11',['CLUTCHLOG_DEFAULT_FORMAT',['../group__DefaultConfigMacros.html#ga524c16f280d92ee8ab683162c9ce01fa',1,'clutchlog.h']]]
+  ['clutchlog_5fdefault_5fformat_11',['CLUTCHLOG_DEFAULT_FORMAT',['../group__DefaultConfigMacros.html#ga524c16f280d92ee8ab683162c9ce01fa',1,'clutchlog.h']]],
+  ['clutchlog_5fstrip_5fcalls_12',['CLUTCHLOG_STRIP_CALLS',['../group__DefaultConfigMacros.html#ga98f30d814d4913a8a7c93a8793f49adf',1,'clutchlog.h']]]
 ];
