@@ -1,10 +1,13 @@
+Clutchlog — versatile (de)clutchable logging
+============================================
+
 ***Clutchlog is a logging system that targets versatile debugging.***
 ***It allows to (de)clutch messages for a given: log level, source code location or call stack depth.***
 
 [TOC]
 
 Features
-========
+--------
 
 Clutchlog allows to select which log messages will be displayed, based on their locations:
 
@@ -26,7 +29,7 @@ Additional features:
 
 
 Example
-=======
+-------
 
 Adding a message is a simple as calling a macro (which is declutched in Debug build type, when `NDEBUG` is not defined):
 ```cpp
@@ -46,7 +49,7 @@ For more detailled examples, see the "API documentation" section below and the `
 
 
 Rationale
-=========
+---------
 
 Most of existing logging systems targets service events storage, like fast queuing of transactions in a round-robin
 database.
