@@ -1,4 +1,4 @@
-***Clutchlog is a logging system which targets versatile debugging.***
+***Clutchlog is a logging system that targets versatile debugging.***
 ***It allows to (de)clutch messages for a given: log level, source code location or call stack depth.***
 
 [TOC]
@@ -10,7 +10,7 @@ Clutchlog allows to select which log messages will be displayed, based on their 
 
 - **Classical log levels**: each message has a given detail level and it is displayed if you ask for a at least the same
   one.
-- **Call stack depth**: you can ask to display messages within functions which are called up to a given stack depth.
+- **Call stack depth**: you can ask to display messages within functions that are called up to a given stack depth.
 - **Source code location**: you can ask to display messages called from given files, functions and line number, all based on
   regular expressions.
 
@@ -60,7 +60,7 @@ However, once the feature is up and running, those detailled informations are on
 traversing this specific part.
 
 While tracing a bug, it is tedious to uncomment old debugging code (and go on the build-test cycle)
-or to set up a full debugger session which displays all appropriate data (with ad-hoc fancy hooks).
+or to set up a full debugger session that displays all appropriate data (with ad-hoc fancy hooks).
 
 To solve this problem, Clutchlog allows to disengage your debug log messages in various parts of the program,
 allowing for the fast tracking of a bug across the execution.
@@ -73,7 +73,7 @@ Calls
 -----
 
 The main entrypoint is the `CLUTCHLOG` macro, which takes the desired log level and message.
-The message can be anything which can be output in an `ostringstream`.
+The message can be anything that can be output in an `ostringstream`.
 ```cpp
 // Simple string:
 CLUTCHLOG(info, "hello world");
@@ -260,7 +260,7 @@ by setting the `WITH_CLUTCHLOG` preprocessor variable.
 
 When the `NDEBUG` preprocessor variable is set (e.g. in `Release` build),
 clutchlog will do its best to allow the compiler to optimize out any calls
-for log levels which are under or equal to `progress`.
+for log levels that are under or equal to `progress`.
 
 You can change this behavior at compile time by setting the
 `CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG` preprocessor variable
@@ -334,14 +334,14 @@ Log level semantics
 
 Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:
 
-- *Critical*: an error which cannot be recovered. For instance, something which will make a server stop right here.
-- *Error*: an error which invalidates a function, but may still be recovered. For example, a bad user input which will make a server reset its state, but not crash.
+- *Critical*: an error that cannot be recovered. For instance, something which will make a server stop right here.
+- *Error*: an error that invalidates a function, but may still be recovered. For example, a bad user input that will make a server reset its state, but not crash.
 - *Warning*: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.
 - *Progress*: the state at which computation currently is.
 - *Note*: some state worth noting to understand what's going on.
-- *Info*: any information which would help ensuring that everything is going well.
-- *Debug*: data which would help debugging the program if there was a bug later on.
-- *XDebug*: debugging information which would be heavy to read.
+- *Info*: any information that would help ensuring that everything is going well.
+- *Debug*: data that would help debugging the program if there was a bug later on.
+- *XDebug*: debugging information that would be heavy to read.
 
 Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `level_of`).
 
@@ -418,5 +418,5 @@ make
 ctest
 ```
 
-There's a script which tests all the build types combinations: `./build_all.sh`.
+There's a script that tests all the build types combinations: `./build_all.sh`.
 
