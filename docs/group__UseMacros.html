@@ -116,23 +116,23 @@ Macros</h2></td></tr>
 <tr class="separator:gaaf2e85e1153e6c88b458dd49e3c37c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga524c16f280d92ee8ab683162c9ce01fa"><td class="memItemLeft" align="right" valign="top"><a id="ga524c16f280d92ee8ab683162c9ce01fa"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga524c16f280d92ee8ab683162c9ce01fa">CLUTCHLOG_DEFAULT_FORMAT</a>&#160;&#160;&#160;&quot;{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n&quot;</td></tr>
-<tr class="memdesc:ga524c16f280d92ee8ab683162c9ce01fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format of the messages. <br /></td></tr>
+<tr class="memdesc:ga524c16f280d92ee8ab683162c9ce01fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time default format of the messages. <br /></td></tr>
 <tr class="separator:ga524c16f280d92ee8ab683162c9ce01fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga27b613c6727857a7cbcd0165d862034e"><td class="memItemLeft" align="right" valign="top"><a id="ga27b613c6727857a7cbcd0165d862034e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga27b613c6727857a7cbcd0165d862034e">CLUTCHDUMP_DEFAULT_FORMAT</a>&#160;&#160;&#160;&quot;# {level} in {func} @ {file}:{line}&quot;</td></tr>
-<tr class="memdesc:ga27b613c6727857a7cbcd0165d862034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format of the comment line in file dump. <br /></td></tr>
+<tr class="memdesc:ga27b613c6727857a7cbcd0165d862034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time default format of the comment line in file dump. <br /></td></tr>
 <tr class="separator:ga27b613c6727857a7cbcd0165d862034e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga54d29e956575e1c731eab5406135c5df"><td class="memItemLeft" align="right" valign="top"><a id="ga54d29e956575e1c731eab5406135c5df"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga54d29e956575e1c731eab5406135c5df">CLUTCHDUMP_DEFAULT_SEP</a>&#160;&#160;&#160;&quot;\n&quot;</td></tr>
-<tr class="memdesc:ga54d29e956575e1c731eab5406135c5df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default item separator for dump. <br /></td></tr>
+<tr class="memdesc:ga54d29e956575e1c731eab5406135c5df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time default item separator for dump. <br /></td></tr>
 <tr class="separator:ga54d29e956575e1c731eab5406135c5df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="memItemLeft" align="right" valign="top"><a id="ga45c4c964fad4ad1641d5c9c28c4645b9"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a>&#160;&#160;&#160;&quot;&gt;&quot;</td></tr>
-<tr class="memdesc:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mark for stack depth. <br /></td></tr>
+<tr class="memdesc:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time default mark for stack depth. <br /></td></tr>
 <tr class="separator:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga98f30d814d4913a8a7c93a8793f49adf"><td class="memItemLeft" align="right" valign="top"><a id="ga98f30d814d4913a8a7c93a8793f49adf"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga98f30d814d4913a8a7c93a8793f49adf">CLUTCHLOG_STRIP_CALLS</a>&#160;&#160;&#160;5</td></tr>
-<tr class="memdesc:ga98f30d814d4913a8a7c93a8793f49adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of call stack levels to remove from depth display by default. <br /></td></tr>
+<tr class="memdesc:ga98f30d814d4913a8a7c93a8793f49adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time number of call stack levels to remove from depth display by default. <br /></td></tr>
 <tr class="separator:ga98f30d814d4913a8a7c93a8793f49adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -194,41 +194,56 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="memitem:gafeaedd18298498d1dcfcc15f5f17ac3c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gafeaedd18298498d1dcfcc15f5f17ac3c">clutchlog::fmt::operator()</a> (const std::string &amp;msg) const</td></tr>
 <tr class="memdesc:gafeaedd18298498d1dcfcc15f5f17ac3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format the given string with the currently encoded format.  <a href="group__UseMacros.html#gafeaedd18298498d1dcfcc15f5f17ac3c">More...</a><br /></td></tr>
 <tr class="separator:gafeaedd18298498d1dcfcc15f5f17ac3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0f1d865ffcf17f215e5559cdd2690572"><td class="memItemLeft" align="right" valign="top"><a id="ga0f1d865ffcf17f215e5559cdd2690572"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga0f1d865ffcf17f215e5559cdd2690572">clutchlog::scope_t::scope_t</a> ()</td></tr>
+<tr class="memdesc:ga0f1d865ffcf17f215e5559cdd2690572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:ga0f1d865ffcf17f215e5559cdd2690572"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ga0c4ac57601e6f8d146fd5cc060968ecc"><td class="memItemLeft" align="right" valign="top"><a id="ga0c4ac57601e6f8d146fd5cc060968ecc"></a>
-static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::default_format</b> = <a class="el" href="group__UseMacros.html#ga524c16f280d92ee8ab683162c9ce01fa">CLUTCHLOG_DEFAULT_FORMAT</a></td></tr>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga0c4ac57601e6f8d146fd5cc060968ecc">clutchlog::default_format</a> = <a class="el" href="group__UseMacros.html#ga524c16f280d92ee8ab683162c9ce01fa">CLUTCHLOG_DEFAULT_FORMAT</a></td></tr>
+<tr class="memdesc:ga0c4ac57601e6f8d146fd5cc060968ecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format of the messages. <br /></td></tr>
 <tr class="separator:ga0c4ac57601e6f8d146fd5cc060968ecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gace879554298e6e6e36dafef330c27be8"><td class="memItemLeft" align="right" valign="top"><a id="gace879554298e6e6e36dafef330c27be8"></a>
-static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::dump_default_format</b> = <a class="el" href="group__UseMacros.html#ga27b613c6727857a7cbcd0165d862034e">CLUTCHDUMP_DEFAULT_FORMAT</a></td></tr>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gace879554298e6e6e36dafef330c27be8">clutchlog::dump_default_format</a> = <a class="el" href="group__UseMacros.html#ga27b613c6727857a7cbcd0165d862034e">CLUTCHDUMP_DEFAULT_FORMAT</a></td></tr>
+<tr class="memdesc:gace879554298e6e6e36dafef330c27be8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format of the comment line in file dump. <br /></td></tr>
 <tr class="separator:gace879554298e6e6e36dafef330c27be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf898bffe23b125245e338d7495c76d45"><td class="memItemLeft" align="right" valign="top"><a id="gaf898bffe23b125245e338d7495c76d45"></a>
-static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::dump_default_sep</b> = <a class="el" href="group__UseMacros.html#ga54d29e956575e1c731eab5406135c5df">CLUTCHDUMP_DEFAULT_SEP</a></td></tr>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gaf898bffe23b125245e338d7495c76d45">clutchlog::dump_default_sep</a> = <a class="el" href="group__UseMacros.html#ga54d29e956575e1c731eab5406135c5df">CLUTCHDUMP_DEFAULT_SEP</a></td></tr>
+<tr class="memdesc:gaf898bffe23b125245e338d7495c76d45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default item separator for dump. <br /></td></tr>
 <tr class="separator:gaf898bffe23b125245e338d7495c76d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga229fd61519f1245282440120f2d45fb5"><td class="memItemLeft" align="right" valign="top"><a id="ga229fd61519f1245282440120f2d45fb5"></a>
-static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::default_depth_mark</b> = <a class="el" href="group__UseMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a></td></tr>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga229fd61519f1245282440120f2d45fb5">clutchlog::default_depth_mark</a> = <a class="el" href="group__UseMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a></td></tr>
+<tr class="memdesc:ga229fd61519f1245282440120f2d45fb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mark for stack depth. <br /></td></tr>
 <tr class="separator:ga229fd61519f1245282440120f2d45fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab2002468decc641989cc728f0a4dd4fe"><td class="memItemLeft" align="right" valign="top"><a id="gab2002468decc641989cc728f0a4dd4fe"></a>
-static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::strip_calls</b> = <a class="el" href="group__UseMacros.html#ga98f30d814d4913a8a7c93a8793f49adf">CLUTCHLOG_STRIP_CALLS</a></td></tr>
-<tr class="separator:gab2002468decc641989cc728f0a4dd4fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a8cb6411726133208f5a2f2cb42d468"><td class="memItemLeft" align="right" valign="top"><a id="ga1a8cb6411726133208f5a2f2cb42d468"></a>
+static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga1a8cb6411726133208f5a2f2cb42d468">clutchlog::default_strip_calls</a> = <a class="el" href="group__UseMacros.html#ga98f30d814d4913a8a7c93a8793f49adf">CLUTCHLOG_STRIP_CALLS</a></td></tr>
+<tr class="memdesc:ga1a8cb6411726133208f5a2f2cb42d468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of call stack levels to remove from depth display by default. <br /></td></tr>
+<tr class="separator:ga1a8cb6411726133208f5a2f2cb42d468"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8307a848fcf9ed929435b3e1f2b53401"><td class="memItemLeft" align="right" valign="top"><a id="ga8307a848fcf9ed929435b3e1f2b53401"></a>
-enum <a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">clutchlog::fmt::fg</a>&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::fmt::fore</b></td></tr>
+enum <a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">clutchlog::fmt::fg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga8307a848fcf9ed929435b3e1f2b53401">clutchlog::fmt::fore</a></td></tr>
+<tr class="memdesc:ga8307a848fcf9ed929435b3e1f2b53401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Foreground color. <br /></td></tr>
 <tr class="separator:ga8307a848fcf9ed929435b3e1f2b53401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga86696b20e5b31c96ba592926efb324f3"><td class="memItemLeft" align="right" valign="top"><a id="ga86696b20e5b31c96ba592926efb324f3"></a>
-enum <a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">clutchlog::fmt::bg</a>&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::fmt::back</b></td></tr>
+enum <a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">clutchlog::fmt::bg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga86696b20e5b31c96ba592926efb324f3">clutchlog::fmt::back</a></td></tr>
+<tr class="memdesc:ga86696b20e5b31c96ba592926efb324f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Background color. <br /></td></tr>
 <tr class="separator:ga86696b20e5b31c96ba592926efb324f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2bb0fde65fcd264393e102314dd1610b"><td class="memItemLeft" align="right" valign="top"><a id="ga2bb0fde65fcd264393e102314dd1610b"></a>
-enum <a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">clutchlog::fmt::typo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::fmt::style</b></td></tr>
+enum <a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">clutchlog::fmt::typo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga2bb0fde65fcd264393e102314dd1610b">clutchlog::fmt::style</a></td></tr>
+<tr class="memdesc:ga2bb0fde65fcd264393e102314dd1610b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typographic style. <br /></td></tr>
 <tr class="separator:ga2bb0fde65fcd264393e102314dd1610b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae6c0e4ed20db797124ed1e5faa033ad9"><td class="memItemLeft" align="right" valign="top"><a id="gae6c0e4ed20db797124ed1e5faa033ad9"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::scope_t::matches</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gae6c0e4ed20db797124ed1e5faa033ad9">clutchlog::scope_t::matches</a></td></tr>
+<tr class="memdesc:gae6c0e4ed20db797124ed1e5faa033ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Everything is compatible. <br /></td></tr>
 <tr class="separator:gae6c0e4ed20db797124ed1e5faa033ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadcca6846ff90d436c61861db85917744"><td class="memItemLeft" align="right" valign="top"><a id="gadcca6846ff90d436c61861db85917744"></a>
-<a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::scope_t::stage</b></td></tr>
+<a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gadcca6846ff90d436c61861db85917744">clutchlog::scope_t::stage</a></td></tr>
+<tr class="memdesc:gadcca6846ff90d436c61861db85917744"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current log level. <br /></td></tr>
 <tr class="separator:gadcca6846ff90d436c61861db85917744"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7918e55cd3bac1bd30c69b8c711387ff"><td class="memItemLeft" align="right" valign="top"><a id="ga7918e55cd3bac1bd30c69b8c711387ff"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::scope_t::there</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga7918e55cd3bac1bd30c69b8c711387ff">clutchlog::scope_t::there</a></td></tr>
+<tr class="memdesc:ga7918e55cd3bac1bd30c69b8c711387ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Location is compatible. <br /></td></tr>
 <tr class="separator:ga7918e55cd3bac1bd30c69b8c711387ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friend-members"></a>
@@ -260,41 +275,49 @@ High-level API</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Internal details</h2></td></tr>
 <tr class="memitem:ga56ed762c056c5b1d0020863b11bd188e"><td class="memItemLeft" align="right" valign="top"><a id="ga56ed762c056c5b1d0020863b11bd188e"></a>
-const size_t&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_strip_calls</b></td></tr>
+const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga56ed762c056c5b1d0020863b11bd188e">clutchlog::_strip_calls</a></td></tr>
+<tr class="memdesc:ga56ed762c056c5b1d0020863b11bd188e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current number of call stack levels to remove from depth display. <br /></td></tr>
 <tr class="separator:ga56ed762c056c5b1d0020863b11bd188e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab1c377a376e6772fe1746ff7147c125f"><td class="memItemLeft" align="right" valign="top"><a id="gab1c377a376e6772fe1746ff7147c125f"></a>
-const std::map&lt; <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_level_word</b></td></tr>
+const std::map&lt; <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gab1c377a376e6772fe1746ff7147c125f">clutchlog::_level_word</a></td></tr>
+<tr class="memdesc:gab1c377a376e6772fe1746ff7147c125f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dictionary of level identifier to their string representation. <br /></td></tr>
 <tr class="separator:gab1c377a376e6772fe1746ff7147c125f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabd4625bf211bfbaa30d9c126fa3d7888"><td class="memItemLeft" align="right" valign="top"><a id="gabd4625bf211bfbaa30d9c126fa3d7888"></a>
-std::map&lt; std::string, <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_word_level</b></td></tr>
+std::map&lt; std::string, <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gabd4625bf211bfbaa30d9c126fa3d7888">clutchlog::_word_level</a></td></tr>
+<tr class="memdesc:gabd4625bf211bfbaa30d9c126fa3d7888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dictionary of level string to their identifier. <br /></td></tr>
 <tr class="separator:gabd4625bf211bfbaa30d9c126fa3d7888"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab805ac5c33885459f9f752518a4aa735"><td class="memItemLeft" align="right" valign="top"><a id="gab805ac5c33885459f9f752518a4aa735"></a>
-std::map&lt; <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>, <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_level_fmt</b></td></tr>
+std::map&lt; <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>, <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gab805ac5c33885459f9f752518a4aa735">clutchlog::_level_fmt</a></td></tr>
+<tr class="memdesc:gab805ac5c33885459f9f752518a4aa735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dictionary of level identifier to their format. <br /></td></tr>
 <tr class="separator:gab805ac5c33885459f9f752518a4aa735"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7c6e3fc082bc6f55d50131ed2b32e81e"><td class="memItemLeft" align="right" valign="top"><a id="ga7c6e3fc082bc6f55d50131ed2b32e81e"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_format_log</b></td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga7c6e3fc082bc6f55d50131ed2b32e81e">clutchlog::_format_log</a></td></tr>
+<tr class="memdesc:ga7c6e3fc082bc6f55d50131ed2b32e81e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current format of the standard output. <br /></td></tr>
 <tr class="separator:ga7c6e3fc082bc6f55d50131ed2b32e81e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5f4ddb57ce42e8be86a7c7d269f7bae5"><td class="memItemLeft" align="right" valign="top"><a id="ga5f4ddb57ce42e8be86a7c7d269f7bae5"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_format_dump</b></td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga5f4ddb57ce42e8be86a7c7d269f7bae5">clutchlog::_format_dump</a></td></tr>
+<tr class="memdesc:ga5f4ddb57ce42e8be86a7c7d269f7bae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current format of the file output. <br /></td></tr>
 <tr class="separator:ga5f4ddb57ce42e8be86a7c7d269f7bae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1896f6c4b8597e3e76ff93970bd85167"><td class="memItemLeft" align="right" valign="top"><a id="ga1896f6c4b8597e3e76ff93970bd85167"></a>
-std::ostream *&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_out</b></td></tr>
+std::ostream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga1896f6c4b8597e3e76ff93970bd85167">clutchlog::_out</a></td></tr>
+<tr class="memdesc:ga1896f6c4b8597e3e76ff93970bd85167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard output. <br /></td></tr>
 <tr class="separator:ga1896f6c4b8597e3e76ff93970bd85167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaeb60684c89bcef5aa9273075c21cc993"><td class="memItemLeft" align="right" valign="top"><a id="gaeb60684c89bcef5aa9273075c21cc993"></a>
-<a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_stage</b></td></tr>
+<a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gaeb60684c89bcef5aa9273075c21cc993">clutchlog::_stage</a></td></tr>
+<tr class="memdesc:gaeb60684c89bcef5aa9273075c21cc993"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current log level. <br /></td></tr>
 <tr class="separator:gaeb60684c89bcef5aa9273075c21cc993"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaded03528f34d9000f618419c482c5042"><td class="memItemLeft" align="right" valign="top"><a id="gaded03528f34d9000f618419c482c5042"></a>
-std::regex&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_in_file</b></td></tr>
+std::regex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gaded03528f34d9000f618419c482c5042">clutchlog::_in_file</a></td></tr>
+<tr class="memdesc:gaded03528f34d9000f618419c482c5042"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current file location filter. <br /></td></tr>
 <tr class="separator:gaded03528f34d9000f618419c482c5042"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga130c4f12eacbd2028102838fe16b734e"><td class="memItemLeft" align="right" valign="top"><a id="ga130c4f12eacbd2028102838fe16b734e"></a>
-std::regex&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_in_func</b></td></tr>
+std::regex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga130c4f12eacbd2028102838fe16b734e">clutchlog::_in_func</a></td></tr>
+<tr class="memdesc:ga130c4f12eacbd2028102838fe16b734e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current function location filter. <br /></td></tr>
 <tr class="separator:ga130c4f12eacbd2028102838fe16b734e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga41757198b29862832a14472a9e5e24c6"><td class="memItemLeft" align="right" valign="top"><a id="ga41757198b29862832a14472a9e5e24c6"></a>
-std::regex&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::_in_line</b></td></tr>
+std::regex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga41757198b29862832a14472a9e5e24c6">clutchlog::_in_line</a></td></tr>
+<tr class="memdesc:ga41757198b29862832a14472a9e5e24c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current line location filter. <br /></td></tr>
 <tr class="separator:ga41757198b29862832a14472a9e5e24c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad6a8aef8df1de520a42ee68ee756fbf3"><td class="memItemLeft" align="right" valign="top"><a id="gad6a8aef8df1de520a42ee68ee756fbf3"></a>
-static const size_t&#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::max_buffer</b> = 4096</td></tr>
-<tr class="separator:gad6a8aef8df1de520a42ee68ee756fbf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0906d74275cedcd403da94879764815e"><td class="memItemLeft" align="right" valign="top"><a id="ga0906d74275cedcd403da94879764815e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog::clutchlog</b> (<a class="el" href="classclutchlog.html">clutchlog</a> const &amp;)=delete</td></tr>
 <tr class="separator:ga0906d74275cedcd403da94879764815e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -391,7 +414,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="separator:ga23dbb98f0d3c5cc21c232cde16cf317a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga63308e8deae3cfec6801318203494143"><td class="memTemplParams" colspan="2"><a id="ga63308e8deae3cfec6801318203494143"></a>
 template&lt;class In &gt; </td></tr>
-<tr class="memitem:ga63308e8deae3cfec6801318203494143"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga63308e8deae3cfec6801318203494143">clutchlog::dump</a> (const <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> &amp;stage, const In container_begin, const In container_end, const std::string &amp;<a class="el" href="group__UseMacros.html#ga10064493c22f5c03b502a42d814c5c5c">file</a>, const std::string &amp;<a class="el" href="group__UseMacros.html#gad32b5a0274dc03ee0004f67ba58b2447">func</a>, size_t <a class="el" href="group__UseMacros.html#gaa26c6b81ebaeb9e9daa3457e3a3d17c9">line</a>, const std::string &amp;filename_template=&quot;dump_{n}.dat&quot;, const std::string sep=dump_default_sep) const</td></tr>
+<tr class="memitem:ga63308e8deae3cfec6801318203494143"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga63308e8deae3cfec6801318203494143">clutchlog::dump</a> (const <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> &amp;stage, const In container_begin, const In container_end, const std::string &amp;<a class="el" href="group__UseMacros.html#ga10064493c22f5c03b502a42d814c5c5c">file</a>, const std::string &amp;<a class="el" href="group__UseMacros.html#gad32b5a0274dc03ee0004f67ba58b2447">func</a>, size_t <a class="el" href="group__UseMacros.html#gaa26c6b81ebaeb9e9daa3457e3a3d17c9">line</a>, const std::string &amp;filename_template=&quot;dump_{n}.dat&quot;, const std::string sep=<a class="el" href="group__UseMacros.html#gaf898bffe23b125245e338d7495c76d45">dump_default_sep</a>) const</td></tr>
 <tr class="memdesc:ga63308e8deae3cfec6801318203494143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump a serializable container after a comment line with log information. <br /></td></tr>
 <tr class="separator:ga63308e8deae3cfec6801318203494143"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -794,11 +817,11 @@ template&lt;class ... FMT&gt; </div>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="agroup__UseMacros_html_gacfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="group__UseMacros.html#gacfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:220</div></div>
-<div class="ttc" id="agroup__UseMacros_html_ga54d29e956575e1c731eab5406135c5df"><div class="ttname"><a href="group__UseMacros.html#ga54d29e956575e1c731eab5406135c5df">CLUTCHDUMP_DEFAULT_SEP</a></div><div class="ttdeci">#define CLUTCHDUMP_DEFAULT_SEP</div><div class="ttdoc">Default item separator for dump.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:192</div></div>
-<div class="ttc" id="agroup__UseMacros_html_ga23dbb98f0d3c5cc21c232cde16cf317a"><div class="ttname"><a href="group__UseMacros.html#ga23dbb98f0d3c5cc21c232cde16cf317a">clutchlog::log</a></div><div class="ttdeci">void log(const level &amp;stage, const std::string &amp;what, const std::string &amp;file, const std::string &amp;func, size_t line) const</div><div class="ttdoc">Print a log message IF the location matches the given one.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:696</div></div>
+<div class="ttc" id="agroup__UseMacros_html_gacfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="group__UseMacros.html#gacfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:226</div></div>
+<div class="ttc" id="agroup__UseMacros_html_ga54d29e956575e1c731eab5406135c5df"><div class="ttname"><a href="group__UseMacros.html#ga54d29e956575e1c731eab5406135c5df">CLUTCHDUMP_DEFAULT_SEP</a></div><div class="ttdeci">#define CLUTCHDUMP_DEFAULT_SEP</div><div class="ttdoc">Compile-time default item separator for dump.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:195</div></div>
+<div class="ttc" id="agroup__UseMacros_html_ga23dbb98f0d3c5cc21c232cde16cf317a"><div class="ttname"><a href="group__UseMacros.html#ga23dbb98f0d3c5cc21c232cde16cf317a">clutchlog::log</a></div><div class="ttdeci">void log(const level &amp;stage, const std::string &amp;what, const std::string &amp;file, const std::string &amp;func, size_t line) const</div><div class="ttdoc">Print a log message IF the location matches the given one.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:723</div></div>
 <div class="ttc" id="agroup__UseMacros_html_gae8911119d726a43b77f5781cb5a72813"><div class="ttname"><a href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a></div><div class="ttdeci">#define CLUTCHLOC</div><div class="ttdoc">Handy shortcuts to location.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:65</div></div>
-<div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:241</div></div>
+<div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:247</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
