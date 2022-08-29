@@ -4,6 +4,7 @@ Clutchlog — versatile (de)clutchable logging
 ***Clutchlog is a logging system that targets versatile debugging.***
 ***It allows to (de)clutch messages for a given: log level, source code location or call stack depth.***
 
+![Clutchlog logo](https://raw.githubusercontent.com/nojhan/clutchlog/master/docs/clutchlog_logo.svg)
 [TOC]
 
 Features
