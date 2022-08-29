@@ -22,11 +22,11 @@
 #include <regex>
 #include <map>
 
+//! POSIX headers necessary for stack depth management are available.
 #if __has_include(<execinfo.h>) && __has_include(<stdlib.h>) && __has_include(<libgen.h>)
     #include <execinfo.h> // execinfo
     #include <stdlib.h>   // getenv
     #include <libgen.h>   // basename
-    //! POSIX headers necessary for stack depth management are available.
     #define CLUTCHLOG_HAVE_UNIX_SYSINFO 1
 #else
     #define CLUTCHLOG_HAVE_UNIX_SYSINFO 0
@@ -115,9 +115,10 @@
             if(clutchlog__scope.matches) {                                                                      \
                 FUNC(__VA_ARGS__);                                                                              \
             }                                                                                                   \
+        }                                                                                                       \
     } while(0)
 #endif // NDEBUG
-     
+
 //! Run any code if the scope matches.
 #ifndef NDEBUG
     #define CLUTCHCODE( LEVEL, ... ) do {                                                                   \
@@ -168,42 +169,47 @@ class clutchlog
     /** @addtogroup UseMacros High-level API macros
      * @{ */
         #ifndef CLUTCHLOG_DEFAULT_FORMAT
-            //! Default format of the messages.
+            //! Compile-time default format of the messages.
             #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                 #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
             #else
                 #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
             #endif
         #endif // CLUTCHLOG_DEFAULT_FORMAT
+        //! Default format of the messages.
         static inline std::string default_format = CLUTCHLOG_DEFAULT_FORMAT;
 
         #ifndef CLUTCHDUMP_DEFAULT_FORMAT
-            //! Default format of the comment line in file dump.
+            //! Compile-time default format of the comment line in file dump.
             #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                 #define CLUTCHDUMP_DEFAULT_FORMAT "# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"
             #else
                 #define CLUTCHDUMP_DEFAULT_FORMAT "# {level} in {func} @ {file}:{line}"
             #endif
         #endif // CLUTCHDUMP_DEFAULT_FORMAT
+        //! Default format of the comment line in file dump.
         static inline std::string dump_default_format = CLUTCHDUMP_DEFAULT_FORMAT;
 
         #ifndef CLUTCHDUMP_DEFAULT_SEP
-            //! Default item separator for dump.
+            //! Compile-time default item separator for dump.
             #define CLUTCHDUMP_DEFAULT_SEP "\n"
         #endif // CLUTCHDUMP_DEFAULT_SEP
+        //! Default item separator for dump.
         static inline std::string dump_default_sep = CLUTCHDUMP_DEFAULT_SEP;
 
         #ifndef CLUTCHLOG_DEFAULT_DEPTH_MARK
-            //! Default mark for stack depth.
+            //! Compile-time default mark for stack depth.
             #define CLUTCHLOG_DEFAULT_DEPTH_MARK ">"
         #endif // CLUTCHLOG_DEFAULT_DEPTH_MARK
+        //! Default mark for stack depth.
         static inline std::string default_depth_mark = CLUTCHLOG_DEFAULT_DEPTH_MARK;
 
         #ifndef CLUTCHLOG_STRIP_CALLS
-            //! Number of call stack levels to remove from depth display by default.
+            //! Compile-time number of call stack levels to remove from depth display by default.
             #define CLUTCHLOG_STRIP_CALLS 5
         #endif // CLUTCHLOG_STRIP_CALLS
-        static inline unsigned int strip_calls = CLUTCHLOG_STRIP_CALLS;
+        //! Number of call stack levels to remove from depth display by default.
+        static inline unsigned int default_strip_calls = CLUTCHLOG_STRIP_CALLS;
     /* @} */
 
 
@@ -251,7 +257,7 @@ class clutchlog
                     cyan    = 36,
                     white   = 37,
                     none
-                } fore;
+                } /** Foreground color */ fore;
 
                 //! Background color codes.
                 enum class bg {
@@ -264,7 +270,7 @@ class clutchlog
                     cyan    = 46,
                     white   = 47,
                     none
-                } back;
+                } /** Background color */ back;
 
                 //! Typographic style codes.
                 enum class typo {
@@ -273,7 +279,7 @@ class clutchlog
                     underline =  4,
                     inverse   =  7,
                     none
-                } style;
+                } /** Typographic style*/  style;
 
                 //! Empty constructor, only useful for a no-op formatter.
                 fmt() : fore(fg::none), back(bg::none), style(typo::none) { }
@@ -359,7 +365,7 @@ class clutchlog
     private:
         clutchlog() :
             // system, main, log
-            _strip_calls(clutchlog::strip_calls),
+            _strip_calls(clutchlog::default_strip_calls),
             _level_word({
                 {level::critical,"Critical"},
                 {level::error   ,"Error"},
@@ -399,23 +405,39 @@ class clutchlog
         }
 
     protected:
+        /** Current number of call stack levels to remove from depth display. */
         const size_t _strip_calls;
+        /** Dictionary of level identifier to their string representation. */
         const std::map<level,std::string> _level_word;
+        /** Dictionary of level string to their identifier. */
         std::map<std::string,level> _word_level;
+        /** Dictionary of level identifier to their format. */
         std::map<level,fmt> _level_fmt;
+        /** Current format of the standard output. */
         std::string _format_log;
+        /** Current format of the file output. */
         std::string _format_dump;
+        /** Standard output. */
         std::ostream* _out;
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+        /** Current stack depth (above which logs are not printed). */
         size_t _depth;
+        /** Current depth mark. */
         std::string _depth_mark;
 #endif
+        /** Current log level. */
         level _stage;
+        /** Current file location filter. */
         std::regex _in_file;
+        /** Current function location filter. */
         std::regex _in_func;
+        /** Current line location filter. */
         std::regex _in_line;
 
+#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+        /** Maximum buffer size for backtrace message. */
         static const size_t max_buffer = 4096;
+#endif
     /** @}*/
 
     public:
@@ -508,12 +530,17 @@ class clutchlog
 
         //! Structure holding a location matching.
         struct scope_t {
-            bool matches; // everything is compatible
-            level stage; // current log level
+            /** Everything is compatible. */
+            bool matches;
+            /** Current log level. */
+            level stage;
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-            size_t depth; // current depth
+            /** Current depth. */
+            size_t depth;
 #endif
-            bool there; // location is compatible
+            /** Location is compatible. */
+            bool there;
+            /** Constructor. */
             scope_t() :
                 matches(false),
                 stage(level::xdebug),
