@@ -314,9 +314,9 @@ The `CLUTHFUNC` macro allows to wrap any function within the current logger.
 For instance, this can be useful if you want to (de)clutch calls to `assert`s.
 To do that, just declare your own macro:
 ```cpp
-#define ASSERT(LEVEL, ...) { CLUTCHFUNC(LEVEL, assert, __VA_ARGS__) }
+#define ASSERT(...) { CLUTCHFUNC(error, assert, __VA_ARGS__) }
 ```
-Thus, any call like `ASSERT(error, x > 3);` will be declutchable
+Thus, any call like `ASSERT(x > 3);` will be declutchable
 with the same configuration than a call to `CLUTCHLOG`.
 
 
