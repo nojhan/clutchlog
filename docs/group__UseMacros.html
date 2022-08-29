@@ -353,12 +353,23 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="separator:ga6c6ab42a1df147e6c2d115bc36ec8266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3cb0e4f43a4cadf1966001ad7c9861f4"><td class="memItemLeft" align="right" valign="top"><a id="ga3cb0e4f43a4cadf1966001ad7c9861f4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga3cb0e4f43a4cadf1966001ad7c9861f4">clutchlog::threshold</a> (<a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> l)</td></tr>
-<tr class="memdesc:ga3cb0e4f43a4cadf1966001ad7c9861f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the log level below which logs are not printed. <br /></td></tr>
+<tr class="memdesc:ga3cb0e4f43a4cadf1966001ad7c9861f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the log level (below which logs are not printed) with an identifier. <br /></td></tr>
 <tr class="separator:ga3cb0e4f43a4cadf1966001ad7c9861f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a7738eaad114bfa870121412fe23ad9"><td class="memItemLeft" align="right" valign="top"><a id="ga7a7738eaad114bfa870121412fe23ad9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga7a7738eaad114bfa870121412fe23ad9">clutchlog::threshold</a> (const std::string &amp;l)</td></tr>
+<tr class="memdesc:ga7a7738eaad114bfa870121412fe23ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the log level (below which logs are not printed) with a string. <br /></td></tr>
+<tr class="separator:ga7a7738eaad114bfa870121412fe23ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab45287cc9c14217904a13aff49573732"><td class="memItemLeft" align="right" valign="top"><a id="gab45287cc9c14217904a13aff49573732"></a>
 <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gab45287cc9c14217904a13aff49573732">clutchlog::threshold</a> () const</td></tr>
 <tr class="memdesc:gab45287cc9c14217904a13aff49573732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the log level below which logs are not printed. <br /></td></tr>
 <tr class="separator:gab45287cc9c14217904a13aff49573732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaff3aa09fb60f7d6dc688c028d3834d8a"><td class="memItemLeft" align="right" valign="top"><a id="gaff3aa09fb60f7d6dc688c028d3834d8a"></a>
+const std::map&lt; std::string, <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gaff3aa09fb60f7d6dc688c028d3834d8a">clutchlog::levels</a> () const</td></tr>
+<tr class="memdesc:gaff3aa09fb60f7d6dc688c028d3834d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the map of available log levels string representations toward their identifier. *&zwj;/. <br /></td></tr>
+<tr class="separator:gaff3aa09fb60f7d6dc688c028d3834d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacebed8c9df9204f22bf8488e62e1cedd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gacebed8c9df9204f22bf8488e62e1cedd">clutchlog::level_of</a> (const std::string name)</td></tr>
+<tr class="memdesc:gacebed8c9df9204f22bf8488e62e1cedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the log level tag corresponding to the given pre-configured name.  <a href="group__UseMacros.html#gacebed8c9df9204f22bf8488e62e1cedd">More...</a><br /></td></tr>
+<tr class="separator:gacebed8c9df9204f22bf8488e62e1cedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga10064493c22f5c03b502a42d814c5c5c"><td class="memItemLeft" align="right" valign="top"><a id="ga10064493c22f5c03b502a42d814c5c5c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga10064493c22f5c03b502a42d814c5c5c">clutchlog::file</a> (std::string file)</td></tr>
 <tr class="memdesc:ga10064493c22f5c03b502a42d814c5c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the regular expression filtering the file location. <br /></td></tr>
@@ -387,9 +398,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <a class="el" href="classclutchlog_1_1fmt.html">fmt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga4831f44fd5ade102e57320632095934d">clutchlog::style</a> (<a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> stage) const</td></tr>
 <tr class="memdesc:ga4831f44fd5ade102e57320632095934d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the configured fmt instance of the given log level. <br /></td></tr>
 <tr class="separator:ga4831f44fd5ade102e57320632095934d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacebed8c9df9204f22bf8488e62e1cedd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gacebed8c9df9204f22bf8488e62e1cedd">clutchlog::level_of</a> (const std::string name)</td></tr>
-<tr class="memdesc:gacebed8c9df9204f22bf8488e62e1cedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the log level tag corresponding to the given pre-configured name.  <a href="group__UseMacros.html#gacebed8c9df9204f22bf8488e62e1cedd">More...</a><br /></td></tr>
-<tr class="separator:gacebed8c9df9204f22bf8488e62e1cedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Low-level API</h2></td></tr>
@@ -819,7 +827,7 @@ template&lt;class ... FMT&gt; </div>
 </div><!-- contents -->
 <div class="ttc" id="agroup__UseMacros_html_gacfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="group__UseMacros.html#gacfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:226</div></div>
 <div class="ttc" id="agroup__UseMacros_html_ga54d29e956575e1c731eab5406135c5df"><div class="ttname"><a href="group__UseMacros.html#ga54d29e956575e1c731eab5406135c5df">CLUTCHDUMP_DEFAULT_SEP</a></div><div class="ttdeci">#define CLUTCHDUMP_DEFAULT_SEP</div><div class="ttdoc">Compile-time default item separator for dump.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:195</div></div>
-<div class="ttc" id="agroup__UseMacros_html_ga23dbb98f0d3c5cc21c232cde16cf317a"><div class="ttname"><a href="group__UseMacros.html#ga23dbb98f0d3c5cc21c232cde16cf317a">clutchlog::log</a></div><div class="ttdeci">void log(const level &amp;stage, const std::string &amp;what, const std::string &amp;file, const std::string &amp;func, size_t line) const</div><div class="ttdoc">Print a log message IF the location matches the given one.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:723</div></div>
+<div class="ttc" id="agroup__UseMacros_html_ga23dbb98f0d3c5cc21c232cde16cf317a"><div class="ttname"><a href="group__UseMacros.html#ga23dbb98f0d3c5cc21c232cde16cf317a">clutchlog::log</a></div><div class="ttdeci">void log(const level &amp;stage, const std::string &amp;what, const std::string &amp;file, const std::string &amp;func, size_t line) const</div><div class="ttdoc">Print a log message IF the location matches the given one.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:727</div></div>
 <div class="ttc" id="agroup__UseMacros_html_gae8911119d726a43b77f5781cb5a72813"><div class="ttname"><a href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a></div><div class="ttdeci">#define CLUTCHLOC</div><div class="ttdoc">Handy shortcuts to location.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:65</div></div>
 <div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:247</div></div>
 <!-- start footer part -->

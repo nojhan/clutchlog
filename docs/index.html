@@ -70,17 +70,17 @@ $(function() {
 <ul><li class="level1"><a href="#autotoc_md0">Features</a></li>
 <li class="level1"><a href="#autotoc_md1">Example</a></li>
 <li class="level1"><a href="#autotoc_md2">Rationale</a></li>
-<li class="level1"><a href="#autotoc_md3">API documentation</a><ul><li class="level2"><a href="#autotoc_md4">Calls</a></li>
-<li class="level2"><a href="#autotoc_md5">Location filtering</a></li>
-<li class="level2"><a href="#autotoc_md6">Output Configuration</a></li>
-<li class="level2"><a href="#autotoc_md7">Output style</a></li>
-<li class="level2"><a href="#autotoc_md8">Disabled calls</a></li>
-<li class="level2"><a href="#autotoc_md9">Low-level API</a></li>
-<li class="level2"><a href="#autotoc_md10">(De)clutch any function call</a></li>
-<li class="level2"><a href="#autotoc_md11">(De)clutch any code section</a></li>
+<li class="level1"><a href="#autotoc_md3">API documentation</a><ul><li class="level2"><a href="#autotoc_md4">Log level semantics</a></li>
+<li class="level2"><a href="#autotoc_md5">Calls</a></li>
+<li class="level2"><a href="#autotoc_md6">Location filtering</a></li>
+<li class="level2"><a href="#autotoc_md7">Output Configuration</a></li>
+<li class="level2"><a href="#autotoc_md8">Output style</a></li>
+<li class="level2"><a href="#autotoc_md9">Disabled calls</a></li>
+<li class="level2"><a href="#autotoc_md10">Low-level API</a></li>
+<li class="level2"><a href="#autotoc_md11">(De)clutch any function call</a></li>
+<li class="level2"><a href="#autotoc_md12">(De)clutch any code section</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md12">Log level semantics</a></li>
 <li class="level1"><a href="#autotoc_md13">Limitations</a></li>
 <li class="level1"><a href="#autotoc_md14">Build and tests</a></li>
 </ul>
@@ -107,7 +107,7 @@ Example</h1>
 <p>Adding a message is a simple as calling a macro (which is declutched in Debug build type, when <code>NDEBUG</code> is not defined): </p><div class="fragment"><div class="line"><a class="code" href="group__UseMacros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(info, <span class="stringliteral">&quot;matrix size: &quot;</span> &lt;&lt; m &lt;&lt; <span class="stringliteral">&quot;x&quot;</span> &lt;&lt; n);</div>
 </div><!-- fragment --><p>To configure the display, you indicate the three types of locations, for example in your <code>main</code> function: </p><div class="fragment"><div class="line"><span class="keyword">auto</span>&amp; log = <a class="code" href="group__UseMacros.html#gacfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>();</div>
 <div class="line">log.depth(2);                          <span class="comment">// Log functions called from &quot;main&quot; but not below.</span></div>
-<div class="line">log.threshold(clutchlog::level::info); <span class="comment">// Log only &quot;info&quot;, &quot;warning&quot;, &quot;error&quot; or &quot;critical&quot; messages.</span></div>
+<div class="line">log.threshold(<span class="stringliteral">&quot;Info&quot;</span>); <span class="comment">// Log only &quot;info&quot;, &quot;warning&quot;, &quot;error&quot; or &quot;critical&quot; messages.</span></div>
 <div class="line">log.file(<span class="stringliteral">&quot;algebra/.*&quot;</span>);                <span class="comment">// Will match any file in the &quot;algebra&quot; directory.</span></div>
 <div class="line">log.func(<span class="stringliteral">&quot;(mul|add|sub|div)&quot;</span>);         <span class="comment">// Will match &quot;multiply&quot;, for instance.</span></div>
 </div><!-- fragment --><p>For more detailled examples, see the "API documentation" section below and the <code>tests</code> directory.</p>
@@ -120,6 +120,20 @@ Rationale</h1>
 <h1><a class="anchor" id="autotoc_md3"></a>
 API documentation</h1>
 <h2><a class="anchor" id="autotoc_md4"></a>
+Log level semantics</h2>
+<p>Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:</p>
+<ul>
+<li><em>Critical</em>: an error that cannot be recovered. For instance, something which will make a server stop right here.</li>
+<li><em>Error</em>: an error that invalidates a function, but may still be recovered. For example, a bad user input that will make a server reset its state, but not crash.</li>
+<li><em>Warning</em>: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.</li>
+<li><em>Progress</em>: the state at which computation currently is.</li>
+<li><em>Note</em>: some state worth noting to understand what's going on.</li>
+<li><em>Info</em>: any information that would help ensuring that everything is going well.</li>
+<li><em>Debug</em>: data that would help debugging the program if there was a bug later on.</li>
+<li><em>XDebug</em>: debugging information that would be heavy to read.</li>
+</ul>
+<p>Note: the log levels constants are lower case (for example: <code>clutchlog::level::xdebug</code>), but their string representation is not (e.g. "XDebug", this should be taken into account when using <code>threshold</code> or <code>level_of</code>).</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Calls</h2>
 <p>The main entrypoint is the <code>CLUTCHLOG</code> macro, which takes the desired log level and message. The message can be anything that can be output in an <code>ostringstream</code>. </p><div class="fragment"><div class="line"><span class="comment">// Simple string:</span></div>
 <div class="line"><a class="code" href="group__UseMacros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(info, <span class="stringliteral">&quot;hello world&quot;</span>);</div>
@@ -140,7 +154,7 @@ Calls</h2>
 <div class="line"><span class="comment">* 1681692777</span></div>
 <div class="line"><span class="comment">*/</span></div>
 </div><!-- fragment --><p>Note that if you pass a file name without the <code>{n}</code> tag, the file will be overwritten as is.</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md6"></a>
 Location filtering</h2>
 <p>To configure the global behaviour of the logger, you must first get a reference on its (singleton) instance: </p><div class="fragment"><div class="line"><span class="keyword">auto</span>&amp; log = <a class="code" href="group__UseMacros.html#gacfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>();</div>
 </div><!-- fragment --><p>One can configure the location(s) at which messages should actually be logged: </p><div class="fragment"><div class="line">log.depth(3); <span class="comment">// Depth of the call stack, defaults to the maximum possible value.</span></div>
@@ -150,9 +164,9 @@ Location filtering</h2>
 <div class="line">log.func(<span class="stringliteral">&quot;.*&quot;</span>); <span class="comment">// Function location, defaults to any.</span></div>
 <div class="line">log.line(<span class="stringliteral">&quot;.*&quot;</span>); <span class="comment">// Line location, defaults to any.</span></div>
 </div><!-- fragment --><p>A shortcut function can be used to filter all at once: </p><div class="fragment"><div class="line">log.location(file, func, line); <span class="comment">// Defaults to any, second and last parameters being optional.</span></div>
-</div><!-- fragment --><p>Strings may be used to set up the threshold, using <code>level_of</code>: </p><div class="fragment"><div class="line">log.threshold( log.level_of(<span class="stringliteral">&quot;XDebug&quot;</span>) ); <span class="comment">// You have to know the exact string.</span></div>
+</div><!-- fragment --><p>Strings may be used to set up the threshold: </p><div class="fragment"><div class="line">log.threshold(<span class="stringliteral">&quot;Error&quot;</span>); <span class="comment">// You have to know the exact —case sensitive— string.</span></div>
 </div><!-- fragment --><p>Note that the case of the log levels strings matters (see below).</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md7"></a>
 Output Configuration</h2>
 <p>The output stream can be configured using the <code>out</code> method: </p><div class="fragment"><div class="line">log.out(std::clog); <span class="comment">// Defaults to clog.</span></div>
 </div><!-- fragment --><p>The format of the messages can be defined with the <code>format</code> method, passing a string with standardized tags surrounded by <code>{}</code>: </p><div class="fragment"><div class="line">log.format(<span class="stringliteral">&quot;{msg}&quot;</span>);</div>
@@ -172,7 +186,7 @@ Output Configuration</h2>
 <p>The default format of the first line of comment added with the dump macro is <code>"# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"</code>. It can be edited with the <code>format_comment</code> method. If it is set to an empty string, then no comment line is added. The default can be modified at compile time with <code>CLUTCHDUMP_DEFAULT_FORMAT</code>. By default, the separator between items in the container is a new line. To change this behaviour, you can change <code>CLUTCHDUMP_DEFAULT_SEP</code> or call the low-level <code>dump</code> method.</p>
 <p>The mark used with the <code>{depth_marks}</code> tag can be configured with the <code>depth_mark</code> method, and its default with the <code>CLUTCHLOG_DEFAULT_DEPTH_MARK</code> macro: </p><div class="fragment"><div class="line">log.depth_mark(<a class="code" href="group__UseMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a>); <span class="comment">// Defaults to &quot;&gt;&quot;.</span></div>
 </div><!-- fragment --><p>By default, clutchlog removes 5 levels of the calls stack, so that your <code>main</code> entrypoint corresponds to a depth of zero. You can change this behaviour by defining the <code>CLUTCHLOG_STRIP_CALLS</code> macro.</p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 Output style</h2>
 <p>The output can be colored differently depending on the log level. </p><div class="fragment"><div class="line"><span class="comment">// Print error messages in bold red:</span></div>
 <div class="line">log.style(clutchlog::level::error, <span class="comment">// First, the log level.</span></div>
@@ -218,7 +232,7 @@ Output style</h2>
 <div class="line">    &lt;&lt; fmt(fmt::typo::reset) &lt;&lt; <span class="stringliteral">&quot; {msg}&quot;</span> &lt;&lt; std::endl; <span class="comment">// This is a reset.</span></div>
 <div class="line">log.format(format.str());</div>
 </div><!-- fragment --><p>Note: messages at the "critical", "error" and "warning" log levels are colored by default. You may want to set their style to <code>none</code> if you want to stay in control of inserted colors in the format template.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md9"></a>
 Disabled calls</h2>
 <p>By default, clutchlog is always enabled if the <code>NDEBUG</code> preprocessor variable is not defined (this variable is set by CMake in build types that differs from <code>Debug</code>).</p>
 <p>You can however force clutchlog to be enabled in any build type by setting the <code>WITH_CLUTCHLOG</code> preprocessor variable.</p>
@@ -227,39 +241,26 @@ Disabled calls</h2>
 <div class="line"><span class="preprocessor">#define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::xdebug</span></div>
 </div><!-- fragment --><p>Note that allowing a log level does not mean that it will actually output something. If the configured log level at runtime is lower than the log level of the message, it will still not be printed.</p>
 <p>This behavior intend to remove as many conditional statements as possible when not debugging, without having to use preprocessor guards around calls to clutchlog, thus saving run time at no readability cost.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md10"></a>
 Low-level API</h2>
 <p>All configuration setters have a getters counterpart, with the same name but taking no parameter, for example: </p><div class="fragment"><div class="line">std::string mark = log.depth_mark();</div>
 </div><!-- fragment --><p>To control more precisely the logging, one can use the low-level <code>log</code> method: </p><div class="fragment"><div class="line">log.log(clutchlog::level::xdebug, <span class="stringliteral">&quot;hello world&quot;</span>, <span class="stringliteral">&quot;main.cpp&quot;</span>, <span class="stringliteral">&quot;main&quot;</span>, 122);</div>
 </div><!-- fragment --><p>A helper macro can helps to fill in the location with the actual one, as seen by the compiler: </p><div class="fragment"><div class="line">log.log(clutchlog::level::xdebug, <span class="stringliteral">&quot;hello world&quot;</span>, <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>);</div>
 </div><!-- fragment --><p>A similar <code>dump</code> method exists: </p><div class="fragment"><div class="line">log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>, <span class="stringliteral">&quot;dumped_{n}.dat&quot;</span>, <span class="stringliteral">&quot;\n&quot;</span>);</div>
 <div class="line">log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), <span class="stringliteral">&quot;main.cpp&quot;</span>, <span class="stringliteral">&quot;main&quot;</span>, 122, <span class="stringliteral">&quot;dumped.dat&quot;</span>, <span class="stringliteral">&quot;\n\n&quot;</span>);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
+</div><!-- fragment --><p>You can access the identifier of log levels with <code>level_of</code>: </p><div class="fragment"><div class="line">log.threshold( log.level_of(<span class="stringliteral">&quot;XDebug&quot;</span>) ); <span class="comment">// You have to know the exact string.</span></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md11"></a>
 (De)clutch any function call</h2>
 <p>The <code>CLUTHFUNC</code> macro allows to wrap any function within the current logger.</p>
 <p>For instance, this can be useful if you want to (de)clutch calls to <code>assert</code>s. To do that, just declare your own macro: </p><div class="fragment"><div class="line"><span class="preprocessor">#define ASSERT(...) { CLUTCHFUNC(error, assert, __VA_ARGS__) }</span></div>
 </div><!-- fragment --><p>Thus, any call like <code>ASSERT(x &gt; 3);</code> will be declutchable with the same configuration than a call to <code>CLUTCHLOG</code>.</p>
-<h2><a class="anchor" id="autotoc_md11"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 (De)clutch any code section</h2>
 <p>The <code>CLUTCHCODE</code> macro allows to wrap any code within the current logger.</p>
 <p>For instance: </p><div class="fragment"><div class="line"><a class="code" href="group__UseMacros.html#gaaf2e85e1153e6c88b458dd49e3c37c73">CLUTCHCODE</a>(info,</div>
 <div class="line">    std::clog &lt;&lt; <span class="stringliteral">&quot;We are clutched!\n&quot;</span>;</div>
 <div class="line">);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
-Log level semantics</h1>
-<p>Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:</p>
-<ul>
-<li><em>Critical</em>: an error that cannot be recovered. For instance, something which will make a server stop right here.</li>
-<li><em>Error</em>: an error that invalidates a function, but may still be recovered. For example, a bad user input that will make a server reset its state, but not crash.</li>
-<li><em>Warning</em>: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.</li>
-<li><em>Progress</em>: the state at which computation currently is.</li>
-<li><em>Note</em>: some state worth noting to understand what's going on.</li>
-<li><em>Info</em>: any information that would help ensuring that everything is going well.</li>
-<li><em>Debug</em>: data that would help debugging the program if there was a bug later on.</li>
-<li><em>XDebug</em>: debugging information that would be heavy to read.</li>
-</ul>
-<p>Note: the log levels constants are lower case (for example: <code>clutchlog::level::xdebug</code>), but their string representation is not (e.g. "XDebug", this should be taken into account when using <code>level_of</code>).</p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md13"></a>
 Limitations</h1>
 <h3>System-dependent stack depth</h3>
 <p>Because the call stack depth and program name access are system-dependent, the features relying on the depth of the call stack and the display of the program name are only available for operating systems having the following headers: <code>execinfo.h</code>, <code>stdlib.h</code> and <code>libgen.h</code> (so far, tested with Linux).</p>

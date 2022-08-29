@@ -109,12 +109,23 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="separator:ga6c6ab42a1df147e6c2d115bc36ec8266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3cb0e4f43a4cadf1966001ad7c9861f4"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga3cb0e4f43a4cadf1966001ad7c9861f4">threshold</a> (<a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> l)</td></tr>
-<tr class="memdesc:ga3cb0e4f43a4cadf1966001ad7c9861f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the log level below which logs are not printed. <br /></td></tr>
+<tr class="memdesc:ga3cb0e4f43a4cadf1966001ad7c9861f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the log level (below which logs are not printed) with an identifier. <br /></td></tr>
 <tr class="separator:ga3cb0e4f43a4cadf1966001ad7c9861f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a7738eaad114bfa870121412fe23ad9"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga7a7738eaad114bfa870121412fe23ad9">threshold</a> (const std::string &amp;l)</td></tr>
+<tr class="memdesc:ga7a7738eaad114bfa870121412fe23ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the log level (below which logs are not printed) with a string. <br /></td></tr>
+<tr class="separator:ga7a7738eaad114bfa870121412fe23ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab45287cc9c14217904a13aff49573732"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gab45287cc9c14217904a13aff49573732">threshold</a> () const</td></tr>
 <tr class="memdesc:gab45287cc9c14217904a13aff49573732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the log level below which logs are not printed. <br /></td></tr>
 <tr class="separator:gab45287cc9c14217904a13aff49573732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaff3aa09fb60f7d6dc688c028d3834d8a"><td class="memItemLeft" align="right" valign="top">
+const std::map&lt; std::string, <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gaff3aa09fb60f7d6dc688c028d3834d8a">levels</a> () const</td></tr>
+<tr class="memdesc:gaff3aa09fb60f7d6dc688c028d3834d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the map of available log levels string representations toward their identifier. *&zwj;/. <br /></td></tr>
+<tr class="separator:gaff3aa09fb60f7d6dc688c028d3834d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacebed8c9df9204f22bf8488e62e1cedd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gacebed8c9df9204f22bf8488e62e1cedd">level_of</a> (const std::string name)</td></tr>
+<tr class="memdesc:gacebed8c9df9204f22bf8488e62e1cedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the log level tag corresponding to the given pre-configured name.  <a href="group__UseMacros.html#gacebed8c9df9204f22bf8488e62e1cedd">More...</a><br /></td></tr>
+<tr class="separator:gacebed8c9df9204f22bf8488e62e1cedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga10064493c22f5c03b502a42d814c5c5c"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga10064493c22f5c03b502a42d814c5c5c">file</a> (std::string file)</td></tr>
 <tr class="memdesc:ga10064493c22f5c03b502a42d814c5c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the regular expression filtering the file location. <br /></td></tr>
@@ -143,9 +154,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <a class="el" href="classclutchlog_1_1fmt.html">fmt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga4831f44fd5ade102e57320632095934d">style</a> (<a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> stage) const</td></tr>
 <tr class="memdesc:ga4831f44fd5ade102e57320632095934d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the configured fmt instance of the given log level. <br /></td></tr>
 <tr class="separator:ga4831f44fd5ade102e57320632095934d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacebed8c9df9204f22bf8488e62e1cedd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gacebed8c9df9204f22bf8488e62e1cedd">level_of</a> (const std::string name)</td></tr>
-<tr class="memdesc:gacebed8c9df9204f22bf8488e62e1cedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the log level tag corresponding to the given pre-configured name.  <a href="group__UseMacros.html#gacebed8c9df9204f22bf8488e62e1cedd">More...</a><br /></td></tr>
-<tr class="separator:gacebed8c9df9204f22bf8488e62e1cedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Low-level API</div></td></tr>
 <tr class="memitem:ga4ebdfcded6c56262676bf6926d63fc96"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="structclutchlog_1_1scope__t.html">scope_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga4ebdfcded6c56262676bf6926d63fc96">locate</a> (const <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a> &amp;stage, const std::string &amp;<a class="el" href="group__UseMacros.html#ga10064493c22f5c03b502a42d814c5c5c">file</a>, const std::string &amp;<a class="el" href="group__UseMacros.html#gad32b5a0274dc03ee0004f67ba58b2447">func</a>, const size_t <a class="el" href="group__UseMacros.html#gaa26c6b81ebaeb9e9daa3457e3a3d17c9">line</a>) const</td></tr>
