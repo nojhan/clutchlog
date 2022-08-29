@@ -20,6 +20,9 @@ rm -f build_all.log
 for t in "Debug" "Release" "RelWithDebInfo"; do
     for w in "ON" "OFF"; do
         build $t $w
+        cd ${t}_${w}
+        ctest
+        cd ..
     done
 done
 

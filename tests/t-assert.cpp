@@ -4,7 +4,7 @@
 #include "../clutchlog/clutchlog.h"
 
 // Make asserts (de)clutchable.
-#define ASSERT(LEVEL, ...) { CLUTCHFUNC(LEVEL, assert, __VA_ARGS__) }
+#define ASSERT(LEVEL, ...) CLUTCHFUNC(LEVEL, assert, __VA_ARGS__);
 
 void h()
 {

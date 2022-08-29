@@ -4,12 +4,12 @@
 
 /** @file */
 #include <ciso646>
-#ifdef FSEXPERIMENTAL
-#include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
+    #ifdef FSEXPERIMENTAL
+    #include <experimental/filesystem>
+    namespace fs = std::experimental::filesystem;
 #else
-#include <filesystem>
-namespace fs = std::filesystem;
+    #include <filesystem>
+    namespace fs = std::filesystem;
 #endif
 
 #include <iostream>
@@ -23,23 +23,23 @@ namespace fs = std::filesystem;
 #include <map>
 
 #if __has_include(<execinfo.h>) && __has_include(<stdlib.h>) && __has_include(<libgen.h>)
-#include <execinfo.h> // execinfo
-#include <stdlib.h>   // getenv
-#include <libgen.h>   // basename
-//! POSIX headers necessary for stack depth management are available.
-#define CLUTCHLOG_HAVE_UNIX_SYSINFO 1
+    #include <execinfo.h> // execinfo
+    #include <stdlib.h>   // getenv
+    #include <libgen.h>   // basename
+    //! POSIX headers necessary for stack depth management are available.
+    #define CLUTCHLOG_HAVE_UNIX_SYSINFO 1
 #else
-#define CLUTCHLOG_HAVE_UNIX_SYSINFO 0
+    #define CLUTCHLOG_HAVE_UNIX_SYSINFO 0
 #endif
 
 /**********************************************************************
  * Enable by default in Debug builds.
  **********************************************************************/
 #ifndef WITH_CLUTCHLOG
-#ifndef NDEBUG
-//! Actually enable clutchlog features.
-#define WITH_CLUTCHLOG
-#endif
+    #ifndef NDEBUG
+        //! Actually enable clutchlog features.
+        #define WITH_CLUTCHLOG
+    #endif
 #endif
 
 /**********************************************************************
@@ -50,44 +50,13 @@ namespace fs = std::filesystem;
 /** @addtogroup DefaultConfigMacros Default configuration macros
  * @{ **/
 
-#ifndef CLUTCHLOG_DEFAULT_FORMAT
-//! Default format of the messages.
-#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-#define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
-#else
-#define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
-#endif
-#endif // CLUTCHLOG_DEFAULT_FORMAT
-
-#ifndef CLUTCHDUMP_DEFAULT_FORMAT
-//! Default format of the comment line in file dump.
-#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-#define CLUTCHDUMP_DEFAULT_FORMAT "# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"
-#else
-#define CLUTCHDUMP_DEFAULT_FORMAT "# {level} in {func} @ {file}:{line}"
-#endif
-#endif // CLUTCHDUMP_DEFAULT_FORMAT
-
-#ifndef CLUTCHDUMP_DEFAULT_SEP
-//! Default item separator for dump.
-#define CLUTCHDUMP_DEFAULT_SEP "\n"
-#endif // CLUTCHDUMP_DEFAULT_SEP
-
-#ifndef CLUTCHLOG_DEFAULT_DEPTH_MARK
-//! Default mark for stack depth.
-#define CLUTCHLOG_DEFAULT_DEPTH_MARK ">"
-#endif // CLUTCHLOG_DEFAULT_DEPTH_MARK
-
 #ifndef CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG
-//! Default level over which calls to the logger are optimized out when NDEBUG is defined.
-#define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::progress
+    //! Default level over which calls to the logger are optimized out when NDEBUG is defined.
+    #define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::progress
 #endif // CLUTCHLOG_DEFAULT_DEPTH_BUILT
 
-#ifndef CLUTCHLOG_STRIP_CALLS
-//! Number of call stack levels to remove from depth display by default.
-#define CLUTCHLOG_STRIP_CALLS 5
-#endif // CLUTCHLOG_STRIP_CALLS
 /** @} */
+
 
 /** @addtogroup UseMacros High-level API macros
  * @{ */
@@ -97,88 +66,87 @@ namespace fs = std::filesystem;
 
 //! Log a message at the given level.
 #ifndef NDEBUG
-#define CLUTCHLOG( LEVEL, WHAT ) { \
-    auto& clutchlog__logger = clutchlog::logger(); \
-    std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT; \
-    clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), CLUTCHLOC); \
-}
-#else // not Debug build.
-#define CLUTCHLOG( LEVEL, WHAT ) { \
-    if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
-        auto& clutchlog__logger = clutchlog::logger(); \
-        std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT; \
+    #define CLUTCHLOG( LEVEL, WHAT ) do {                                                \
+        auto& clutchlog__logger = clutchlog::logger();                                   \
+        std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT;                      \
         clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), CLUTCHLOC); \
-    } \
-}
+    } while(0)
+#else // not Debug build.
+    #define CLUTCHLOG( LEVEL, WHAT ) do {                                                    \
+        if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) {               \
+            auto& clutchlog__logger = clutchlog::logger();                                   \
+            std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT;                      \
+            clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), CLUTCHLOC); \
+        }                                                                                    \
+    } while(0)
 #endif // NDEBUG
 
 //! Dump the given container.
 #ifndef NDEBUG
-#define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { \
-    auto& clutchlog__logger = clutchlog::logger(); \
-    clutchlog__logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \
-                CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP); \
-}
-#else // not Debug build.
-#define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { \
-    if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
-        auto& clutchlog__logger = clutchlog::logger(); \
+    #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) do {                                           \
+        auto& clutchlog__logger = clutchlog::logger();                                              \
         clutchlog__logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \
-                    CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP); \
-    } \
-}
+                    CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP);                                   \
+    } while(0)
+#else // not Debug build.
+    #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) do {                                               \
+        if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) {                          \
+            auto& clutchlog__logger = clutchlog::logger();                                              \
+            clutchlog__logger.dump(clutchlog::level::LEVEL, std::begin(CONTAINER), std::end(CONTAINER), \
+                        CLUTCHLOC, FILENAME, CLUTCHDUMP_DEFAULT_SEP);                                   \
+        }                                                                                               \
+    } while(0)
 #endif // NDEBUG
 
 //! Call any function if the scope matches.
 #ifndef NDEBUG
-#define CLUTCHFUNC( LEVEL, FUNC, ... ) { \
-    auto& clutchlog__logger = clutchlog::logger(); \
-    clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
-    if(clutchlog__scope.matches) { \
-        FUNC(__VA_ARGS__); \
-    } \
-}
-#else // not Debug build.
-#define CLUTCHFUNC( LEVEL, FUNC, ... ) { \
-    if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
-        auto& clutchlog__logger = clutchlog::logger(); \
+    #define CLUTCHFUNC( LEVEL, FUNC, ... ) do {                                                             \
+        auto& clutchlog__logger = clutchlog::logger();                                                      \
         clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
-        if(clutchlog__scope.matches) { \
-            FUNC(__VA_ARGS__); \
-        } \
-    } \
-}
+        if(clutchlog__scope.matches) {                                                                      \
+            FUNC(__VA_ARGS__);                                                                              \
+        }                                                                                                   \
+    } while(0)
+#else // not Debug build.
+    #define CLUTCHFUNC( LEVEL, FUNC, ... ) do {                                                                 \
+        if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) {                                  \
+            auto& clutchlog__logger = clutchlog::logger();                                                      \
+            clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+            if(clutchlog__scope.matches) {                                                                      \
+                FUNC(__VA_ARGS__);                                                                              \
+            }                                                                                                   \
+    } while(0)
 #endif // NDEBUG
      
 //! Run any code if the scope matches.
 #ifndef NDEBUG
-#define CLUTCHCODE( LEVEL, ... ) { \
-    auto& clutchlog__logger = clutchlog::logger(); \
-    clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
-    if(clutchlog__scope.matches) { \
-        __VA_ARGS__ \
-    } \
-}
-#else // not Debug build.
-#define CLUTCHCODE( LEVEL, CODE ) { \
-    if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) { \
-        auto& clutchlog__logger = clutchlog::logger(); \
+    #define CLUTCHCODE( LEVEL, ... ) do {                                                                   \
+        auto& clutchlog__logger = clutchlog::logger();                                                      \
         clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
-        if(clutchlog__scope.matches) { \
-            CODE \
-        } \
-    } \
-}
+        if(clutchlog__scope.matches) {                                                                      \
+            __VA_ARGS__                                                                                     \
+        }                                                                                                   \
+    } while(0)
+#else // not Debug build.
+    #define CLUTCHCODE( LEVEL, CODE ) do {                                                                      \
+        if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) {                                  \
+            auto& clutchlog__logger = clutchlog::logger();                                                      \
+            clutchlog::scope_t clutchlog__scope = clutchlog__logger.locate(clutchlog::level::LEVEL, CLUTCHLOC); \
+            if(clutchlog__scope.matches) {                                                                      \
+                CODE                                                                                            \
+            }                                                                                                   \
+        }                                                                                                       \
+    } while(0)
 #endif // NDEBUG
 
 /** @} */
 
 #else // not WITH_CLUTCHLOG
-// Disabled macros can still be called in Release builds.
-#define CLUTCHLOG(  LEVEL, WHAT ) { do {/*nothing*/} while(false); }
-#define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) { do {/*nothing*/} while(false); }
-#define CLUTCHFUNC( LEVEL, FUNC, ... ) { do {/*nothing*/} while(false); }
-#define CLUTCHCODE( LEVEL, CODE ) { do {/*nothing*/} while(false); }
+    // Disabled macros can still be called in Release builds.
+    #define CLUTCHLOG(  LEVEL, WHAT )                do {/*nothing*/} while(0)
+    #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) do {/*nothing*/} while(0)
+    #define CLUTCHFUNC( LEVEL, FUNC, ... )           do {/*nothing*/} while(0)
+    #define CLUTCHCODE( LEVEL, CODE )                do {/*nothing*/} while(0)
 #endif // WITH_CLUTCHLOG
 
 /**********************************************************************
@@ -195,6 +163,50 @@ namespace fs = std::filesystem;
  */
 class clutchlog
 {
+    protected:
+
+    /** @addtogroup UseMacros High-level API macros
+     * @{ */
+        #ifndef CLUTCHLOG_DEFAULT_FORMAT
+            //! Default format of the messages.
+            #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+            #else
+                #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+            #endif
+        #endif // CLUTCHLOG_DEFAULT_FORMAT
+        static inline std::string default_format = CLUTCHLOG_DEFAULT_FORMAT;
+
+        #ifndef CLUTCHDUMP_DEFAULT_FORMAT
+            //! Default format of the comment line in file dump.
+            #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                #define CLUTCHDUMP_DEFAULT_FORMAT "# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"
+            #else
+                #define CLUTCHDUMP_DEFAULT_FORMAT "# {level} in {func} @ {file}:{line}"
+            #endif
+        #endif // CLUTCHDUMP_DEFAULT_FORMAT
+        static inline std::string dump_default_format = CLUTCHDUMP_DEFAULT_FORMAT;
+
+        #ifndef CLUTCHDUMP_DEFAULT_SEP
+            //! Default item separator for dump.
+            #define CLUTCHDUMP_DEFAULT_SEP "\n"
+        #endif // CLUTCHDUMP_DEFAULT_SEP
+        static inline std::string dump_default_sep = CLUTCHDUMP_DEFAULT_SEP;
+
+        #ifndef CLUTCHLOG_DEFAULT_DEPTH_MARK
+            //! Default mark for stack depth.
+            #define CLUTCHLOG_DEFAULT_DEPTH_MARK ">"
+        #endif // CLUTCHLOG_DEFAULT_DEPTH_MARK
+        static inline std::string default_depth_mark = CLUTCHLOG_DEFAULT_DEPTH_MARK;
+
+        #ifndef CLUTCHLOG_STRIP_CALLS
+            //! Number of call stack levels to remove from depth display by default.
+            #define CLUTCHLOG_STRIP_CALLS 5
+        #endif // CLUTCHLOG_STRIP_CALLS
+        static inline unsigned int strip_calls = CLUTCHLOG_STRIP_CALLS;
+    /* @} */
+
+
     public:
         /** @name High-level API
          * @{ */
@@ -347,7 +359,7 @@ class clutchlog
     private:
         clutchlog() :
             // system, main, log
-            _strip_calls(CLUTCHLOG_STRIP_CALLS),
+            _strip_calls(clutchlog::strip_calls),
             _level_word({
                 {level::critical,"Critical"},
                 {level::error   ,"Error"},
@@ -368,12 +380,12 @@ class clutchlog
                 {level::debug   ,fmt()},
                 {level::xdebug  ,fmt()}
             }),
-            _format_log(CLUTCHLOG_DEFAULT_FORMAT),
-            _format_dump(CLUTCHDUMP_DEFAULT_FORMAT),
+            _format_log(clutchlog::default_format),
+            _format_dump(clutchlog::dump_default_format),
             _out(&std::clog),
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
             _depth(std::numeric_limits<size_t>::max() - _strip_calls),
-            _depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK),
+            _depth_mark(clutchlog::default_depth_mark),
 #endif
             _stage(level::error),
             _in_file(".*"),
@@ -710,8 +722,8 @@ class clutchlog
                 const level& stage,
                 const In container_begin, const In container_end,
                 const std::string& file, const std::string& func, size_t line,
-                const std::string& filename_template="dump_{n}.dat",
-                const std::string sep=CLUTCHDUMP_DEFAULT_SEP
+                const std::string& filename_template = "dump_{n}.dat",
+                const std::string sep = dump_default_sep
             ) const
         {
             scope_t scope = locate(stage, file, func, line);

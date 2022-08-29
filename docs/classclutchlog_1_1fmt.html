@@ -74,7 +74,7 @@ $(function() {
 <a href="#friends">Friends</a> &#124;
 <a href="classclutchlog_1_1fmt-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">clutchlog::fmt Class Reference<div class="ingroups"><a class="el" href="group__Formating.html">Formating tools</a></div></div>  </div>
+<div class="title">clutchlog::fmt Class Reference<div class="ingroups"><a class="el" href="group__UseMacros.html">High-level API macros</a> &raquo; <a class="el" href="group__Formating.html">Formating tools</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,7 +85,7 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a4662a3ec3577c6a575a2c734636ed8a0"><td class="memItemLeft" align="right" valign="top"><a id="a4662a3ec3577c6a575a2c734636ed8a0"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0">fg</a> { <br />
+<tr class="memitem:ga4662a3ec3577c6a575a2c734636ed8a0"><td class="memItemLeft" align="right" valign="top"><a id="ga4662a3ec3577c6a575a2c734636ed8a0"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">fg</a> { <br />
 &#160;&#160;<b>black</b> = 30, 
 <b>red</b> = 31, 
 <b>green</b> = 32, 
@@ -99,9 +99,9 @@ Public Types</h2></td></tr>
 &#160;&#160;<b>none</b>
 <br />
  }</td></tr>
-<tr class="memdesc:a4662a3ec3577c6a575a2c734636ed8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Foreground color codes. <br /></td></tr>
-<tr class="separator:a4662a3ec3577c6a575a2c734636ed8a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cf3e27e4041250ffea0a6d58010da1e"><td class="memItemLeft" align="right" valign="top"><a id="a1cf3e27e4041250ffea0a6d58010da1e"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog_1_1fmt.html#a1cf3e27e4041250ffea0a6d58010da1e">bg</a> { <br />
+<tr class="memdesc:ga4662a3ec3577c6a575a2c734636ed8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Foreground color codes. <br /></td></tr>
+<tr class="separator:ga4662a3ec3577c6a575a2c734636ed8a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1cf3e27e4041250ffea0a6d58010da1e"><td class="memItemLeft" align="right" valign="top"><a id="ga1cf3e27e4041250ffea0a6d58010da1e"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">bg</a> { <br />
 &#160;&#160;<b>black</b> = 40, 
 <b>red</b> = 41, 
 <b>green</b> = 42, 
@@ -115,9 +115,9 @@ Public Types</h2></td></tr>
 &#160;&#160;<b>none</b>
 <br />
  }</td></tr>
-<tr class="memdesc:a1cf3e27e4041250ffea0a6d58010da1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Background color codes. <br /></td></tr>
-<tr class="separator:a1cf3e27e4041250ffea0a6d58010da1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a932f47b78fb7b10590d5613a1c4eab89"><td class="memItemLeft" align="right" valign="top"><a id="a932f47b78fb7b10590d5613a1c4eab89"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">typo</a> { <br />
+<tr class="memdesc:ga1cf3e27e4041250ffea0a6d58010da1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Background color codes. <br /></td></tr>
+<tr class="separator:ga1cf3e27e4041250ffea0a6d58010da1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga932f47b78fb7b10590d5613a1c4eab89"><td class="memItemLeft" align="right" valign="top"><a id="ga932f47b78fb7b10590d5613a1c4eab89"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">typo</a> { <br />
 &#160;&#160;<b>reset</b> = 0, 
 <b>bold</b> = 1, 
 <b>underline</b> = 4, 
@@ -126,146 +126,70 @@ Public Types</h2></td></tr>
 &#160;&#160;<b>none</b>
 <br />
  }</td></tr>
-<tr class="memdesc:a932f47b78fb7b10590d5613a1c4eab89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typographic style codes. <br /></td></tr>
-<tr class="separator:a932f47b78fb7b10590d5613a1c4eab89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:ga932f47b78fb7b10590d5613a1c4eab89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typographic style codes. <br /></td></tr>
+<tr class="separator:ga932f47b78fb7b10590d5613a1c4eab89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a407506bc02ed3f91d88b3df630e54959"><td class="memItemLeft" align="right" valign="top"><a id="a407506bc02ed3f91d88b3df630e54959"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog_1_1fmt.html#a407506bc02ed3f91d88b3df630e54959">fmt</a> ()</td></tr>
-<tr class="memdesc:a407506bc02ed3f91d88b3df630e54959"><td class="mdescLeft">&#160;</td><td class="mdescRight">&#160;Empty constructor, only useful for a no-op formatter. <br /></td></tr>
-<tr class="separator:a407506bc02ed3f91d88b3df630e54959"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afeaedd18298498d1dcfcc15f5f17ac3c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog_1_1fmt.html#afeaedd18298498d1dcfcc15f5f17ac3c">operator()</a> (const std::string &amp;msg) const</td></tr>
-<tr class="memdesc:afeaedd18298498d1dcfcc15f5f17ac3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format the given string with the currently encoded format.  <a href="classclutchlog_1_1fmt.html#afeaedd18298498d1dcfcc15f5f17ac3c">More...</a><br /></td></tr>
-<tr class="separator:afeaedd18298498d1dcfcc15f5f17ac3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga407506bc02ed3f91d88b3df630e54959"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga407506bc02ed3f91d88b3df630e54959">fmt</a> ()</td></tr>
+<tr class="memdesc:ga407506bc02ed3f91d88b3df630e54959"><td class="mdescLeft">&#160;</td><td class="mdescRight">&#160;Empty constructor, only useful for a no-op formatter. <br /></td></tr>
+<tr class="separator:ga407506bc02ed3f91d88b3df630e54959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafeaedd18298498d1dcfcc15f5f17ac3c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gafeaedd18298498d1dcfcc15f5f17ac3c">operator()</a> (const std::string &amp;msg) const</td></tr>
+<tr class="memdesc:gafeaedd18298498d1dcfcc15f5f17ac3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format the given string with the currently encoded format.  <a href="group__UseMacros.html#gafeaedd18298498d1dcfcc15f5f17ac3c">More...</a><br /></td></tr>
+<tr class="separator:gafeaedd18298498d1dcfcc15f5f17ac3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">All combination of constructors with different parameters orders.</div></td></tr>
-<tr class="memitem:a6cc6126d113fc0647ed3acbf29cdc425"><td class="memItemLeft" align="right" valign="top"><a id="a6cc6126d113fc0647ed3acbf29cdc425"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0">fg</a> f, <a class="el" href="classclutchlog_1_1fmt.html#a1cf3e27e4041250ffea0a6d58010da1e">bg</a> b=bg::none, <a class="el" href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">typo</a> s=typo::none)</td></tr>
-<tr class="separator:a6cc6126d113fc0647ed3acbf29cdc425"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac69e6d3b7ddaec908c429ac61f354267"><td class="memItemLeft" align="right" valign="top"><a id="ac69e6d3b7ddaec908c429ac61f354267"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0">fg</a> f, <a class="el" href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">typo</a> s, <a class="el" href="classclutchlog_1_1fmt.html#a1cf3e27e4041250ffea0a6d58010da1e">bg</a> b=bg::none)</td></tr>
-<tr class="separator:ac69e6d3b7ddaec908c429ac61f354267"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13453c0b5dbc19d9b510dcdc0352b443"><td class="memItemLeft" align="right" valign="top"><a id="a13453c0b5dbc19d9b510dcdc0352b443"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="classclutchlog_1_1fmt.html#a1cf3e27e4041250ffea0a6d58010da1e">bg</a> b, <a class="el" href="classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0">fg</a> f=fg::none, <a class="el" href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">typo</a> s=typo::none)</td></tr>
-<tr class="separator:a13453c0b5dbc19d9b510dcdc0352b443"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65856874070ec0865b3a5b9aeb0e4f3d"><td class="memItemLeft" align="right" valign="top"><a id="a65856874070ec0865b3a5b9aeb0e4f3d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="classclutchlog_1_1fmt.html#a1cf3e27e4041250ffea0a6d58010da1e">bg</a> b, <a class="el" href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">typo</a> s, <a class="el" href="classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0">fg</a> f=fg::none)</td></tr>
-<tr class="separator:a65856874070ec0865b3a5b9aeb0e4f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99b3a05ddf6fa341cee6cb1e5dffc159"><td class="memItemLeft" align="right" valign="top"><a id="a99b3a05ddf6fa341cee6cb1e5dffc159"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">typo</a> s, <a class="el" href="classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0">fg</a> f=fg::none, <a class="el" href="classclutchlog_1_1fmt.html#a1cf3e27e4041250ffea0a6d58010da1e">bg</a> b=bg::none)</td></tr>
-<tr class="separator:a99b3a05ddf6fa341cee6cb1e5dffc159"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeea73b0239bf73ebc8ee84c1e6d278e2"><td class="memItemLeft" align="right" valign="top"><a id="aeea73b0239bf73ebc8ee84c1e6d278e2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">typo</a> s, <a class="el" href="classclutchlog_1_1fmt.html#a1cf3e27e4041250ffea0a6d58010da1e">bg</a> b, <a class="el" href="classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0">fg</a> f=fg::none)</td></tr>
-<tr class="separator:aeea73b0239bf73ebc8ee84c1e6d278e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6cc6126d113fc0647ed3acbf29cdc425"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">fg</a> f, <a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">bg</a> b=bg::none, <a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">typo</a> s=typo::none)</td></tr>
+<tr class="separator:ga6cc6126d113fc0647ed3acbf29cdc425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac69e6d3b7ddaec908c429ac61f354267"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">fg</a> f, <a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">typo</a> s, <a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">bg</a> b=bg::none)</td></tr>
+<tr class="separator:gac69e6d3b7ddaec908c429ac61f354267"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13453c0b5dbc19d9b510dcdc0352b443"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">bg</a> b, <a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">fg</a> f=fg::none, <a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">typo</a> s=typo::none)</td></tr>
+<tr class="separator:ga13453c0b5dbc19d9b510dcdc0352b443"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65856874070ec0865b3a5b9aeb0e4f3d"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">bg</a> b, <a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">typo</a> s, <a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">fg</a> f=fg::none)</td></tr>
+<tr class="separator:ga65856874070ec0865b3a5b9aeb0e4f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99b3a05ddf6fa341cee6cb1e5dffc159"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">typo</a> s, <a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">fg</a> f=fg::none, <a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">bg</a> b=bg::none)</td></tr>
+<tr class="separator:ga99b3a05ddf6fa341cee6cb1e5dffc159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeea73b0239bf73ebc8ee84c1e6d278e2"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>fmt</b> (<a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">typo</a> s, <a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">bg</a> b, <a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">fg</a> f=fg::none)</td></tr>
+<tr class="separator:gaeea73b0239bf73ebc8ee84c1e6d278e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a8307a848fcf9ed929435b3e1f2b53401"><td class="memItemLeft" align="right" valign="top"><a id="a8307a848fcf9ed929435b3e1f2b53401"></a>
-enum <a class="el" href="classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0">clutchlog::fmt::fg</a>&#160;</td><td class="memItemRight" valign="bottom"><b>fore</b></td></tr>
-<tr class="separator:a8307a848fcf9ed929435b3e1f2b53401"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86696b20e5b31c96ba592926efb324f3"><td class="memItemLeft" align="right" valign="top"><a id="a86696b20e5b31c96ba592926efb324f3"></a>
-enum <a class="el" href="classclutchlog_1_1fmt.html#a1cf3e27e4041250ffea0a6d58010da1e">clutchlog::fmt::bg</a>&#160;</td><td class="memItemRight" valign="bottom"><b>back</b></td></tr>
-<tr class="separator:a86696b20e5b31c96ba592926efb324f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bb0fde65fcd264393e102314dd1610b"><td class="memItemLeft" align="right" valign="top"><a id="a2bb0fde65fcd264393e102314dd1610b"></a>
-enum <a class="el" href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">clutchlog::fmt::typo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>style</b></td></tr>
-<tr class="separator:a2bb0fde65fcd264393e102314dd1610b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8307a848fcf9ed929435b3e1f2b53401"><td class="memItemLeft" align="right" valign="top">
+enum <a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0">clutchlog::fmt::fg</a>&#160;</td><td class="memItemRight" valign="bottom"><b>fore</b></td></tr>
+<tr class="separator:ga8307a848fcf9ed929435b3e1f2b53401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86696b20e5b31c96ba592926efb324f3"><td class="memItemLeft" align="right" valign="top">
+enum <a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e">clutchlog::fmt::bg</a>&#160;</td><td class="memItemRight" valign="bottom"><b>back</b></td></tr>
+<tr class="separator:ga86696b20e5b31c96ba592926efb324f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2bb0fde65fcd264393e102314dd1610b"><td class="memItemLeft" align="right" valign="top">
+enum <a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89">clutchlog::fmt::typo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>style</b></td></tr>
+<tr class="separator:ga2bb0fde65fcd264393e102314dd1610b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a0b607e343b6813b99eafca1fdfec9cd0"><td class="memItemLeft" align="right" valign="top"><a id="a0b607e343b6813b99eafca1fdfec9cd0"></a>
-std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog_1_1fmt.html#a0b607e343b6813b99eafca1fdfec9cd0">print_on</a> (std::ostream &amp;os) const</td></tr>
-<tr class="memdesc:a0b607e343b6813b99eafca1fdfec9cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the currently encoded format escape code on the given output stream. <br /></td></tr>
-<tr class="separator:a0b607e343b6813b99eafca1fdfec9cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0b607e343b6813b99eafca1fdfec9cd0"><td class="memItemLeft" align="right" valign="top">
+std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga0b607e343b6813b99eafca1fdfec9cd0">print_on</a> (std::ostream &amp;os) const</td></tr>
+<tr class="memdesc:ga0b607e343b6813b99eafca1fdfec9cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the currently encoded format escape code on the given output stream. <br /></td></tr>
+<tr class="separator:ga0b607e343b6813b99eafca1fdfec9cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a96849ba427feac3a2eeaa1165e3845da"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog_1_1fmt.html#a96849ba427feac3a2eeaa1165e3845da">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &amp;<a class="el" href="classclutchlog_1_1fmt.html">fmt</a>)</td></tr>
-<tr class="memdesc:a96849ba427feac3a2eeaa1165e3845da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output stream overload.  <a href="classclutchlog_1_1fmt.html#a96849ba427feac3a2eeaa1165e3845da">More...</a><br /></td></tr>
-<tr class="separator:a96849ba427feac3a2eeaa1165e3845da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96849ba427feac3a2eeaa1165e3845da"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga96849ba427feac3a2eeaa1165e3845da">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &amp;<a class="el" href="classclutchlog_1_1fmt.html">fmt</a>)</td></tr>
+<tr class="memdesc:ga96849ba427feac3a2eeaa1165e3845da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output stream overload.  <a href="group__UseMacros.html#ga96849ba427feac3a2eeaa1165e3845da">More...</a><br /></td></tr>
+<tr class="separator:ga96849ba427feac3a2eeaa1165e3845da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Color and style formatter for ANSI terminal escape sequences. </p>
 <dl class="section note"><dt>Note</dt><dd>All styles may not be supported by a given terminal/operating system. </dd></dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="afeaedd18298498d1dcfcc15f5f17ac3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afeaedd18298498d1dcfcc15f5f17ac3c">&#9670;&nbsp;</a></span>operator()()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string clutchlog::fmt::operator() </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>msg</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Format the given string with the currently encoded format. </p>
-<p>Allow to use a formatter as a function: </p><div class="fragment"><div class="line"><a class="code" href="classclutchlog_1_1fmt.html">clutchlog::fmt</a> error(clutchlog::fmt::fg::red, clutchlog::fmt::typo::bold);</div>
-<div class="line">std::cout &lt;&lt; error(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; std::endl;</div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>A formatter called this way WILL output a reset escape code at the end. </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a96849ba427feac3a2eeaa1165e3845da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96849ba427feac3a2eeaa1165e3845da">&#9670;&nbsp;</a></span>operator&lt;&lt;</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &amp;&#160;</td>
-          <td class="paramname"><em>fmt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Output stream overload. </p>
-<p>Allow to use a formatter as a tag within a stream: </p><div class="fragment"><div class="line"><a class="code" href="classclutchlog_1_1fmt.html">clutchlog::fmt</a> end(clutchlog::fmt::typo::reset);</div>
-<div class="line"><a class="code" href="classclutchlog_1_1fmt.html">clutchlog::fmt</a> error(clutchlog::fmt::fg::red, clutchlog::fmt::typo::bold);</div>
-<div class="line">std::cout &lt;&lt; error &lt;&lt; <span class="stringliteral">&quot;ERROR&quot;</span> &lt;&lt; end &lt;&lt; std::endl;</div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>An formatter called this way will NOT output a reset escape code. </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>clutchlog/<a class="el" href="clutchlog_8h_source.html">clutchlog.h</a></li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:229</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

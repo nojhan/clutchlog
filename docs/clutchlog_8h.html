@@ -126,30 +126,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clutchlog_8h.html#a5c126962abcc7a40e504a6fc3abdfcc4">WITH_CLUTCHLOG</a></td></tr>
 <tr class="memdesc:a5c126962abcc7a40e504a6fc3abdfcc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actually enable clutchlog features. <br /></td></tr>
 <tr class="separator:a5c126962abcc7a40e504a6fc3abdfcc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga524c16f280d92ee8ab683162c9ce01fa"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DefaultConfigMacros.html#ga524c16f280d92ee8ab683162c9ce01fa">CLUTCHLOG_DEFAULT_FORMAT</a>&#160;&#160;&#160;&quot;{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n&quot;</td></tr>
-<tr class="memdesc:ga524c16f280d92ee8ab683162c9ce01fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format of the messages. <br /></td></tr>
-<tr class="separator:ga524c16f280d92ee8ab683162c9ce01fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga27b613c6727857a7cbcd0165d862034e"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DefaultConfigMacros.html#ga27b613c6727857a7cbcd0165d862034e">CLUTCHDUMP_DEFAULT_FORMAT</a>&#160;&#160;&#160;&quot;# {level} in {func} @ {file}:{line}&quot;</td></tr>
-<tr class="memdesc:ga27b613c6727857a7cbcd0165d862034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format of the comment line in file dump. <br /></td></tr>
-<tr class="separator:ga27b613c6727857a7cbcd0165d862034e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga54d29e956575e1c731eab5406135c5df"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DefaultConfigMacros.html#ga54d29e956575e1c731eab5406135c5df">CLUTCHDUMP_DEFAULT_SEP</a>&#160;&#160;&#160;&quot;\n&quot;</td></tr>
-<tr class="memdesc:ga54d29e956575e1c731eab5406135c5df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default item separator for dump. <br /></td></tr>
-<tr class="separator:ga54d29e956575e1c731eab5406135c5df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DefaultConfigMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a>&#160;&#160;&#160;&quot;&gt;&quot;</td></tr>
-<tr class="memdesc:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mark for stack depth. <br /></td></tr>
-<tr class="separator:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8564be479b948ee3052b61783c66d415"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DefaultConfigMacros.html#ga8564be479b948ee3052b61783c66d415">CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG</a>&#160;&#160;&#160;clutchlog::level::progress</td></tr>
 <tr class="memdesc:ga8564be479b948ee3052b61783c66d415"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default level over which calls to the logger are optimized out when NDEBUG is defined. <br /></td></tr>
 <tr class="separator:ga8564be479b948ee3052b61783c66d415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga98f30d814d4913a8a7c93a8793f49adf"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DefaultConfigMacros.html#ga98f30d814d4913a8a7c93a8793f49adf">CLUTCHLOG_STRIP_CALLS</a>&#160;&#160;&#160;5</td></tr>
-<tr class="memdesc:ga98f30d814d4913a8a7c93a8793f49adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of call stack levels to remove from depth display by default. <br /></td></tr>
-<tr class="separator:ga98f30d814d4913a8a7c93a8793f49adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae8911119d726a43b77f5781cb5a72813"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>&#160;&#160;&#160;__FILE__, __FUNCTION__, __LINE__</td></tr>
 <tr class="memdesc:gae8911119d726a43b77f5781cb5a72813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handy shortcuts to location. <br /></td></tr>
@@ -166,6 +146,26 @@ Macros</h2></td></tr>
 <tr class="memitem:gaaf2e85e1153e6c88b458dd49e3c37c73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gaaf2e85e1153e6c88b458dd49e3c37c73">CLUTCHCODE</a>(LEVEL, ...)</td></tr>
 <tr class="memdesc:gaaf2e85e1153e6c88b458dd49e3c37c73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run any code if the scope matches.  <a href="group__UseMacros.html#gaaf2e85e1153e6c88b458dd49e3c37c73">More...</a><br /></td></tr>
 <tr class="separator:gaaf2e85e1153e6c88b458dd49e3c37c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga524c16f280d92ee8ab683162c9ce01fa"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga524c16f280d92ee8ab683162c9ce01fa">CLUTCHLOG_DEFAULT_FORMAT</a>&#160;&#160;&#160;&quot;{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n&quot;</td></tr>
+<tr class="memdesc:ga524c16f280d92ee8ab683162c9ce01fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format of the messages. <br /></td></tr>
+<tr class="separator:ga524c16f280d92ee8ab683162c9ce01fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27b613c6727857a7cbcd0165d862034e"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga27b613c6727857a7cbcd0165d862034e">CLUTCHDUMP_DEFAULT_FORMAT</a>&#160;&#160;&#160;&quot;# {level} in {func} @ {file}:{line}&quot;</td></tr>
+<tr class="memdesc:ga27b613c6727857a7cbcd0165d862034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default format of the comment line in file dump. <br /></td></tr>
+<tr class="separator:ga27b613c6727857a7cbcd0165d862034e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga54d29e956575e1c731eab5406135c5df"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga54d29e956575e1c731eab5406135c5df">CLUTCHDUMP_DEFAULT_SEP</a>&#160;&#160;&#160;&quot;\n&quot;</td></tr>
+<tr class="memdesc:ga54d29e956575e1c731eab5406135c5df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default item separator for dump. <br /></td></tr>
+<tr class="separator:ga54d29e956575e1c731eab5406135c5df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a>&#160;&#160;&#160;&quot;&gt;&quot;</td></tr>
+<tr class="memdesc:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default mark for stack depth. <br /></td></tr>
+<tr class="separator:ga45c4c964fad4ad1641d5c9c28c4645b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga98f30d814d4913a8a7c93a8793f49adf"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga98f30d814d4913a8a7c93a8793f49adf">CLUTCHLOG_STRIP_CALLS</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:ga98f30d814d4913a8a7c93a8793f49adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of call stack levels to remove from depth display by default. <br /></td></tr>
+<tr class="separator:ga98f30d814d4913a8a7c93a8793f49adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
