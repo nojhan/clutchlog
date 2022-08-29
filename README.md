@@ -40,7 +40,7 @@ To configure the display, you indicate the three types of locations, for example
 ```cpp
     auto& log = clutchlog::logger();
     log.depth(2);                          // Log functions called from "main" but not below.
-    log.threshold(clutchlog::level::info); // Log only "info", "warning", "error" or "critical" messages.
+    log.threshold("Info"); // Log only "info", "warning", "error" or "critical" messages.
     log.file("algebra/.*");                // Will match any file in the "algebra" directory.
     log.func("(mul|add|sub|div)");         // Will match "multiply", for instance.
 ```
@@ -71,6 +71,24 @@ allowing for the fast tracking of a bug across the execution.
 
 API documentation
 =================
+
+
+Log level semantics
+-------------------
+
+Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:
+
+- *Critical*: an error that cannot be recovered. For instance, something which will make a server stop right here.
+- *Error*: an error that invalidates a function, but may still be recovered. For example, a bad user input that will make a server reset its state, but not crash.
+- *Warning*: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.
+- *Progress*: the state at which computation currently is.
+- *Note*: some state worth noting to understand what's going on.
+- *Info*: any information that would help ensuring that everything is going well.
+- *Debug*: data that would help debugging the program if there was a bug later on.
+- *XDebug*: debugging information that would be heavy to read.
+
+Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `threshold` or `level_of`).
+
 
 Calls
 -----
@@ -135,9 +153,9 @@ A shortcut function can be used to filter all at once:
 log.location(file, func, line); // Defaults to any, second and last parameters being optional.
 ```
 
-Strings may be used to set up the threshold, using `level_of`:
+Strings may be used to set up the threshold:
 ```cpp
-log.threshold( log.level_of("XDebug") ); // You have to know the exact string.
+log.threshold("Error"); // You have to know the exact —case sensitive— string.
 ```
 Note that the case of the log levels strings matters (see below).
 
@@ -305,6 +323,11 @@ log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), CLUTCHLOC, "dumped_
 log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), "main.cpp", "main", 122, "dumped.dat", "\n\n");
 ```
 
+You can access the identifier of log levels with `level_of`:
+```cpp
+log.threshold( log.level_of("XDebug") ); // You have to know the exact string.
+```
+
 
 (De)clutch any function call
 ----------------------------
@@ -331,22 +354,6 @@ CLUTCHCODE(info,
     std::clog << "We are clutched!\n";
 );
 ```
-
-Log level semantics
-===================
-
-Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:
-
-- *Critical*: an error that cannot be recovered. For instance, something which will make a server stop right here.
-- *Error*: an error that invalidates a function, but may still be recovered. For example, a bad user input that will make a server reset its state, but not crash.
-- *Warning*: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.
-- *Progress*: the state at which computation currently is.
-- *Note*: some state worth noting to understand what's going on.
-- *Info*: any information that would help ensuring that everything is going well.
-- *Debug*: data that would help debugging the program if there was a bug later on.
-- *XDebug*: debugging information that would be heavy to read.
-
-Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `level_of`).
 
 
 Limitations

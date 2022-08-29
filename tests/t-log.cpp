@@ -38,7 +38,9 @@ int main(/*const int argc, char* argv[]*/)
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
     log.depth(4);
 #endif
-    log.threshold(clutchlog::level::xdebug);
+    assert(log.levels().find("XDebug") != std::end(log.levels())); // contains
+    assert(log.levels().find("Xdebug") == std::end(log.levels())); // not contains
+    log.threshold("XDebug");
     log.location(".*");
     f();
 
@@ -62,7 +64,7 @@ int main(/*const int argc, char* argv[]*/)
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
     log.depth(99);
 #endif
-    log.threshold(clutchlog::level::debug);
+    log.threshold("Debug");
     log.location(".*","(g|h)");
     f();
 }

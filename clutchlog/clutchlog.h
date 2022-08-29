@@ -282,16 +282,16 @@ class clutchlog
                 } /** Typographic style*/  style;
 
                 //! Empty constructor, only useful for a no-op formatter.
-                fmt() : fore(fg::none), back(bg::none), style(typo::none) { }
+                fmt() : fore(fg::none), back(bg::none), style(typo::none) {}
 
                 /** @name All combination of constructors with different parameters orders.
                  * @{ */
-                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
-                fmt(  fg f, typo s           ,   bg b =   bg::none) : fore(f), back(b), style(s) { }
-                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
-                fmt(  bg b, typo s           ,   fg f =   fg::none) : fore(f), back(b), style(s) { }
-                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : fore(f), back(b), style(s) { }
-                fmt(typo s,   bg b           ,   fg f =   fg::none) : fore(f), back(b), style(s) { }
+                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : fore(f), back(b), style(s) {}
+                fmt(  fg f, typo s           ,   bg b =   bg::none) : fore(f), back(b), style(s) {}
+                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : fore(f), back(b), style(s) {}
+                fmt(  bg b, typo s           ,   fg f =   fg::none) : fore(f), back(b), style(s) {}
+                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : fore(f), back(b), style(s) {}
+                fmt(typo s,   bg b           ,   fg f =   fg::none) : fore(f), back(b), style(s) {}
                 /** @} */
 
             protected:
@@ -472,10 +472,28 @@ class clutchlog
         std::string depth_mark() const {return _depth_mark;}
 #endif
 
-        //! Set the log level below which logs are not printed.
+        //! Set the log level (below which logs are not printed) with an identifier.
         void  threshold(level l) {_stage = l;}
+        //! Set the log level (below which logs are not printed) with a string.
+        void  threshold(const std::string& l) {_stage = this->level_of(l);}
         //! Get the log level below which logs are not printed.
         level threshold() const {return _stage;}
+        //! Get the map of available log levels string representations toward their identifier. */
+        const std::map<std::string,level>& levels() const { return _word_level;}
+
+        /** Return the log level tag corresponding to the given pre-configured name.
+         *
+         * @note This is case sensitive, see the pre-configured `_level_word`.
+         */
+        level level_of(const std::string name)
+        {
+            const auto ilevel = _word_level.find(name);
+            if( ilevel != std::end(_word_level)) {
+                return ilevel->second;
+            } else {
+                throw std::out_of_range("'" + name + "' is not a valid log level name");
+            }
+        }
 
         //! Set the regular expression filtering the file location.
         void file(std::string file) {_in_file = file;}
@@ -506,20 +524,6 @@ class clutchlog
         void style(level stage, fmt style) { _level_fmt.at(stage) = style; }
         //! Get the configured fmt instance of the given log level.
         fmt  style(level stage) const { return _level_fmt.at(stage); }
-
-        /** Return the log level tag corresponding to the given pre-configured name.
-         *
-         * @note This is case sensitive, see the pre-configured `_level_word`.
-         */
-        level level_of(const std::string name)
-        {
-            const auto ilevel = _word_level.find(name);
-            if( ilevel != std::end(_word_level)) {
-                return ilevel->second;
-            } else {
-                throw std::out_of_range("'" + name + "' is not a valid log level name");
-            }
-        }
 
         /** @} */
 
@@ -815,25 +819,25 @@ class clutchlog
 class clutchlog
 {
     public:
-        static clutchlog& logger() { }
+        static clutchlog& logger() {}
         enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
         class fmt {
             public:
                 enum class fg { black, red, green, yellow, blue, magenta, cyan, white, none } fore;
                 enum class bg { black, red, green, yellow, blue, magenta, cyan, white, none } back;
                 enum class typo { reset, bold, underline, inverse, none } style;
-                fmt() : fore(fg::none), back(bg::none), style(typo::none) { }
-                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
-                fmt(  fg f, typo s           ,   bg b =   bg::none) : fore(f), back(b), style(s) { }
-                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : fore(f), back(b), style(s) { }
-                fmt(  bg b, typo s           ,   fg f =   fg::none) : fore(f), back(b), style(s) { }
-                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : fore(f), back(b), style(s) { }
-                fmt(typo s,   bg b           ,   fg f =   fg::none) : fore(f), back(b), style(s) { }
+                fmt() : fore(fg::none), back(bg::none), style(typo::none) {}
+                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : fore(f), back(b), style(s) {}
+                fmt(  fg f, typo s           ,   bg b =   bg::none) : fore(f), back(b), style(s) {}
+                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : fore(f), back(b), style(s) {}
+                fmt(  bg b, typo s           ,   fg f =   fg::none) : fore(f), back(b), style(s) {}
+                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : fore(f), back(b), style(s) {}
+                fmt(typo s,   bg b           ,   fg f =   fg::none) : fore(f), back(b), style(s) {}
             protected:
-                std::ostream& print_on(std::ostream&) const { }
+                std::ostream& print_on(std::ostream&) const {}
             public:
-                friend std::ostream& operator<<(std::ostream&, const fmt&) { }
-                std::string operator()(const std::string&) const { }
+                friend std::ostream& operator<<(std::ostream&, const fmt&) {}
+                std::string operator()(const std::string&) const {}
         };
     public:
         clutchlog(clutchlog const&)      = delete;
@@ -848,7 +852,7 @@ class clutchlog
                 const std::string&,
                 const size_t
             ) const
-        { }
+        {}
     public:
         void format(const std::string&) {}
         std::string format() const {}
@@ -868,7 +872,10 @@ class clutchlog
 #endif
 
         void  threshold(level) {}
+        void  threshold(const std::string&) {}
         level threshold() const {}
+        const std::map<std::string,level> levels() const {};
+        level level_of(const std::string) {}
 
         void file(std::string) {}
         void func(std::string) {}
@@ -881,25 +888,24 @@ class clutchlog
                 const std::string& in_function=".*",
                 const std::string& in_line=".*"
             )
-        { }
+        {}
 #pragma GCC diagnostic pop
-        void style(level, fmt) { }
-        fmt style(level) const { }
-        level level_of(const std::string) { }
+        void style(level, fmt) {}
+        fmt style(level) const {}
     public:
         std::string replace(
                 const std::string&,
                 const std::string&,
                 const std::string&
             ) const
-        { }
+        {}
 
         std::string replace(
                 const std::string&,
                 const std::string&,
                 const size_t
             ) const
-        { }
+        {}
 
         std::string format(
                 std::string,
@@ -916,14 +922,14 @@ class clutchlog
                 const size_t
 #endif
             ) const
-        { }
+        {}
 
         void log(
                 const level&,
                 const std::string&,
                 const std::string&, const std::string&, size_t
             ) const
-        { }
+        {}
 
         template<class In>
         void dump(
@@ -933,7 +939,7 @@ class clutchlog
                 const std::string&,
                 const std::string
             ) const
-        { }
+        {}
 };
 #pragma GCC diagnostic pop
 #endif // WITH_CLUTCHLOG
