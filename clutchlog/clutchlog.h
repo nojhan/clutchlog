@@ -168,14 +168,25 @@ class clutchlog
 
     /** @addtogroup UseMacros High-level API macros
      * @{ */
-        #ifndef CLUTCHLOG_DEFAULT_FORMAT
-            //! Compile-time default format of the messages.
-            #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-                #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
-            #else
-                #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+        #ifndef NDEBUG
+            #ifndef CLUTCHLOG_DEFAULT_FORMAT
+                //! Compile-time default format of the messages (debug mode: with absolute location).
+                #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                    #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+                #else
+                    #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+                #endif
             #endif
-        #endif // CLUTCHLOG_DEFAULT_FORMAT
+        #else
+            #ifndef CLUTCHLOG_DEFAULT_FORMAT
+                //! Compile-time default format of the messages (debug mode: with absolute location).
+                #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                    #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\n"
+                #else
+                    #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\n"
+                #endif
+            #endif
+        #endif
         //! Default format of the messages.
         static inline std::string default_format = CLUTCHLOG_DEFAULT_FORMAT;
 
