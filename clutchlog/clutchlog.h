@@ -447,7 +447,7 @@ class clutchlog
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
         /** Maximum buffer size for backtrace message. */
-        static const size_t max_buffer = 4096;
+        static const size_t _max_buffer = 4096;
 #endif
     /** @}*/
 
@@ -589,8 +589,8 @@ class clutchlog
             /***** Stack depth *****/
             // Backtrace in second, quite fast.
             size_t stack_depth;
-            void *buffer[max_buffer];
-            stack_depth = backtrace(buffer, max_buffer);
+            void *buffer[_max_buffer];
+            stack_depth = backtrace(buffer, _max_buffer);
             scope.depth = stack_depth;
             if(not (scope.depth <= _depth + _strip_calls)) {
                 // Bypass if no match.
