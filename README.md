@@ -4,6 +4,9 @@ Clutchlog — versatile (de)clutchable logging
 ***Clutchlog is a logging system that targets versatile debugging.***
 ***It allows to (de)clutch messages for a given: log level, source code location or call stack depth.***
 
+- [Project page on Github](https://github.com/nojhan/clutchlog)
+- [Documentation](https://nojhan.github.io/clutchlog/)
+
 ![Clutchlog logo](https://raw.githubusercontent.com/nojhan/clutchlog/master/docs/clutchlog_logo.svg)
 [TOC]
 
@@ -176,32 +179,65 @@ log.format("{msg}");
 Available tags are:
 
 - `{msg}`: the logged message,
-- `{name}`: the name of the current binary,
 - `{level}`: the current log level (i.e. `Critical`, `Error`, `Warning`, `Progress`, `Note`, `Info`, `Debug` or `XDebug`),
 - `{level_letter}`: the first letter of the current log level,
 - `{file}`: the current file (absolute path),
 - `{func}`: the current function,
-- `{line}`: the current line number,
-- `{depth}`: the current depth of the call stack,
-- `{depth_marks}`: as many chevrons `>` as there is calls in the stack.
+- `{line}`: the current line number.
 
-The default log format is `"[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"`,
+Some tags are only available on POSIX operating systems as of now:
+- `{name}`: the name of the current binary,
+- `{depth}`: the current depth of the call stack,
+- `{depth_marks}`: as many chevrons `>` as there is calls in the stack,
+- `{hfill}`: Inserts a sequence of characters that will stretch to fill the space available
+  in the current terminal, between the rightmost and leftmost part of the log message.
+
+
+### Log Format
+
+The default log format is `"[{name}] {level_letter}:{depth_marks} {msg} {hfill} {func} @ {file}:{line}\n"`,
 it can be overriden at compile time by defining the `CLUTCHLOG_DEFAULT_FORMAT` macro.
 
-The default format of the first line of comment added with the dump macro is 
+By default, and if `CLUTCHLOG_DEFAULT_FORMAT` is not defined,
+clutchlog will not put the location-related tags in the message formats
+(i.e. `{name}`, `{func}`, and `{line}`) when not in Debug builds.
+
+
+### Dump Format
+
+The default format of the first line of comment added with the dump macro is
 `"# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"`.
 It can be edited with the `format_comment` method.
 If it is set to an empty string, then no comment line is added.
 The default can be modified at compile time with `CLUTCHDUMP_DEFAULT_FORMAT`.
+
 By default, the separator between items in the container is a new line.
 To change this behaviour, you can change `CLUTCHDUMP_DEFAULT_SEP` or
 call the low-level `dump` method.
+
+By default, and if `CLUTCHDUMP_DEFAULT_FORMAT` is not defined,
+clutchlog will not put the location-related tags in the message formats
+(i.e. `{file}` and `{line}`) when not in Debug builds.
+
+
+### Marks
 
 The mark used with the `{depth_marks}` tag can be configured with the `depth_mark` method,
 and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
 ```cpp
 log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
 ```
+
+The character used with the `{hfill}` tag can be configured wth the `hfill_mark` method,
+and its default with the `CLUTCHLOG_DEFAULT_HFILL_MARK` macro:
+```cpp
+log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); // Defaults to '.'.
+```
+
+Note: if the system detects no terminal, only a single fill character is inserted.
+
+
+## Stack Depth
 
 By default, clutchlog removes 5 levels of the calls stack, so that your `main`
 entrypoint corresponds to a depth of zero.
@@ -362,7 +398,7 @@ Limitations
 
 ### System-dependent stack depth
 
-Because the call stack depth and program name access are system-dependent,
+Because access to the call stack depth and program name are system-dependent,
 the features relying on the depth of the call stack and the display of the program name
 are only available for operating systems having the following headers:
 `execinfo.h`, `stdlib.h` and `libgen.h` (so far, tested with Linux).
@@ -373,6 +409,22 @@ You can make portable code using something like:
 ```cpp
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
     log.depth( x );
+#endif 
+```
+
+
+### System-dependent horizontal fill
+
+Because access to the current terminal width is system-dependent,
+the `{hfill}` format tag feature is only available for operating systems having the following headers:
+`sys/ioctl.h`, `stdio.h` and `unistd.h` (so far, tested with Linux).
+
+Clutchlog sets the `CLUTCHLOG_HAVE_UNIX_SYSIOCTL` to 1 if the headers are
+available, and to 0 if they are not.
+You can make portable code using something like:
+```cpp
+#if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
+    log.hfill_mark( '_' );
 #endif 
 ```
 
@@ -388,7 +440,7 @@ You may need to indicate `-std=c++17 -lstdc++fs` to some compilers.
 ### Variable names within the CLUTCHLOG macro
 
 Calling the `CLUTCHLOG` macro with a message using a variable named `clutchlog__msg` will end in
-an error. Avoid this kind of naming for the logger singleton, also.
+an error.
 
 
 ### Features

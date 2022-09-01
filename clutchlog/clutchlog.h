@@ -32,6 +32,16 @@
     #define CLUTCHLOG_HAVE_UNIX_SYSINFO 0
 #endif
 
+#if __has_include(<sys/ioctl.h>) && __has_include(<stdio.h>) && __has_include(<unistd.h>)
+    #include <sys/ioctl.h>
+    #include <stdio.h>
+    #include <unistd.h>
+    #define CLUTCHLOG_HAVE_UNIX_SYSIOCTL 1
+#else
+    #define CLUTCHLOG_HAVE_UNIX_SYSIOCTL 0
+#endif
+
+
 /**********************************************************************
  * Enable by default in Debug builds.
  **********************************************************************/
@@ -171,33 +181,52 @@ class clutchlog
         #ifndef NDEBUG
             #ifndef CLUTCHLOG_DEFAULT_FORMAT
                 //! Compile-time default format of the messages (debug mode: with absolute location).
-                #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-                    #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+                #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1 // Enables: name, depth and depth_marks
+                    #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1 // Enables: hfill
+                        #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg} {hfill} {func} @ {file}:{line}\n"
+                    #else
+                        #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+                    #endif
                 #else
-                    #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+                    #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
+                        #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg} {hfill} {func} @ {file}:{line}\n"
+                    #else
+                        #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func} @ {file}:{line}\n"
+                    #endif
                 #endif
             #endif
         #else
             #ifndef CLUTCHLOG_DEFAULT_FORMAT
-                //! Compile-time default format of the messages (debug mode: with absolute location).
+                //! Compile-time default format of the messages (non-debug mode: without absolute location).
                 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-                    #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg}\n"
+                    #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter}:{depth_marks} {msg} {hfill} {func}\n"
                 #else
-                    #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\n"
+                    #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func}\n"
                 #endif
             #endif
         #endif
         //! Default format of the messages.
         static inline std::string default_format = CLUTCHLOG_DEFAULT_FORMAT;
 
-        #ifndef CLUTCHDUMP_DEFAULT_FORMAT
-            //! Compile-time default format of the comment line in file dump.
-            #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-                #define CLUTCHDUMP_DEFAULT_FORMAT "# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"
-            #else
-                #define CLUTCHDUMP_DEFAULT_FORMAT "# {level} in {func} @ {file}:{line}"
-            #endif
-        #endif // CLUTCHDUMP_DEFAULT_FORMAT
+        #ifndef NDEBUG
+            #ifndef CLUTCHDUMP_DEFAULT_FORMAT
+                //! Compile-time default format of the comment line in file dump.
+                #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                    #define CLUTCHDUMP_DEFAULT_FORMAT "# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"
+                #else
+                    #define CLUTCHDUMP_DEFAULT_FORMAT "# {level} in {func} @ {file}:{line}"
+                #endif
+            #endif // CLUTCHDUMP_DEFAULT_FORMAT
+        #else
+            #ifndef CLUTCHDUMP_DEFAULT_FORMAT
+                //! Compile-time default format of the comment line in file dump.
+                #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                    #define CLUTCHDUMP_DEFAULT_FORMAT "# [{name}] {level} in {func} (at depth {depth})"
+                #else
+                    #define CLUTCHDUMP_DEFAULT_FORMAT "# {level} in {func}"
+                #endif
+            #endif // CLUTCHDUMP_DEFAULT_FORMAT
+        #endif
         //! Default format of the comment line in file dump.
         static inline std::string dump_default_format = CLUTCHDUMP_DEFAULT_FORMAT;
 
@@ -221,6 +250,13 @@ class clutchlog
         #endif // CLUTCHLOG_STRIP_CALLS
         //! Number of call stack levels to remove from depth display by default.
         static inline unsigned int default_strip_calls = CLUTCHLOG_STRIP_CALLS;
+
+        #ifndef CLUTCHLOG_HFILL_MARK
+            //! Character used as a filling for right-align the right part of messages with "{hfill}".
+            #define CLUTCHLOG_HFILL_MARK '.'
+        #endif // CLUTCHLOG_HFILL_MARK
+        //! Default character used as a filling for right-align the right part of messages with "{hfill}".
+        static inline char default_hfill_char = CLUTCHLOG_HFILL_MARK;
     /* @} */
 
 
@@ -399,6 +435,7 @@ class clutchlog
             }),
             _format_log(clutchlog::default_format),
             _format_dump(clutchlog::dump_default_format),
+            _hfill_char(clutchlog::default_hfill_char),
             _out(&std::clog),
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
             _depth(std::numeric_limits<size_t>::max() - _strip_calls),
@@ -413,6 +450,11 @@ class clutchlog
             for(auto& lw : _level_word) {
                 _word_level[lw.second] = lw.first;
             }
+#if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
+            struct winsize w;
+            ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+            _nb_columns = w.ws_col;
+#endif
         }
 
     protected:
@@ -428,6 +470,8 @@ class clutchlog
         std::string _format_log;
         /** Current format of the file output. */
         std::string _format_dump;
+        /** Character for filling. */
+        const char _hfill_char;
         /** Standard output. */
         std::ostream* _out;
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
@@ -448,6 +492,11 @@ class clutchlog
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
         /** Maximum buffer size for backtrace message. */
         static const size_t _max_buffer = 4096;
+#endif
+
+#if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
+        /** Current terminal size (for right-alignment). */
+        size_t _nb_columns;
 #endif
     /** @}*/
 
@@ -478,9 +527,15 @@ class clutchlog
         size_t depth() const {return _depth;}
 
         //! Set the string mark with which stack depth is indicated.
-        void depth_mark(std::string mark) {_depth_mark = mark;}
+        void depth_mark(const std::string mark) {_depth_mark = mark;}
         //! Get the string mark with which stack depth is indicated.
         std::string depth_mark() const {return _depth_mark;}
+#endif
+#if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
+        //! Set the character for the stretching hfill marker.
+        void hfill_mark(const char mark) {_hfill_char = mark;}
+        //! Get the character for the stretching hfill marker.
+        char hfill_mark() const {return _hfill_char;}
 #endif
 
         //! Set the log level (below which logs are not printed) with an identifier.
@@ -730,7 +785,28 @@ class clutchlog
             }
             format = replace(format, "\\{depth_marks\\}", chevrons.str());
 #endif
-
+#if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
+            const std::string hfill_tag = "{hfill}";
+            const size_t hfill_pos = format.find(hfill_tag);
+            if(hfill_pos != std::string::npos) {
+                if(_nb_columns > 0) {
+                    const size_t left_len = hfill_pos;
+                    const size_t right_len = format.size() - hfill_pos - hfill_tag.size();
+                    if(right_len+left_len > _nb_columns) {
+                        // The right part would go over the terminal width: add a new line.
+                        const std::string hfill(std::max(0, _nb_columns-right_len), _hfill_char);
+                        format = replace(format, "\\{hfill\\}", "\n"+hfill);
+                    } else {
+                        // There is some space in between left and right parts.
+                        const std::string hfill(std::max(0, _nb_columns - (right_len+left_len)), _hfill_char);
+                        format = replace(format, "\\{hfill\\}", hfill);
+                    }
+                } else {
+                    // We don't know the terminal width.
+                    format = replace(format, "\\{hfill\\}", _hfill_char);
+                }
+            }
+#endif
             return _level_fmt.at(stage)(format);
         }
 
@@ -878,8 +954,12 @@ class clutchlog
         void depth(size_t) {}
         size_t depth() const {}
 
-        void depth_mark(std::string) {}
+        void depth_mark(const std::string) {}
         std::string depth_mark() const {}
+#endif
+#if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
+        void hfill_mark(const char) {}
+        char hfill_mark() const {}
 #endif
 
         void  threshold(level) {}
