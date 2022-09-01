@@ -77,23 +77,6 @@ API documentation
 =================
 
 
-Log level semantics
--------------------
-
-Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:
-
-- *Critical*: an error that cannot be recovered. For instance, something which will make a server stop right here.
-- *Error*: an error that invalidates a function, but may still be recovered. For example, a bad user input that will make a server reset its state, but not crash.
-- *Warning*: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.
-- *Progress*: the state at which computation currently is.
-- *Note*: some state worth noting to understand what's going on.
-- *Info*: any information that would help ensuring that everything is going well.
-- *Debug*: data that would help debugging the program if there was a bug later on.
-- *XDebug*: debugging information that would be heavy to read.
-
-Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `threshold` or `level_of`).
-
-
 Calls
 -----
 
@@ -126,6 +109,23 @@ CLUTCHDUMP(debug, vec, "test_{n}.dat");
 */
 ```
 Note that if you pass a file name without the `{n}` tag, the file will be overwritten as is.
+
+
+Log level semantics
+-------------------
+
+Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:
+
+- *Critical*: an error that cannot be recovered. For instance, something which will make a server stop right here.
+- *Error*: an error that invalidates a function, but may still be recovered. For example, a bad user input that will make a server reset its state, but not crash.
+- *Warning*: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.
+- *Progress*: the state at which computation currently is.
+- *Note*: some state worth noting to understand what's going on.
+- *Info*: any information that would help ensuring that everything is going well.
+- *Debug*: data that would help debugging the program if there was a bug later on.
+- *XDebug*: debugging information that would be heavy to read.
+
+Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `threshold` or `level_of`).
 
 
 Location filtering
