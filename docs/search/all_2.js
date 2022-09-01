@@ -12,7 +12,7 @@ var searchData=
   ['clutchlog_5fdefault_5fdepth_5fmark_23',['CLUTCHLOG_DEFAULT_DEPTH_MARK',['../group__UseMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9',1,'clutchlog.h']]],
   ['clutchlog_5fdefault_5fformat_24',['CLUTCHLOG_DEFAULT_FORMAT',['../group__UseMacros.html#ga524c16f280d92ee8ab683162c9ce01fa',1,'clutchlog.h']]],
   ['clutchlog_5fhave_5funix_5fsysinfo_25',['CLUTCHLOG_HAVE_UNIX_SYSINFO',['../clutchlog_8h.html#a6bbcf13504687db4dbe0474931d867fb',1,'clutchlog.h']]],
-  ['clutchlog_5fhfill_5fchar_26',['CLUTCHLOG_HFILL_CHAR',['../group__UseMacros.html#ga763fb5aa1ca3012c142ddaa6707e3fde',1,'clutchlog.h']]],
+  ['clutchlog_5fhfill_5fmark_26',['CLUTCHLOG_HFILL_MARK',['../group__UseMacros.html#gad5fbbacf74b8e4669b8f9efdfe81bd25',1,'clutchlog.h']]],
   ['clutchlog_5fstrip_5fcalls_27',['CLUTCHLOG_STRIP_CALLS',['../group__UseMacros.html#ga98f30d814d4913a8a7c93a8793f49adf',1,'clutchlog.h']]],
   ['clutchlog_20—_20versatile_20_28de_29clutchable_20logging_28',['Clutchlog — versatile (de)clutchable logging',['../index.html',1,'']]]
 ];

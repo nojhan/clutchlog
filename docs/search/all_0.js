@@ -2,7 +2,7 @@ var searchData=
 [
   ['_5fformat_5fdump_0',['_format_dump',['../group__UseMacros.html#ga5f4ddb57ce42e8be86a7c7d269f7bae5',1,'clutchlog']]],
   ['_5fformat_5flog_1',['_format_log',['../group__UseMacros.html#ga7c6e3fc082bc6f55d50131ed2b32e81e',1,'clutchlog']]],
-  ['_5fhfill_5fchar_2',['_hfill_char',['../group__UseMacros.html#ga9e34e90eef755241f6cd9394b4a32d71',1,'clutchlog']]],
+  ['_5fhfill_5fchar_2',['_hfill_char',['../group__UseMacros.html#gae24e7530a131344f53e3e794b913845a',1,'clutchlog']]],
   ['_5fin_5ffile_3',['_in_file',['../group__UseMacros.html#gaded03528f34d9000f618419c482c5042',1,'clutchlog']]],
   ['_5fin_5ffunc_4',['_in_func',['../group__UseMacros.html#ga130c4f12eacbd2028102838fe16b734e',1,'clutchlog']]],
   ['_5fin_5fline_5',['_in_line',['../group__UseMacros.html#ga41757198b29862832a14472a9e5e24c6',1,'clutchlog']]],

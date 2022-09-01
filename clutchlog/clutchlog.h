@@ -471,7 +471,7 @@ class clutchlog
         /** Current format of the file output. */
         std::string _format_dump;
         /** Character for filling. */
-        const char _hfill_char;
+        char _hfill_char;
         /** Standard output. */
         std::ostream* _out;
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
@@ -794,11 +794,11 @@ class clutchlog
                     const size_t right_len = format.size() - hfill_pos - hfill_tag.size();
                     if(right_len+left_len > _nb_columns) {
                         // The right part would go over the terminal width: add a new line.
-                        const std::string hfill(std::max(0, _nb_columns-right_len), _hfill_char);
+                        const std::string hfill(std::max((size_t)0, _nb_columns-right_len), _hfill_char);
                         format = replace(format, "\\{hfill\\}", "\n"+hfill);
                     } else {
                         // There is some space in between left and right parts.
-                        const std::string hfill(std::max(0, _nb_columns - (right_len+left_len)), _hfill_char);
+                        const std::string hfill(std::max((size_t)0, _nb_columns - (right_len+left_len)), _hfill_char);
                         format = replace(format, "\\{hfill\\}", hfill);
                     }
                 } else {
