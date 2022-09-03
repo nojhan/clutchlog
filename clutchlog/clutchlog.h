@@ -981,6 +981,8 @@ class clutchlog
             )
         {}
 #pragma GCC diagnostic pop
+        template<class ... FMT>
+        void style(level stage, FMT... styles) {}
         void style(level, fmt) {}
         fmt style(level) const {}
     public:
