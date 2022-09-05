@@ -324,7 +324,7 @@ by setting the `WITH_CLUTCHLOG` preprocessor variable.
 
 When the `NDEBUG` preprocessor variable is set (e.g. in `Release` build),
 clutchlog will do its best to allow the compiler to optimize out any calls
-for log levels that are under or equal to `progress`.
+for log levels that are under `progress`.
 
 You can change this behavior at compile time by setting the
 `CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG` preprocessor variable
