@@ -306,6 +306,12 @@ log.format(format.str());
 Note: messages at the "critical", "error" and "warning" log levels are colored by default.
 You may want to set their style to `none` if you want to stay in control of inserted colors in the format template.
 
+The horizontal filling line (the `{hfill}` tag) can be configured separately with `hfill_style`,
+for example:
+```cpp
+    log.hfill_style(clutchlog::fmt::fg::black);
+```
+
 
 Disabled calls
 --------------

@@ -1,6 +1,6 @@
-#ifndef __CLUTCHLOG_H__
-#define __CLUTCHLOG_H__
 #pragma once
+#ifndef CLUTCHLOG_H
+#define CLUTCHLOG_H
 
 /** @file */
 #include <ciso646>
@@ -257,10 +257,14 @@ class clutchlog
         #endif // CLUTCHLOG_HFILL_MARK
         //! Default character used as a filling for right-align the right part of messages with "{hfill}".
         static inline char default_hfill_char = CLUTCHLOG_HFILL_MARK;
+
+        // NOTE: there is no CLUTCHLOG_HFILL_STYLE for defaulting,
+        // but you can still set `hfill_style(...)` on the logger singleton.
     /* @} */
 
 
     public:
+
         /** @name High-level API
          * @{ */
 
@@ -436,6 +440,7 @@ class clutchlog
             _format_log(clutchlog::default_format),
             _format_dump(clutchlog::dump_default_format),
             _hfill_char(clutchlog::default_hfill_char),
+            _hfill_fmt(fmt::fg::none),
             _out(&std::clog),
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
             _depth(std::numeric_limits<size_t>::max() - _strip_calls),
@@ -472,6 +477,8 @@ class clutchlog
         std::string _format_dump;
         /** Character for filling. */
         char _hfill_char;
+        /** Style of the filling. */
+        fmt _hfill_fmt;
         /** Standard output. */
         std::ostream* _out;
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
@@ -536,6 +543,16 @@ class clutchlog
         void hfill_mark(const char mark) {_hfill_char = mark;}
         //! Get the character for the stretching hfill marker.
         char hfill_mark() const {return _hfill_char;}
+        //! Set the style for the stretching hfill marker, with a `fmt` object.
+        void hfill_style(fmt style) {_hfill_fmt = style;}
+        /** Set the style for the stretching hfill marker.
+         *
+         * This version accept style arguments as if they were passed to `clutchlog::fmt`.
+         */
+        template<class ... FMT>
+        void style(FMT... styles) { this->hfill_style(fmt(styles...)); }
+        //! Get the character for the stretching hfill marker.
+        fmt hfill_style() const {return _hfill_fmt;}
 #endif
 
         //! Set the log level (below which logs are not printed) with an identifier.
@@ -795,15 +812,19 @@ class clutchlog
                     if(right_len+left_len > _nb_columns) {
                         // The right part would go over the terminal width: add a new line.
                         const std::string hfill(std::max((size_t)0, _nb_columns-right_len), _hfill_char);
-                        format = replace(format, "\\{hfill\\}", "\n"+hfill);
+                        const std::string hfill_styled = _hfill_fmt(hfill);
+                        format = replace(format, "\\{hfill\\}", "\n"+hfill_styled);
                     } else {
                         // There is some space in between left and right parts.
                         const std::string hfill(std::max((size_t)0, _nb_columns - (right_len+left_len)), _hfill_char);
-                        format = replace(format, "\\{hfill\\}", hfill);
+                        const std::string hfill_styled = _hfill_fmt(hfill);
+                        format = replace(format, "\\{hfill\\}", hfill_styled);
                     }
                 } else {
                     // We don't know the terminal width.
-                    format = replace(format, "\\{hfill\\}", _hfill_char);
+                    const std::string hfill(1, _hfill_char);
+                    const std::string hfill_styled = _hfill_fmt(hfill);
+                    format = replace(format, "\\{hfill\\}", hfill_styled);
                 }
             }
 #endif
@@ -960,12 +981,14 @@ class clutchlog
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
         void hfill_mark(const char) {}
         char hfill_mark() const {}
+        void hfill_fmt(fmt) {}
+        fmt hfill_fmt() const {}
 #endif
 
         void  threshold(level) {}
         void  threshold(const std::string&) {}
         level threshold() const {}
-        const std::map<std::string,level> levels() const {};
+        const std::map<std::string,level> levels() const {}
         level level_of(const std::string) {}
 
         void file(std::string) {}
@@ -982,7 +1005,7 @@ class clutchlog
         {}
 #pragma GCC diagnostic pop
         template<class ... FMT>
-        void style(level stage, FMT... styles) {}
+        void style(level, FMT...) {}
         void style(level, fmt) {}
         fmt style(level) const {}
     public:
@@ -1037,4 +1060,4 @@ class clutchlog
 #pragma GCC diagnostic pop
 #endif // WITH_CLUTCHLOG
 
-#endif // __CLUTCHLOG_H__
+#endif // CLUTCHLOG_H
