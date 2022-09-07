@@ -7,7 +7,14 @@ Clutchlog — versatile (de)clutchable logging
 - [Project page on Github](https://github.com/nojhan/clutchlog)
 - [Documentation](https://nojhan.github.io/clutchlog/)
 
-![Clutchlog logo](https://raw.githubusercontent.com/nojhan/clutchlog/master/docs/clutchlog_logo.svg)
+<p align="center">
+    <img
+        alt"Clutchlog logo"
+        src="https://raw.githubusercontent.com/nojhan/clutchlog/master/docs/clutchlog_logo.svg"
+        width="400"
+    />
+</p>
+
 [TOC]
 
 Features
@@ -77,23 +84,6 @@ API documentation
 =================
 
 
-Log level semantics
--------------------
-
-Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:
-
-- *Critical*: an error that cannot be recovered. For instance, something which will make a server stop right here.
-- *Error*: an error that invalidates a function, but may still be recovered. For example, a bad user input that will make a server reset its state, but not crash.
-- *Warning*: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.
-- *Progress*: the state at which computation currently is.
-- *Note*: some state worth noting to understand what's going on.
-- *Info*: any information that would help ensuring that everything is going well.
-- *Debug*: data that would help debugging the program if there was a bug later on.
-- *XDebug*: debugging information that would be heavy to read.
-
-Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `threshold` or `level_of`).
-
-
 Calls
 -----
 
@@ -126,6 +116,23 @@ CLUTCHDUMP(debug, vec, "test_{n}.dat");
 */
 ```
 Note that if you pass a file name without the `{n}` tag, the file will be overwritten as is.
+
+
+Log level semantics
+-------------------
+
+Log levels use a classical semantics for a human skilled in the art, in decreasing order of importance:
+
+- *Critical*: an error that cannot be recovered. For instance, something which will make a server stop right here.
+- *Error*: an error that invalidates a function, but may still be recovered. For example, a bad user input that will make a server reset its state, but not crash.
+- *Warning*: something that is strange, but is probably legit. For example a default parameter is set because the user forgot to indicate its preference.
+- *Progress*: the state at which computation currently is.
+- *Note*: some state worth noting to understand what's going on.
+- *Info*: any information that would help ensuring that everything is going well.
+- *Debug*: data that would help debugging the program if there was a bug later on.
+- *XDebug*: debugging information that would be heavy to read.
+
+Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `threshold` or `level_of`).
 
 
 Location filtering
@@ -234,7 +241,16 @@ and its default with the `CLUTCHLOG_DEFAULT_HFILL_MARK` macro:
 log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); // Defaults to '.'.
 ```
 
-Note: if the system detects no terminal, only a single fill character is inserted.
+Clutchlog measures the width of the standard error channel.
+If it is redirected, it may be measured as very large.
+Thus, the `hfill_max` accessors allow to set a maximum width (in number of characters).
+```cpp
+log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MAX); // Defaults to 300.
+```
+Note: clutchlog will select the minimum between `hfill_max`
+and the measured number of columns in the terminal,
+so that you may use `hfill_max` as a way to constraint the output width
+in any cases.
 
 
 ## Stack Depth
@@ -306,6 +322,12 @@ log.format(format.str());
 Note: messages at the "critical", "error" and "warning" log levels are colored by default.
 You may want to set their style to `none` if you want to stay in control of inserted colors in the format template.
 
+The horizontal filling line (the `{hfill}` tag) can be configured separately with `hfill_style`,
+for example:
+```cpp
+    log.hfill_style(clutchlog::fmt::fg::black);
+```
+
 
 Disabled calls
 --------------
@@ -318,7 +340,7 @@ by setting the `WITH_CLUTCHLOG` preprocessor variable.
 
 When the `NDEBUG` preprocessor variable is set (e.g. in `Release` build),
 clutchlog will do its best to allow the compiler to optimize out any calls
-for log levels that are under or equal to `progress`.
+for log levels that are under `progress`.
 
 You can change this behavior at compile time by setting the
 `CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG` preprocessor variable
