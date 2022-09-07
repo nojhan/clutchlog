@@ -234,7 +234,16 @@ and its default with the `CLUTCHLOG_DEFAULT_HFILL_MARK` macro:
 log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); // Defaults to '.'.
 ```
 
-Note: if the system detects no terminal, only a single fill character is inserted.
+Clutchlog measures the width of the standard error channel.
+If it is redirected, it may be measured as very large.
+Thus, the `hfill_max` accessors allow to set a maximum width (in number of characters).
+```cpp
+log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MAX); // Defaults to 300.
+```
+Note: clutchlog will select the minimum between `hfill_max`
+and the measured number of columns in the terminal,
+so that you may use `hfill_max` as a way to constraint the output width
+in any cases.
 
 
 ## Stack Depth

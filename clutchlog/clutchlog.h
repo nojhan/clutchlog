@@ -258,6 +258,15 @@ class clutchlog
         //! Default character used as a filling for right-align the right part of messages with "{hfill}".
         static inline char default_hfill_char = CLUTCHLOG_HFILL_MARK;
 
+
+        #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
+            #ifndef CLUTCHLOG_HFILL_MAX
+                #define CLUTCHLOG_HFILL_MAX 300
+            #endif
+        #endif
+        //! Default maximum number of character used as a filling for right-align the right part of messages with "{hfill}".
+        static inline unsigned short default_hfill_max = CLUTCHLOG_HFILL_MAX;
+
         // NOTE: there is no CLUTCHLOG_HFILL_STYLE for defaulting,
         // but you can still set `hfill_style(...)` on the logger singleton.
     /* @} */
@@ -439,13 +448,16 @@ class clutchlog
             }),
             _format_log(clutchlog::default_format),
             _format_dump(clutchlog::dump_default_format),
-            _hfill_char(clutchlog::default_hfill_char),
-            _hfill_fmt(fmt::fg::none),
+            #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
+                _hfill_char(clutchlog::default_hfill_char),
+                _hfill_fmt(fmt::fg::none),
+                _hfill_max(clutchlog::default_hfill_max),
+            #endif
             _out(&std::clog),
-#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-            _depth(std::numeric_limits<size_t>::max() - _strip_calls),
-            _depth_mark(clutchlog::default_depth_mark),
-#endif
+            #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+                _depth(std::numeric_limits<size_t>::max() - _strip_calls),
+                _depth_mark(clutchlog::default_depth_mark),
+            #endif
             _stage(level::error),
             _in_file(".*"),
             _in_func(".*"),
@@ -457,8 +469,8 @@ class clutchlog
             }
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
             struct winsize w;
-            ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-            _nb_columns = w.ws_col;
+            ioctl(STDERR_FILENO, TIOCGWINSZ, &w);
+            _nb_columns = std::min(w.ws_col, default_hfill_max);
 #endif
         }
 
@@ -475,18 +487,22 @@ class clutchlog
         std::string _format_log;
         /** Current format of the file output. */
         std::string _format_dump;
-        /** Character for filling. */
-        char _hfill_char;
-        /** Style of the filling. */
-        fmt _hfill_fmt;
+        #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
+            /** Character for filling. */
+            char _hfill_char;
+            /** Style of the filling. */
+            fmt _hfill_fmt;
+            /** Maximum number of fill char. */
+            unsigned short _hfill_max;
+        #endif
         /** Standard output. */
         std::ostream* _out;
-#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-        /** Current stack depth (above which logs are not printed). */
-        size_t _depth;
-        /** Current depth mark. */
-        std::string _depth_mark;
-#endif
+        #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+            /** Current stack depth (above which logs are not printed). */
+            size_t _depth;
+            /** Current depth mark. */
+            std::string _depth_mark;
+        #endif
         /** Current log level. */
         level _stage;
         /** Current file location filter. */
@@ -553,6 +569,10 @@ class clutchlog
         void style(FMT... styles) { this->hfill_style(fmt(styles...)); }
         //! Get the character for the stretching hfill marker.
         fmt hfill_style() const {return _hfill_fmt;}
+        //! Set the maximum number of hfill characters. */
+        void hfill_max(const size_t nmax) {_hfill_max = nmax;}
+        //! Get the maximum number of hfill characters. */
+        unsigned short hfill_max() {return _hfill_max;}
 #endif
 
         //! Set the log level (below which logs are not printed) with an identifier.
@@ -983,6 +1003,8 @@ class clutchlog
         char hfill_mark() const {}
         void hfill_fmt(fmt) {}
         fmt hfill_fmt() const {}
+        void hfill_max(const size_t) {}
+        unsigned short hfill_max() {}
 #endif
 
         void  threshold(level) {}
