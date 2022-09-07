@@ -476,7 +476,7 @@ class clutchlog
 
     protected:
         /** Current number of call stack levels to remove from depth display. */
-        const size_t _strip_calls;
+        size_t _strip_calls;
         /** Dictionary of level identifier to their string representation. */
         const std::map<level,std::string> _level_word;
         /** Dictionary of level string to their identifier. */
