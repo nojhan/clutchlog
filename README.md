@@ -7,7 +7,14 @@ Clutchlog — versatile (de)clutchable logging
 - [Project page on Github](https://github.com/nojhan/clutchlog)
 - [Documentation](https://nojhan.github.io/clutchlog/)
 
-![Clutchlog logo](https://raw.githubusercontent.com/nojhan/clutchlog/master/docs/clutchlog_logo.svg)
+<p align="center">
+    <img
+        alt"Clutchlog logo"
+        src="https://raw.githubusercontent.com/nojhan/clutchlog/master/docs/clutchlog_logo.svg"
+        width="400"
+    />
+</p>
+
 [TOC]
 
 Features
