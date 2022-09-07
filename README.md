@@ -446,6 +446,7 @@ Here what you would do to setup clutchlog with the default configuration:
     log.strip_calls(5);
     log.hfill_char('.');
     log.hfill_max(300);
+    log.hfill_style(clutchlog::fmt::fg::none);
 ```
 
 And here are all the functions you may call to log something:
