@@ -56,7 +56,7 @@ To configure the display, you indicate the three types of locations, for example
     log.func("(mul|add|sub|div)");         // Will match "multiply", for instance.
 ```
 
-For more detailled examples, see the "API documentation" section below and the `tests` directory.
+For more detailled examples, see the "Usage" sections below and the `tests` directory.
 
 
 Rationale
@@ -67,7 +67,7 @@ database.
 Their aim is to provide a simple interface to efficiently store messages somewhere, which is appropriated when you have
 a well known service running and you want to be able to trace complex users interactions across its states.
 
-Clutchlog, however, targets the debugging of a (typically single-run) program.
+Clutchlog, however, targets the *debugging* of a (typically single-run) program.
 While you develop your software, it's common practice to output several detailled informations on the internal states
 around the feature you are currently programming.
 However, once the feature is up and running, those detailled informations are only useful if you encounter a bug
@@ -76,7 +76,7 @@ traversing this specific part.
 While tracing a bug, it is tedious to uncomment old debugging code (and go on the build-test cycle)
 or to set up a full debugger session that displays all appropriate data (with ad-hoc fancy hooks).
 
-To solve this problem, Clutchlog allows to disengage your debug log messages in various parts of the program,
+To solve this problem, Clutchlog allows to disengage *at runtime* your debug log messages in various parts of the program,
 allowing for the fast tracking of a bug across the execution.
 
 
@@ -210,56 +210,6 @@ clutchlog will not put the location-related tags in the message formats
 (i.e. `{name}`, `{func}`, and `{line}`) when not in Debug builds.
 
 
-### Dump Format
-
-The default format of the first line of comment added with the dump macro is
-`"# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"`.
-It can be edited with the `format_comment` method.
-If it is set to an empty string, then no comment line is added.
-The default can be modified at compile time with `CLUTCHDUMP_DEFAULT_FORMAT`.
-
-By default, the separator between items in the container is a new line.
-To change this behaviour, you can change `CLUTCHDUMP_DEFAULT_SEP` or
-call the low-level `dump` method.
-
-By default, and if `CLUTCHDUMP_DEFAULT_FORMAT` is not defined,
-clutchlog will not put the location-related tags in the message formats
-(i.e. `{file}` and `{line}`) when not in Debug builds.
-
-
-### Marks
-
-The mark used with the `{depth_marks}` tag can be configured with the `depth_mark` method,
-and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
-```cpp
-log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
-```
-
-The character used with the `{hfill}` tag can be configured wth the `hfill_mark` method,
-and its default with the `CLUTCHLOG_DEFAULT_HFILL_MARK` macro:
-```cpp
-log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); // Defaults to '.'.
-```
-
-Clutchlog measures the width of the standard error channel.
-If it is redirected, it may be measured as very large.
-Thus, the `hfill_max` accessors allow to set a maximum width (in number of characters).
-```cpp
-log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MAX); // Defaults to 300.
-```
-Note: clutchlog will select the minimum between `hfill_max`
-and the measured number of columns in the terminal,
-so that you may use `hfill_max` as a way to constraint the output width
-in any cases.
-
-
-### Stack Depth
-
-By default, clutchlog removes 5 levels of the calls stack, so that your `main`
-entrypoint corresponds to a depth of zero.
-You can change this behaviour by defining the `CLUTCHLOG_STRIP_CALLS` macro.
-
-
 Output style
 ------------
 
@@ -331,6 +281,63 @@ for example:
 
 Advanced Usage
 ==============
+
+More Output Configuration
+-------------------------
+
+### Dump Format
+
+The default format of the first line of comment added with the dump macro is
+`"# [{name}] {level} in {func} (at depth {depth}) @ {file}:{line}"`.
+It can be edited with the `format_comment` method.
+If it is set to an empty string, then no comment line is added.
+The default can be modified at compile time with `CLUTCHDUMP_DEFAULT_FORMAT`.
+
+By default, the separator between items in the container is a new line.
+To change this behaviour, you can change `CLUTCHDUMP_DEFAULT_SEP` or
+call the low-level `dump` method.
+
+By default, and if `CLUTCHDUMP_DEFAULT_FORMAT` is not defined,
+clutchlog will not put the location-related tags in the message formats
+(i.e. `{file}` and `{line}`) when not in Debug builds.
+
+
+### Marks
+
+The mark used with the `{depth_marks}` tag can be configured with the `depth_mark` method,
+and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
+```cpp
+log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
+```
+
+The character used with the `{hfill}` tag can be configured wth the `hfill_mark` method,
+and its default with the `CLUTCHLOG_DEFAULT_HFILL_MARK` macro:
+```cpp
+log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); // Defaults to '.'.
+```
+
+Clutchlog measures the width of the standard error channel.
+If it is redirected, it may be measured as very large.
+Thus, the `hfill_max` accessors allow to set a maximum width (in number of characters).
+```cpp
+log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MAX); // Defaults to 300.
+```
+Note: clutchlog will select the minimum between `hfill_max`
+and the measured number of columns in the terminal,
+so that you may use `hfill_max` as a way to constraint the output width
+in any cases.
+
+
+### Stack Depth
+
+By default, clutchlog removes 5 levels of the calls stack, so that your `main`
+entrypoint corresponds to a depth of zero.
+You can change this behaviour by defining the `CLUTCHLOG_STRIP_CALLS` macro,
+or calling `strip_calls`.
+```cpp
+log.strip_calls(CLUTCHLOG_STRIP_CALLS); // Defaults to 5.
+```
+
 
 Disabled calls
 --------------
@@ -430,6 +437,7 @@ Here what you would do to setup clutchlog with the default configuration:
     log.threshold("Error");
     log.file(".*");
     log.func(".*");
+    log.line(".*");
     // Colors of the 3 firsts levels.
     log.style(clutchlog::level::critical, clutchlog::fmt(
             clutchlog::fmt::fg::red,
