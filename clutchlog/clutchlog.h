@@ -530,6 +530,11 @@ class clutchlog
         void depth_mark(const std::string mark) {_depth_mark = mark;}
         //! Get the string mark with which stack depth is indicated.
         std::string depth_mark() const {return _depth_mark;}
+
+        //! Set the number of stack calls which are removed for computing depth. */
+        void strip_calls(const size_t n) {_strip_calls = n;}
+        //! Get the number of stack calls which are removed for computing depth. */
+        size_t strip_calls() const {return _strip_calls;}
 #endif
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
         //! Set the character for the stretching hfill marker.
@@ -956,6 +961,8 @@ class clutchlog
 
         void depth_mark(const std::string) {}
         std::string depth_mark() const {}
+        void strip_calls(const size_t) {}
+        size_t strip_calls() const {}
 #endif
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
         void hfill_mark(const char) {}
