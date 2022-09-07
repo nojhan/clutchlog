@@ -80,8 +80,8 @@ To solve this problem, Clutchlog allows to disengage your debug log messages in 
 allowing for the fast tracking of a bug across the execution.
 
 
-API documentation
-=================
+Basic Usage
+===========
 
 
 Calls
@@ -253,7 +253,7 @@ so that you may use `hfill_max` as a way to constraint the output width
 in any cases.
 
 
-## Stack Depth
+### Stack Depth
 
 By default, clutchlog removes 5 levels of the calls stack, so that your `main`
 entrypoint corresponds to a depth of zero.
@@ -328,6 +328,9 @@ for example:
     log.hfill_style(clutchlog::fmt::fg::black);
 ```
 
+
+Advanced Usage
+==============
 
 Disabled calls
 --------------
@@ -412,6 +415,61 @@ For instance:
 CLUTCHCODE(info,
     std::clog << "We are clutched!\n";
 );
+```
+
+
+Examples
+========
+
+Here what you would do to setup clutchlog with the default configuration:
+```cpp
+    auto& log = clutchlog::logger();
+    log.out(std::clog);
+    // Location filtering.
+    log.depth(std::numeric_limits<size_t>::max());
+    log.threshold("Error");
+    log.file(".*");
+    log.func(".*");
+    // Colors of the 3 firsts levels.
+    log.style(clutchlog::level::critical, clutchlog::fmt(
+            clutchlog::fmt::fg::red,
+            clutchlog::fmt::typo::underline);
+    log.style(clutchlog::level::error, clutchlog::fmt(
+            clutchlog::fmt::fg::red,
+            clutchlog::fmt::typo::bold);
+    log.style(clutchlog::level::warning, clutchlog::fmt(
+            clutchlog::fmt::fg::magenta,
+            clutchlog::fmt::typo::bold);
+    // Assuming you are on a POSIX system.
+    log.format("[{name}] {level_letter}:{depth_marks} {msg} {hfill} {func} @ {file}:{line}\n");
+    log.depth_mark(">");
+    log.strip_calls(5);
+    log.hfill_char('.');
+    log.hfill_max(300);
+```
+
+And here are all the functions you may call to log something:
+```cpp
+    // Basic message.
+    CLUTCHLOG(debug, "x = " << x);
+
+    // Any code section.
+    CLUTCHCODE(xdebug,
+        if(x < 0) std::cerr << "WTF?" << std::endl;
+    );
+
+    // Container to a file.
+    CLUTCHDUMP(note, my_vector, "my_vector.dat");
+
+    // Container to a numbered file.
+    CLUTCHDUMP(note, my_list, "my_list_{n}.dat");
+
+    // Function call.
+    CLUTCHFUNC(warning, my_check, x, y); // Calls `my_check(x,y);`
+
+    // Declutchable asserts.
+    #define ASSERT(...) { CLUTCHFUNC(critical, assert, __VA_ARGS__) }
+    ASSERT(x>0);
 ```
 
 
