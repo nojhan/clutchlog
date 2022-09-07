@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">clutchlog
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
   </td>
  </tr>
@@ -206,6 +206,10 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class=
 static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga76eb34537b634aadb75e255f7887eeb6">default_hfill_char</a> = <a class="el" href="group__UseMacros.html#gad5fbbacf74b8e4669b8f9efdfe81bd25">CLUTCHLOG_HFILL_MARK</a></td></tr>
 <tr class="memdesc:ga76eb34537b634aadb75e255f7887eeb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default character used as a filling for right-align the right part of messages with "{hfill}". <br /></td></tr>
 <tr class="separator:ga76eb34537b634aadb75e255f7887eeb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3c8e8ef6a1729b95b48f9001fc8b4c6"><td class="memItemLeft" align="right" valign="top">
+static unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gaa3c8e8ef6a1729b95b48f9001fc8b4c6">default_hfill_max</a> = CLUTCHLOG_HFILL_MAX</td></tr>
+<tr class="memdesc:gaa3c8e8ef6a1729b95b48f9001fc8b4c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default maximum number of character used as a filling for right-align the right part of messages with "{hfill}". <br /></td></tr>
+<tr class="separator:gaa3c8e8ef6a1729b95b48f9001fc8b4c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 High-level API</h2></td></tr>
@@ -229,10 +233,10 @@ High-level API</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Internal details</h2></td></tr>
-<tr class="memitem:ga56ed762c056c5b1d0020863b11bd188e"><td class="memItemLeft" align="right" valign="top">
-const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga56ed762c056c5b1d0020863b11bd188e">_strip_calls</a></td></tr>
-<tr class="memdesc:ga56ed762c056c5b1d0020863b11bd188e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current number of call stack levels to remove from depth display. <br /></td></tr>
-<tr class="separator:ga56ed762c056c5b1d0020863b11bd188e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga356df86455409193792b6ed550dfd09e"><td class="memItemLeft" align="right" valign="top">
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga356df86455409193792b6ed550dfd09e">_strip_calls</a></td></tr>
+<tr class="memdesc:ga356df86455409193792b6ed550dfd09e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current number of call stack levels to remove from depth display. <br /></td></tr>
+<tr class="separator:ga356df86455409193792b6ed550dfd09e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab1c377a376e6772fe1746ff7147c125f"><td class="memItemLeft" align="right" valign="top">
 const std::map&lt; <a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928">level</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gab1c377a376e6772fe1746ff7147c125f">_level_word</a></td></tr>
 <tr class="memdesc:gab1c377a376e6772fe1746ff7147c125f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dictionary of level identifier to their string representation. <br /></td></tr>
@@ -253,10 +257,6 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga5f4ddb57ce42e8be86a7c7d269f7bae5">_format_dump</a></td></tr>
 <tr class="memdesc:ga5f4ddb57ce42e8be86a7c7d269f7bae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current format of the file output. <br /></td></tr>
 <tr class="separator:ga5f4ddb57ce42e8be86a7c7d269f7bae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae24e7530a131344f53e3e794b913845a"><td class="memItemLeft" align="right" valign="top">
-char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#gae24e7530a131344f53e3e794b913845a">_hfill_char</a></td></tr>
-<tr class="memdesc:gae24e7530a131344f53e3e794b913845a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Character for filling. <br /></td></tr>
-<tr class="separator:gae24e7530a131344f53e3e794b913845a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1896f6c4b8597e3e76ff93970bd85167"><td class="memItemLeft" align="right" valign="top">
 std::ostream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__UseMacros.html#ga1896f6c4b8597e3e76ff93970bd85167">_out</a></td></tr>
 <tr class="memdesc:ga1896f6c4b8597e3e76ff93970bd85167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard output. <br /></td></tr>
