@@ -199,7 +199,7 @@ class clutchlog
             #ifndef CLUTCHLOG_DEFAULT_FORMAT
                 //! Compile-time default format of the messages (non-debug mode: without absolute location).
                 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-                    #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter}:{depth_marks} {msg} {hfill} {func}\n"
+                    #define CLUTCHLOG_DEFAULT_FORMAT "[{name}] {level_letter}:{depth_marks} {msg} {hfill} {func}\n"
                 #else
                     #define CLUTCHLOG_DEFAULT_FORMAT "{level_letter} {msg}\t\t\t\t\t{func}\n"
                 #endif
