@@ -132,7 +132,7 @@ Log levels use a classical semantics for a human skilled in the art, in decreasi
 - *Debug*: data that would help debugging the program if there was a bug later on.
 - *XDebug*: debugging information that would be heavy to read.
 
-Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `threshold` or `level_of`).
+Note: the log levels constants are lower case (for example: `clutchlog::level::xdebug`), but their string representation is not (e.g. "XDebug", this should be taken into account when using `clutchlog::threshold` or `clutchlog::level_of`).
 
 
 Location filtering
@@ -174,12 +174,12 @@ Note that the case of the log levels strings matters (see below).
 Output Configuration
 --------------------
 
-The output stream can be configured using the `out` method:
+The output stream can be configured using the `clutchlog::out` method:
 ```cpp
 log.out(std::clog); // Defaults to clog.
 ```
 
-The format of the messages can be defined with the `format` method, passing a string with standardized tags surrounded by `{}`:
+The format of the messages can be defined with the `clutchlog::format` method, passing a string with standardized tags surrounded by `{}`:
 ```cpp
 log.format("{msg}");
 ```
@@ -213,7 +213,7 @@ clutchlog will not put the location-related tags in the message formats
 Output style
 ------------
 
-The output can be colored differently depending on the log level.
+Output lines can be colored differently depending on the log level.
 ```cpp
 // Print error messages in bold red:
 log.style(clutchlog::level::error, // First, the log level.
@@ -228,6 +228,9 @@ using fmt = clutchlog::fmt;
 fmt warn(fmt::fg::magenta, fmt::typo::bold);
 log.style(clutchlog::level::warning, warn);
 ```
+
+Note: this inserts a style marker at the very beginning of the line.
+If you add other styles later on the line, they will take precedence.
 
 Using the `clutchlog::fmt` class, you can style:
 
@@ -272,11 +275,14 @@ log.format(format.str());
 Note: messages at the "critical", "error" and "warning" log levels are colored by default.
 You may want to set their style to `none` if you want to stay in control of inserted colors in the format template.
 
-The horizontal filling line (the `{hfill}` tag) can be configured separately with `hfill_style`,
+The horizontal filling line (the `{hfill}` tag) can be configured separately with `clutchlog::hfill_style`,
 for example:
 ```cpp
     log.hfill_style(clutchlog::fmt::fg::black);
 ```
+Note: this will actually reset any styling after the hfill,
+disabling any style you would have set for the whole message using `clutchlog::format`
+for the remaining of the message.
 
 
 Advanced Usage
@@ -304,13 +310,13 @@ clutchlog will not put the location-related tags in the message formats
 
 ### Marks
 
-The mark used with the `{depth_marks}` tag can be configured with the `depth_mark` method,
+The mark used with the `{depth_marks}` tag can be configured with the `clutchlog::depth_mark` method,
 and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
 ```cpp
 log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
 ```
 
-The character used with the `{hfill}` tag can be configured wth the `hfill_mark` method,
+The character used with the `{hfill}` tag can be configured wth the `clutchlog::hfill_mark` method,
 and its default with the `CLUTCHLOG_DEFAULT_HFILL_MARK` macro:
 ```cpp
 log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); // Defaults to '.'.
@@ -318,13 +324,13 @@ log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); // Defaults to '.'.
 
 Clutchlog measures the width of the standard error channel.
 If it is redirected, it may be measured as very large.
-Thus, the `hfill_max` accessors allow to set a maximum width (in number of characters).
+Thus, the `clutchlog::hfill_max` accessors allow to set a maximum width (in number of characters).
 ```cpp
 log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MAX); // Defaults to 300.
 ```
-Note: clutchlog will select the minimum between `hfill_max`
+Note: clutchlog will select the minimum between `clutchlog::hfill_max`
 and the measured number of columns in the terminal,
-so that you may use `hfill_max` as a way to constraint the output width
+so that you may use `clutchlog::hfill_max` as a way to constraint the output width
 in any cases.
 
 
@@ -333,7 +339,7 @@ in any cases.
 By default, clutchlog removes 5 levels of the calls stack, so that your `main`
 entrypoint corresponds to a depth of zero.
 You can change this behaviour by defining the `CLUTCHLOG_STRIP_CALLS` macro,
-or calling `strip_calls`.
+or calling `clutchlog::strip_calls`.
 ```cpp
 log.strip_calls(CLUTCHLOG_STRIP_CALLS); // Defaults to 5.
 ```
@@ -378,7 +384,7 @@ for example:
 std::string mark = log.depth_mark();
 ```
 
-To control more precisely the logging, one can use the low-level `log` method:
+To control more precisely the logging, one can use the low-level `clutchlog::log` method:
 ```cpp
 log.log(clutchlog::level::xdebug, "hello world", "main.cpp", "main", 122);
 ```
@@ -392,7 +398,7 @@ log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), CLUTCHLOC, "dumped_
 log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), "main.cpp", "main", 122, "dumped.dat", "\n\n");
 ```
 
-You can access the identifier of log levels with `level_of`:
+You can access the identifier of log levels with `clutchlog::level_of`:
 ```cpp
 log.threshold( log.level_of("XDebug") ); // You have to know the exact string.
 ```
@@ -474,7 +480,7 @@ And here are all the functions you may call to log something:
     CLUTCHDUMP(note, my_list, "my_list_{n}.dat");
 
     // Function call.
-    CLUTCHFUNC(warning, my_check, x, y); // Calls `my_check(x,y);`
+    CLUTCHFUNC(warning, my_check, x, y); // Calls: my_check(x,y);
 
     // Declutchable asserts.
     #define ASSERT(...) { CLUTCHFUNC(critical, assert, __VA_ARGS__) }

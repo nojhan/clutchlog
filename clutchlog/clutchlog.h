@@ -1,5 +1,6 @@
 #pragma once
 #ifndef CLUTCHLOG_H
+//! Header guard.
 #define CLUTCHLOG_H
 
 /** @file */
@@ -22,7 +23,7 @@
 #include <regex>
 #include <map>
 
-//! POSIX headers necessary for stack depth management are available.
+//! True if POSIX headers necessary for stack depth management are available.
 #if __has_include(<execinfo.h>) && __has_include(<stdlib.h>) && __has_include(<libgen.h>)
     #include <execinfo.h> // execinfo
     #include <stdlib.h>   // getenv
@@ -32,6 +33,7 @@
     #define CLUTCHLOG_HAVE_UNIX_SYSINFO 0
 #endif
 
+//! True if the system can handle the `hfill` feature.
 #if __has_include(<sys/ioctl.h>) && __has_include(<stdio.h>) && __has_include(<unistd.h>)
     #include <sys/ioctl.h>
     #include <stdio.h>
@@ -57,7 +59,7 @@
  **********************************************************************/
 #ifdef WITH_CLUTCHLOG
 
-/** @addtogroup DefaultConfigMacros Default configuration macros
+/** @defgroup DefaultConfig Default configuration management
  * @{ **/
 
 #ifndef CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG
@@ -65,10 +67,10 @@
     #define CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG clutchlog::level::progress
 #endif // CLUTCHLOG_DEFAULT_DEPTH_BUILT
 
-/** @} */
+/** @} DefaultConfig */
 
 
-/** @addtogroup UseMacros High-level API macros
+/** @defgroup UseMacros High-level API macros
  * @{ */
 
 //! Handy shortcuts to location.
@@ -150,7 +152,7 @@
     } while(0)
 #endif // NDEBUG
 
-/** @} */
+/** @} UseMacros */
 
 #else // not WITH_CLUTCHLOG
     // Disabled macros can still be called in Release builds.
@@ -165,18 +167,20 @@
  **********************************************************************/
 
 #ifdef WITH_CLUTCHLOG
+/** @defgroup Main Main class
+ * @{
+ */
 /** The single class which holds everything.
  *
  * This is a Singleton class.
- *
- * @addtogroup Main Main class
- * @{
  */
 class clutchlog
 {
     protected:
 
-    /** @addtogroup UseMacros High-level API macros
+    /** @name Default configuration members
+     * @{ */
+    /** @ingroup DefaultConfig
      * @{ */
         #ifndef NDEBUG
             #ifndef CLUTCHLOG_DEFAULT_FORMAT
@@ -265,10 +269,11 @@ class clutchlog
             #endif
         #endif
         //! Default maximum number of character used as a filling for right-align the right part of messages with "{hfill}".
-        static inline unsigned short default_hfill_max = CLUTCHLOG_HFILL_MAX;
+        static inline size_t default_hfill_max = CLUTCHLOG_HFILL_MAX;
 
         // NOTE: there is no CLUTCHLOG_HFILL_STYLE for defaulting,
         // but you can still set `hfill_style(...)` on the logger singleton.
+    /* @} DefaultConfig */
     /* @} */
 
 
@@ -295,9 +300,6 @@ class clutchlog
         /** @} */
 
         /** @addtogroup Formating Formating tools
-         * @{ */
-
-        /** @name Formating API
          * @{ */
 
         /** Color and style formatter for ANSI terminal escape sequences.
@@ -410,9 +412,17 @@ class clutchlog
                     reset.print_on(os);
                     return os.str();
                 }
+
+                /** Return the formatting code as a string.
+                 */
+                std::string str() const
+                {
+                    std::ostringstream os;
+                    this->print_on(os);
+                    return os.str();
+                }
         }; // fmt class
 
-        /** @} */
         /** @} */
 
     /** @name Internal details
@@ -470,7 +480,7 @@ class clutchlog
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
             struct winsize w;
             ioctl(STDERR_FILENO, TIOCGWINSZ, &w);
-            _nb_columns = std::min(w.ws_col, default_hfill_max);
+            _nb_columns = std::min((size_t)w.ws_col, default_hfill_max);
 #endif
         }
 
@@ -493,7 +503,7 @@ class clutchlog
             /** Style of the filling. */
             fmt _hfill_fmt;
             /** Maximum number of fill char. */
-            unsigned short _hfill_max;
+            size_t _hfill_max;
         #endif
         /** Standard output. */
         std::ostream* _out;
@@ -571,13 +581,13 @@ class clutchlog
          * This version accept style arguments as if they were passed to `clutchlog::fmt`.
          */
         template<class ... FMT>
-        void style(FMT... styles) { this->hfill_style(fmt(styles...)); }
+        void hfill_style(FMT... styles) { this->hfill_style(fmt(styles...)); }
         //! Get the character for the stretching hfill marker.
         fmt hfill_style() const {return _hfill_fmt;}
         //! Set the maximum number of hfill characters. */
         void hfill_max(const size_t nmax) {_hfill_max = nmax;}
         //! Get the maximum number of hfill characters. */
-        unsigned short hfill_max() {return _hfill_max;}
+        size_t hfill_max() {return _hfill_max;}
 #endif
 
         //! Set the log level (below which logs are not printed) with an identifier.
@@ -793,7 +803,7 @@ class clutchlog
 
         //! Substitute all tags in the format string with the corresponding information and apply the style corresponding to the log level.
         std::string format(
-                std::string format,
+                std::string row,
                 const std::string& what,
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                 const std::string& name,
@@ -808,52 +818,65 @@ class clutchlog
 #endif
             ) const
         {
-            format = replace(format, "\\{msg\\}", what);
-            format = replace(format, "\\{file\\}", file);
-            format = replace(format, "\\{func\\}", func);
-            format = replace(format, "\\{line\\}", line);
+            row = replace(row, "\\{msg\\}", what);
+            row = replace(row, "\\{file\\}", file);
+            row = replace(row, "\\{func\\}", func);
+            row = replace(row, "\\{line\\}", line);
 
-            format = replace(format, "\\{level\\}", _level_word.at(stage));
+            row = replace(row, "\\{level\\}", _level_word.at(stage));
             std::string letter(1, _level_word.at(stage).at(0)); // char -> string
-            format = replace(format, "\\{level_letter\\}", letter);
+            row = replace(row, "\\{level_letter\\}", letter);
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-            format = replace(format, "\\{name\\}", name);
-            format = replace(format, "\\{depth\\}", depth - _strip_calls);
+            row = replace(row, "\\{name\\}", name);
+            row = replace(row, "\\{depth\\}", depth - _strip_calls);
 
             std::ostringstream chevrons;
             for(size_t i = _strip_calls; i < depth; ++i) {
                 chevrons << _depth_mark;
             }
-            format = replace(format, "\\{depth_marks\\}", chevrons.str());
+            row = replace(row, "\\{depth_marks\\}", chevrons.str());
 #endif
+
+            row = replace(row, "\\{level_fmt\\}", _level_fmt.at(stage).str());
+
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
+            // hfill is replaced last to allow for correct line width estimation.
+            const std::string raw_row = replace(row, "\\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]", "");
             const std::string hfill_tag = "{hfill}";
-            const size_t hfill_pos = format.find(hfill_tag);
+            const size_t hfill_pos = row.find(hfill_tag);
+            const size_t raw_hfill_pos = raw_row.find(hfill_tag);
+            const size_t nb_columns = std::min(_nb_columns, _hfill_max);
             if(hfill_pos != std::string::npos) {
-                if(_nb_columns > 0) {
-                    const size_t left_len = hfill_pos;
-                    const size_t right_len = format.size() - hfill_pos - hfill_tag.size();
-                    if(right_len+left_len > _nb_columns) {
-                        // The right part would go over the terminal width: add a new line.
-                        const std::string hfill(std::max((size_t)0, _nb_columns-right_len), _hfill_char);
+                assert(raw_hfill_pos != std::string::npos);
+                if(nb_columns > 0) {
+                    const size_t  left_len = raw_hfill_pos;
+                    const size_t right_len = raw_row.size() - raw_hfill_pos - hfill_tag.size();
+                    if(right_len+left_len > nb_columns) {
+                        // The right part would go over the terminal width: add a new row.
+                        const std::string hfill(std::max((size_t)0, nb_columns-right_len), _hfill_char);
                         const std::string hfill_styled = _hfill_fmt(hfill);
-                        format = replace(format, "\\{hfill\\}", "\n"+hfill_styled);
+                        row = replace(row, "\\{hfill\\}", "\n"+hfill_styled);
                     } else {
                         // There is some space in between left and right parts.
-                        const std::string hfill(std::max((size_t)0, _nb_columns - (right_len+left_len)), _hfill_char);
+                        const std::string hfill(std::max((size_t)0, nb_columns - (right_len+left_len)), _hfill_char);
                         const std::string hfill_styled = _hfill_fmt(hfill);
-                        format = replace(format, "\\{hfill\\}", hfill_styled);
+                        row = replace(row, "\\{hfill\\}", hfill_styled);
                     }
                 } else {
                     // We don't know the terminal width.
                     const std::string hfill(1, _hfill_char);
                     const std::string hfill_styled = _hfill_fmt(hfill);
-                    format = replace(format, "\\{hfill\\}", hfill_styled);
+                    row = replace(row, "\\{hfill\\}", hfill_styled);
                 }
             }
+#else
+            // We cannot know the terminal width.
+            const std::string hfill(1, _hfill_char);
+            const std::string hfill_styled = _hfill_fmt(hfill);
+            row = replace(row, "\\{hfill\\}", hfill_styled);
 #endif
-            return _level_fmt.at(stage)(format);
+            return _level_fmt.at(stage)(row);
         }
 
         //! Print a log message IF the location matches the given one.
@@ -1011,7 +1034,7 @@ class clutchlog
         void hfill_fmt(fmt) {}
         fmt hfill_fmt() const {}
         void hfill_max(const size_t) {}
-        unsigned short hfill_max() {}
+        size_t hfill_max() {}
 #endif
 
         void  threshold(level) {}

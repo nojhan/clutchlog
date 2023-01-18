@@ -37,10 +37,42 @@ int main(const int argc, char* argv[])
 {
     auto& log = clutchlog::logger();
 
+    log.style(clutchlog::level::critical,
+              clutchlog::fmt::fg::red);
+    log.style(clutchlog::level::error,
+              clutchlog::fmt::fg::red);
+    log.style(clutchlog::level::warning,
+              clutchlog::fmt::fg::magenta);
+    log.style(clutchlog::level::progress,
+              clutchlog::fmt::fg::yellow);
+    log.style(clutchlog::level::note,
+              clutchlog::fmt::fg::green);
+    log.style(clutchlog::level::info,
+              clutchlog::fmt::fg::magenta);
+    log.style(clutchlog::level::debug,
+              clutchlog::fmt::fg::cyan);
+    log.style(clutchlog::level::xdebug,
+              clutchlog::fmt::fg::blue);
+    std::ostringstream format;
+    clutchlog::fmt reset(clutchlog::fmt::typo::reset);
+    clutchlog::fmt discreet(clutchlog::fmt::fg::black);
+    clutchlog::fmt bold(clutchlog::fmt::typo::bold);
+    format << "{level_fmt}"
+           << "{level_letter}:"
+           << "{depth_marks} "
+           << bold("{msg}")
+           << discreet(" {hfill} ")
+           << "{level_fmt}{func}"
+           << discreet(" @ ")
+           << "{level_fmt}{file}"
+           << reset << ":"
+           << "{level_fmt}{line}"
+           << "\n";
+    log.format(format.str());
+
+    // log.hfill_max(100);
     log.out(std::clog);
-    log.depth_mark("\t");
-    log.format("[{name}] {level}: {depth_marks} {msg}\n");
-    log.style(clutchlog::level::progress,clutchlog::fmt::fg::blue);
+    log.depth_mark(">");
     log.threshold(clutchlog::level::warning);
 
     if(argc <= 2) {
