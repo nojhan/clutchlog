@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['clutchlog_68',['clutchlog',['../classclutchlog.html',1,'']]]
+  ['clutchlog_71',['clutchlog',['../classclutchlog.html',1,'']]]
 ];

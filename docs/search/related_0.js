@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_3c_3c_120',['operator&lt;&lt;',['../group__UseMacros.html#ga96849ba427feac3a2eeaa1165e3845da',1,'clutchlog::fmt']]]
+  ['operator_3c_3c_124',['operator&lt;&lt;',['../classclutchlog_1_1fmt.html#a96849ba427feac3a2eeaa1165e3845da',1,'clutchlog::fmt']]]
 ];

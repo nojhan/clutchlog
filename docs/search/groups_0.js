@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['default_20configuration_20macros_123',['Default configuration macros',['../group__DefaultConfigMacros.html',1,'']]]
+  ['default_20configuration_20management_129',['Default configuration management',['../group__DefaultConfig.html',1,'']]]
 ];

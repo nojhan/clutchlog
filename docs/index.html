@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">clutchlog
-   &#160;<span id="projectnumber">0.10</span>
+   &#160;<span id="projectnumber">0.11</span>
    </div>
   </td>
  </tr>
@@ -85,7 +85,8 @@ $(function() {
 </ul>
 </li>
 <li class="level1"><a href="#autotoc_md15">Examples</a></li>
-<li class="level1"><a href="#autotoc_md16">Build and tests</a></li>
+<li class="level1"><a href="#autotoc_md16">Limitations</a></li>
+<li class="level1"><a href="#autotoc_md17">Build and tests</a></li>
 </ul>
 </div>
 <div class="textblock"><p><em><b>Clutchlog is a logging system that targets versatile debugging.</b></em> <em><b>It allows to (de)clutch messages for a given: log level, source code location or call stack depth.</b></em></p>
@@ -114,7 +115,7 @@ Features</h1>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Example</h1>
 <p>Adding a message is a simple as calling a macro (which is declutched in Debug build type, when <code>NDEBUG</code> is not defined): </p><div class="fragment"><div class="line"><a class="code" href="group__UseMacros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(info, <span class="stringliteral">&quot;matrix size: &quot;</span> &lt;&lt; m &lt;&lt; <span class="stringliteral">&quot;x&quot;</span> &lt;&lt; n);</div>
-</div><!-- fragment --><p>To configure the display, you indicate the three types of locations, for example in your <code>main</code> function: </p><div class="fragment"><div class="line"><span class="keyword">auto</span>&amp; log = <a class="code" href="group__UseMacros.html#gacfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>();</div>
+</div><!-- fragment --><p>To configure the display, you indicate the three types of locations, for example in your <code>main</code> function: </p><div class="fragment"><div class="line"><span class="keyword">auto</span>&amp; log = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>();</div>
 <div class="line">log.depth(2);                          <span class="comment">// Log functions called from &quot;main&quot; but not below.</span></div>
 <div class="line">log.threshold(<span class="stringliteral">&quot;Info&quot;</span>); <span class="comment">// Log only &quot;info&quot;, &quot;warning&quot;, &quot;error&quot; or &quot;critical&quot; messages.</span></div>
 <div class="line">log.file(<span class="stringliteral">&quot;algebra/.*&quot;</span>);                <span class="comment">// Will match any file in the &quot;algebra&quot; directory.</span></div>
@@ -162,13 +163,13 @@ Log level semantics</h2>
 <li><em>Debug</em>: data that would help debugging the program if there was a bug later on.</li>
 <li><em>XDebug</em>: debugging information that would be heavy to read.</li>
 </ul>
-<p>Note: the log levels constants are lower case (for example: <code>clutchlog::level::xdebug</code>), but their string representation is not (e.g. "XDebug", this should be taken into account when using <code>threshold</code> or <code>level_of</code>).</p>
+<p>Note: the log levels constants are lower case (for example: <code>clutchlog::level::xdebug</code>), but their string representation is not (e.g. "XDebug", this should be taken into account when using <code><a class="el" href="classclutchlog.html#a3cb0e4f43a4cadf1966001ad7c9861f4" title="Set the log level (below which logs are not printed) with an identifier.">clutchlog::threshold</a></code> or <code><a class="el" href="classclutchlog.html#acebed8c9df9204f22bf8488e62e1cedd" title="Return the log level tag corresponding to the given pre-configured name.">clutchlog::level_of</a></code>).</p>
 <h2><a class="anchor" id="autotoc_md6"></a>
 Location filtering</h2>
-<p>To configure the global behaviour of the logger, you must first get a reference on its (singleton) instance: </p><div class="fragment"><div class="line"><span class="keyword">auto</span>&amp; log = <a class="code" href="group__UseMacros.html#gacfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>();</div>
+<p>To configure the global behaviour of the logger, you must first get a reference on its (singleton) instance: </p><div class="fragment"><div class="line"><span class="keyword">auto</span>&amp; log = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>();</div>
 </div><!-- fragment --><p>One can configure the location(s) at which messages should actually be logged: </p><div class="fragment"><div class="line">log.depth(3); <span class="comment">// Depth of the call stack, defaults to the maximum possible value.</span></div>
 <div class="line">log.threshold(clutchlog::level::error); <span class="comment">// Log level, defaults to error.</span></div>
-</div><!-- fragment --><p>Current levels are defined in an enumeration as <code><a class="el" href="group__UseMacros.html#ga10fd25a1b51c8c95bd6d876ce1b4b928" title="Available log levels.">clutchlog::level</a></code>: </p><div class="fragment"><div class="line"><span class="keyword">enum</span> level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};</div>
+</div><!-- fragment --><p>Current levels are defined in an enumeration as <code><a class="el" href="classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928" title="Available log levels.">clutchlog::level</a></code>: </p><div class="fragment"><div class="line"><span class="keyword">enum</span> level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};</div>
 </div><!-- fragment --><p>File, function and line filters are indicated using (ECMAScript) regular expressions: </p><div class="fragment"><div class="line">log.file(<span class="stringliteral">&quot;.*&quot;</span>); <span class="comment">// File location, defaults to any.</span></div>
 <div class="line">log.func(<span class="stringliteral">&quot;.*&quot;</span>); <span class="comment">// Function location, defaults to any.</span></div>
 <div class="line">log.line(<span class="stringliteral">&quot;.*&quot;</span>); <span class="comment">// Line location, defaults to any.</span></div>
@@ -177,8 +178,8 @@ Location filtering</h2>
 </div><!-- fragment --><p>Note that the case of the log levels strings matters (see below).</p>
 <h2><a class="anchor" id="autotoc_md7"></a>
 Output Configuration</h2>
-<p>The output stream can be configured using the <code>out</code> method: </p><div class="fragment"><div class="line">log.out(std::clog); <span class="comment">// Defaults to clog.</span></div>
-</div><!-- fragment --><p>The format of the messages can be defined with the <code>format</code> method, passing a string with standardized tags surrounded by <code>{}</code>: </p><div class="fragment"><div class="line">log.format(<span class="stringliteral">&quot;{msg}&quot;</span>);</div>
+<p>The output stream can be configured using the <code><a class="el" href="classclutchlog.html#a7fd7c7bd3668c537061c314a619a336d" title="Set the output stream on which to print.">clutchlog::out</a></code> method: </p><div class="fragment"><div class="line">log.out(std::clog); <span class="comment">// Defaults to clog.</span></div>
+</div><!-- fragment --><p>The format of the messages can be defined with the <code><a class="el" href="classclutchlog.html#a656c277e074b64728cca871f2b484d1c" title="Set the template string.">clutchlog::format</a></code> method, passing a string with standardized tags surrounded by <code>{}</code>: </p><div class="fragment"><div class="line">log.format(<span class="stringliteral">&quot;{msg}&quot;</span>);</div>
 </div><!-- fragment --><p>Available tags are:</p>
 <ul>
 <li><code>{msg}</code>: the logged message,</li>
@@ -186,7 +187,8 @@ Output Configuration</h2>
 <li><code>{level_letter}</code>: the first letter of the current log level,</li>
 <li><code>{file}</code>: the current file (absolute path),</li>
 <li><code>{func}</code>: the current function,</li>
-<li><code>{line}</code>: the current line number.</li>
+<li><code>{line}</code>: the current line number,</li>
+<li><code>{level_fmt}</code>: the format of the current level (i.e. configured with <code><a class="el" href="classclutchlog.html#ac3ec55057b9c734b66f169bf43dbd591" title="Set the style (color and typo) of the given log level.">clutchlog::style</a></code>).</li>
 </ul>
 <p>Some tags are only available on POSIX operating systems as of now:</p><ul>
 <li><code>{name}</code>: the name of the current binary,</li>
@@ -199,7 +201,7 @@ Output Configuration</h2>
 <p>By default, and if <code>CLUTCHLOG_DEFAULT_FORMAT</code> is not defined, clutchlog will not put the location-related tags in the message formats (i.e. <code>{name}</code>, <code>{func}</code>, and <code>{line}</code>) when not in Debug builds.</p>
 <h2><a class="anchor" id="autotoc_md8"></a>
 Output style</h2>
-<p>The output can be colored differently depending on the log level. </p><div class="fragment"><div class="line"><span class="comment">// Print error messages in bold red:</span></div>
+<p>Output lines can be colored differently depending on the log level. </p><div class="fragment"><div class="line"><span class="comment">// Print error messages in bold red:</span></div>
 <div class="line">log.style(clutchlog::level::error, <span class="comment">// First, the log level.</span></div>
 <div class="line">    clutchlog::fmt::fg::red,       <span class="comment">// Then the styles, in any order...</span></div>
 <div class="line">    clutchlog::fmt::typo::bold);</div>
@@ -207,11 +209,12 @@ Output style</h2>
 <div class="line"><span class="keyword">using</span> fmt = <a class="code" href="classclutchlog_1_1fmt.html">clutchlog::fmt</a>;</div>
 <div class="line">fmt warn(fmt::fg::magenta, fmt::typo::bold);</div>
 <div class="line">log.style(clutchlog::level::warning, warn);</div>
-</div><!-- fragment --><p>Using the <code><a class="el" href="classclutchlog_1_1fmt.html" title="Color and style formatter for ANSI terminal escape sequences.">clutchlog::fmt</a></code> class, you can style:</p>
+</div><!-- fragment --><p>Note: this inserts a style marker at the very beginning of the line. If you add other styles later on the line, they will take precedence.</p>
+<p>Using the <code><a class="el" href="classclutchlog_1_1fmt.html" title="Color and style formatter for ANSI terminal escape sequences.">clutchlog::fmt</a></code> class, you can style:</p>
 <ul>
-<li>the foreground color, passing a <code><a class="el" href="group__UseMacros.html#ga4662a3ec3577c6a575a2c734636ed8a0" title="Foreground color codes.">clutchlog::fmt::fg</a></code>,</li>
-<li>the background color, passing a <code><a class="el" href="group__UseMacros.html#ga1cf3e27e4041250ffea0a6d58010da1e" title="Background color codes.">clutchlog::fmt::bg</a></code>,</li>
-<li>some typographic style, passing a <code><a class="el" href="group__UseMacros.html#ga932f47b78fb7b10590d5613a1c4eab89" title="Typographic style codes.">clutchlog::fmt::typo</a></code>.</li>
+<li>the foreground color, passing a <code><a class="el" href="classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0" title="Foreground color codes.">clutchlog::fmt::fg</a></code>,</li>
+<li>the background color, passing a <code><a class="el" href="classclutchlog_1_1fmt.html#a1cf3e27e4041250ffea0a6d58010da1e" title="Background color codes.">clutchlog::fmt::bg</a></code>,</li>
+<li>some typographic style, passing a <code><a class="el" href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89" title="Typographic style codes.">clutchlog::fmt::typo</a></code>.</li>
 </ul>
 <p>Any of the three arguments may be passed, in any order, if an argument is omitted, it defaults to no color/style.</p>
 <p>Available colors are:</p>
@@ -243,8 +246,9 @@ Output style</h2>
 <div class="line">    &lt;&lt; fmt(fmt::typo::reset) &lt;&lt; <span class="stringliteral">&quot; {msg}&quot;</span> &lt;&lt; std::endl; <span class="comment">// This is a reset.</span></div>
 <div class="line">log.format(format.str());</div>
 </div><!-- fragment --><p>Note: messages at the "critical", "error" and "warning" log levels are colored by default. You may want to set their style to <code>none</code> if you want to stay in control of inserted colors in the format template.</p>
-<p>The horizontal filling line (the <code>{hfill}</code> tag) can be configured separately with <code>hfill_style</code>, for example: </p><div class="fragment"><div class="line">log.hfill_style(clutchlog::fmt::fg::black);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
+<p>The horizontal filling line (the <code>{hfill}</code> tag) can be configured separately with <code>clutchlog::hfill_style</code>, for example: </p><div class="fragment"><div class="line">log.hfill_style(clutchlog::fmt::fg::black);</div>
+</div><!-- fragment --><p>Note: this will actually reset any styling after the hfill, disabling any style you would have set for the whole message using <code><a class="el" href="classclutchlog.html#a656c277e074b64728cca871f2b484d1c" title="Set the template string.">clutchlog::format</a></code> for the remaining of the message.</p>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Advanced Usage</h1>
 <h2><a class="anchor" id="autotoc_md10"></a>
 More Output Configuration</h2>
@@ -253,12 +257,12 @@ More Output Configuration</h2>
 <p>By default, the separator between items in the container is a new line. To change this behaviour, you can change <code>CLUTCHDUMP_DEFAULT_SEP</code> or call the low-level <code>dump</code> method.</p>
 <p>By default, and if <code>CLUTCHDUMP_DEFAULT_FORMAT</code> is not defined, clutchlog will not put the location-related tags in the message formats (i.e. <code>{file}</code> and <code>{line}</code>) when not in Debug builds.</p>
 <h3>Marks</h3>
-<p>The mark used with the <code>{depth_marks}</code> tag can be configured with the <code>depth_mark</code> method, and its default with the <code>CLUTCHLOG_DEFAULT_DEPTH_MARK</code> macro: </p><div class="fragment"><div class="line">log.depth_mark(<a class="code" href="group__UseMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a>); <span class="comment">// Defaults to &quot;&gt;&quot;.</span></div>
-</div><!-- fragment --><p>The character used with the <code>{hfill}</code> tag can be configured wth the <code>hfill_mark</code> method, and its default with the <code>CLUTCHLOG_DEFAULT_HFILL_MARK</code> macro: </p><div class="fragment"><div class="line">log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); <span class="comment">// Defaults to &#39;.&#39;.</span></div>
-</div><!-- fragment --><p>Clutchlog measures the width of the standard error channel. If it is redirected, it may be measured as very large. Thus, the <code>hfill_max</code> accessors allow to set a maximum width (in number of characters). </p><div class="fragment"><div class="line">log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MAX); <span class="comment">// Defaults to 300.</span></div>
-</div><!-- fragment --><p>Note: clutchlog will select the minimum between <code>hfill_max</code> and the measured number of columns in the terminal, so that you may use <code>hfill_max</code> as a way to constraint the output width in any cases.</p>
+<p>The mark used with the <code>{depth_marks}</code> tag can be configured with the <code>clutchlog::depth_mark</code> method, and its default with the <code>CLUTCHLOG_DEFAULT_DEPTH_MARK</code> macro: </p><div class="fragment"><div class="line">log.depth_mark(<a class="code" href="group__DefaultConfig.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a>); <span class="comment">// Defaults to &quot;&gt;&quot;.</span></div>
+</div><!-- fragment --><p>The character used with the <code>{hfill}</code> tag can be configured wth the <code>clutchlog::hfill_mark</code> method, and its default with the <code>CLUTCHLOG_DEFAULT_HFILL_MARK</code> macro: </p><div class="fragment"><div class="line">log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); <span class="comment">// Defaults to &#39;.&#39;.</span></div>
+</div><!-- fragment --><p>Clutchlog measures the width of the standard error channel. If it is redirected, it may be measured as very large. Thus, the <code>clutchlog::hfill_max</code> accessors allow to set a maximum width (in number of characters). </p><div class="fragment"><div class="line">log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MAX); <span class="comment">// Defaults to 300.</span></div>
+</div><!-- fragment --><p>Note: clutchlog will select the minimum between <code>clutchlog::hfill_max</code> and the measured number of columns in the terminal, so that you may use <code>clutchlog::hfill_max</code> as a way to constraint the output width in any cases.</p>
 <h3>Stack Depth</h3>
-<p>By default, clutchlog removes 5 levels of the calls stack, so that your <code>main</code> entrypoint corresponds to a depth of zero. You can change this behaviour by defining the <code>CLUTCHLOG_STRIP_CALLS</code> macro, or calling <code>strip_calls</code>. </p><div class="fragment"><div class="line">log.strip_calls(<a class="code" href="group__UseMacros.html#ga98f30d814d4913a8a7c93a8793f49adf">CLUTCHLOG_STRIP_CALLS</a>); <span class="comment">// Defaults to 5.</span></div>
+<p>By default, clutchlog removes 5 levels of the calls stack, so that your <code>main</code> entrypoint corresponds to a depth of zero. You can change this behaviour by defining the <code>CLUTCHLOG_STRIP_CALLS</code> macro, or calling <code>clutchlog::strip_calls</code>. </p><div class="fragment"><div class="line">log.strip_calls(<a class="code" href="group__DefaultConfig.html#ga98f30d814d4913a8a7c93a8793f49adf">CLUTCHLOG_STRIP_CALLS</a>); <span class="comment">// Defaults to 5.</span></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md11"></a>
 Disabled calls</h2>
 <p>By default, clutchlog is always enabled if the <code>NDEBUG</code> preprocessor variable is not defined (this variable is set by CMake in build types that differs from <code>Debug</code>).</p>
@@ -271,11 +275,11 @@ Disabled calls</h2>
 <h2><a class="anchor" id="autotoc_md12"></a>
 Low-level API</h2>
 <p>All configuration setters have a getters counterpart, with the same name but taking no parameter, for example: </p><div class="fragment"><div class="line">std::string mark = log.depth_mark();</div>
-</div><!-- fragment --><p>To control more precisely the logging, one can use the low-level <code>log</code> method: </p><div class="fragment"><div class="line">log.log(clutchlog::level::xdebug, <span class="stringliteral">&quot;hello world&quot;</span>, <span class="stringliteral">&quot;main.cpp&quot;</span>, <span class="stringliteral">&quot;main&quot;</span>, 122);</div>
+</div><!-- fragment --><p>To control more precisely the logging, one can use the low-level <code><a class="el" href="classclutchlog.html#a23dbb98f0d3c5cc21c232cde16cf317a" title="Print a log message IF the location matches the given one.">clutchlog::log</a></code> method: </p><div class="fragment"><div class="line">log.log(clutchlog::level::xdebug, <span class="stringliteral">&quot;hello world&quot;</span>, <span class="stringliteral">&quot;main.cpp&quot;</span>, <span class="stringliteral">&quot;main&quot;</span>, 122);</div>
 </div><!-- fragment --><p>A helper macro can helps to fill in the location with the actual one, as seen by the compiler: </p><div class="fragment"><div class="line">log.log(clutchlog::level::xdebug, <span class="stringliteral">&quot;hello world&quot;</span>, <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>);</div>
 </div><!-- fragment --><p>A similar <code>dump</code> method exists: </p><div class="fragment"><div class="line">log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), <a class="code" href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>, <span class="stringliteral">&quot;dumped_{n}.dat&quot;</span>, <span class="stringliteral">&quot;\n&quot;</span>);</div>
 <div class="line">log.dump(clutchlog::level::xdebug, cont.begin(), cont.end(), <span class="stringliteral">&quot;main.cpp&quot;</span>, <span class="stringliteral">&quot;main&quot;</span>, 122, <span class="stringliteral">&quot;dumped.dat&quot;</span>, <span class="stringliteral">&quot;\n\n&quot;</span>);</div>
-</div><!-- fragment --><p>You can access the identifier of log levels with <code>level_of</code>: </p><div class="fragment"><div class="line">log.threshold( log.level_of(<span class="stringliteral">&quot;XDebug&quot;</span>) ); <span class="comment">// You have to know the exact string.</span></div>
+</div><!-- fragment --><p>You can access the identifier of log levels with <code><a class="el" href="classclutchlog.html#acebed8c9df9204f22bf8488e62e1cedd" title="Return the log level tag corresponding to the given pre-configured name.">clutchlog::level_of</a></code>: </p><div class="fragment"><div class="line">log.threshold( log.level_of(<span class="stringliteral">&quot;XDebug&quot;</span>) ); <span class="comment">// You have to know the exact string.</span></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md13"></a>
 (De)clutch any function call</h2>
 <p>The <code>CLUTHFUNC</code> macro allows to wrap any function within the current logger.</p>
@@ -289,7 +293,7 @@ Low-level API</h2>
 <div class="line">);</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md15"></a>
 Examples</h1>
-<p>Here what you would do to setup clutchlog with the default configuration: </p><div class="fragment"><div class="line"><span class="keyword">auto</span>&amp; log = <a class="code" href="group__UseMacros.html#gacfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>();</div>
+<p>Here what you would do to setup clutchlog with the default configuration: </p><div class="fragment"><div class="line"><span class="keyword">auto</span>&amp; log = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>();</div>
 <div class="line">log.out(std::clog);</div>
 <div class="line"><span class="comment">// Location filtering.</span></div>
 <div class="line">log.depth(std::numeric_limits&lt;size_t&gt;::max());</div>
@@ -301,10 +305,10 @@ Examples</h1>
 <div class="line">log.style(clutchlog::level::critical, <a class="code" href="classclutchlog_1_1fmt.html">clutchlog::fmt</a>(</div>
 <div class="line">        clutchlog::fmt::fg::red,</div>
 <div class="line">        clutchlog::fmt::typo::underline);</div>
-<div class="line">log.<a class="code" href="group__UseMacros.html#ga2bb0fde65fcd264393e102314dd1610b">style</a>(clutchlog::level::error, <a class="code" href="classclutchlog_1_1fmt.html">clutchlog::fmt</a>(</div>
+<div class="line">log.<a class="code" href="classclutchlog_1_1fmt.html#a2bb0fde65fcd264393e102314dd1610b">style</a>(clutchlog::level::error, <a class="code" href="classclutchlog_1_1fmt.html">clutchlog::fmt</a>(</div>
 <div class="line">        clutchlog::fmt::fg::red,</div>
 <div class="line">        clutchlog::fmt::typo::bold);</div>
-<div class="line">log.<a class="code" href="group__UseMacros.html#ga2bb0fde65fcd264393e102314dd1610b">style</a>(clutchlog::level::warning, <a class="code" href="classclutchlog_1_1fmt.html">clutchlog::fmt</a>(</div>
+<div class="line">log.<a class="code" href="classclutchlog_1_1fmt.html#a2bb0fde65fcd264393e102314dd1610b">style</a>(clutchlog::level::warning, <a class="code" href="classclutchlog_1_1fmt.html">clutchlog::fmt</a>(</div>
 <div class="line">        clutchlog::fmt::fg::magenta,</div>
 <div class="line">        clutchlog::fmt::typo::bold);</div>
 <div class="line"><span class="comment">// Assuming you are on a POSIX system.</span></div>
@@ -314,28 +318,33 @@ Examples</h1>
 <div class="line">log.hfill_char(<span class="charliteral">&#39;.&#39;</span>);</div>
 <div class="line">log.hfill_max(300);</div>
 <div class="line">log.hfill_style(clutchlog::fmt::fg::none);</div>
-</div><!-- fragment --><p>And here are all the functions you may call to log something: ```cpp // Basic message. CLUTCHLOG(debug, "x = " &lt;&lt; x);</p>
-<p>// Any code section. CLUTCHCODE(xdebug, if(x &lt; 0) std::cerr &lt;&lt; "WTF?" &lt;&lt; std::endl; );</p>
-<p>// Container to a file. CLUTCHDUMP(note, my_vector, "my_vector.dat");</p>
-<p>// Container to a numbered file. CLUTCHDUMP(note, my_list, "my_list_{n}.dat");</p>
-<p>// Function call. <a class="el" href="group__UseMacros.html#ga9f77cee4f853e582262930c9c17f90ae" title="Call any function if the scope matches.">CLUTCHFUNC(warning, my_check, x, y)</a>; // Calls <code>my_check(x,y);</code></p>
-<p>// Declutchable asserts. #define ASSERT(...) { CLUTCHFUNC(critical, assert, <b>VA_ARGS</b>) } ASSERT(x&gt;0); </p><div class="fragment"><div class="line">Limitations</div>
-<div class="line">===========</div>
+</div><!-- fragment --><p>And here are all the functions you may call to log something: </p><div class="fragment"><div class="line"><span class="comment">// Basic message.</span></div>
+<div class="line"><a class="code" href="group__UseMacros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(debug, <span class="stringliteral">&quot;x = &quot;</span> &lt;&lt; x);</div>
 <div class="line"> </div>
-<div class="line">### System-dependent stack depth</div>
+<div class="line"><span class="comment">// Any code section.</span></div>
+<div class="line"><a class="code" href="group__UseMacros.html#gaaf2e85e1153e6c88b458dd49e3c37c73">CLUTCHCODE</a>(xdebug,</div>
+<div class="line">    <span class="keywordflow">if</span>(x &lt; 0) std::cerr &lt;&lt; <span class="stringliteral">&quot;WTF?&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">);</div>
 <div class="line"> </div>
-<div class="line">Because access to the call stack depth and program name are system-dependent,</div>
-<div class="line">the features relying on the depth of the call stack and the display of the program name</div>
-<div class="line">are only available for operating systems having the following headers:</div>
-<div class="line">`execinfo.h`, `stdlib.h` and `libgen.h` (so far, tested with Linux).</div>
+<div class="line"><span class="comment">// Container to a file.</span></div>
+<div class="line"><a class="code" href="group__UseMacros.html#ga572e3aa19d8b39e3ed0b9e91961104c2">CLUTCHDUMP</a>(note, my_vector, <span class="stringliteral">&quot;my_vector.dat&quot;</span>);</div>
 <div class="line"> </div>
-<div class="line">Clutchlog sets the `CLUTCHLOG_HAVE_UNIX_SYSINFO` to 1 if the headers are</div>
-<div class="line">available, and to 0 if they are not.</div>
-<div class="line">You can make portable code using something like:</div>
-<div class="line">```cpp</div>
-<div class="line">#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1</div>
+<div class="line"><span class="comment">// Container to a numbered file.</span></div>
+<div class="line"><a class="code" href="group__UseMacros.html#ga572e3aa19d8b39e3ed0b9e91961104c2">CLUTCHDUMP</a>(note, my_list, <span class="stringliteral">&quot;my_list_{n}.dat&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Function call.</span></div>
+<div class="line"><a class="code" href="group__UseMacros.html#ga9f77cee4f853e582262930c9c17f90ae">CLUTCHFUNC</a>(warning, my_check, x, y); <span class="comment">// Calls: my_check(x,y);</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Declutchable asserts.</span></div>
+<div class="line"><span class="preprocessor">#define ASSERT(...) { CLUTCHFUNC(critical, assert, __VA_ARGS__) }</span></div>
+<div class="line"><span class="preprocessor">ASSERT(x&gt;0);</span></div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md16"></a>
+Limitations</h1>
+<h3>System-dependent stack depth</h3>
+<p>Because access to the call stack depth and program name are system-dependent, the features relying on the depth of the call stack and the display of the program name are only available for operating systems having the following headers: <code>execinfo.h</code>, <code>stdlib.h</code> and <code>libgen.h</code> (so far, tested with Linux).</p>
+<p>Clutchlog sets the <code>CLUTCHLOG_HAVE_UNIX_SYSINFO</code> to 1 if the headers are available, and to 0 if they are not. You can make portable code using something like: </p><div class="fragment"><div class="line"><span class="preprocessor">#if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1</span></div>
 <div class="line">    log.depth( x );</div>
-<div class="line">#endif </div>
+<div class="line"><span class="preprocessor">#endif </span></div>
 </div><!-- fragment --><h3>System-dependent horizontal fill</h3>
 <p>Because access to the current terminal width is system-dependent, the <code>{hfill}</code> format tag feature is only available for operating systems having the following headers: <code>sys/ioctl.h</code>, <code>stdio.h</code> and <code>unistd.h</code> (so far, tested with Linux).</p>
 <p>Clutchlog sets the <code>CLUTCHLOG_HAVE_UNIX_SYSIOCTL</code> to 1 if the headers are available, and to 0 if they are not. You can make portable code using something like: </p><div class="fragment"><div class="line"><span class="preprocessor">#if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1</span></div>
@@ -361,7 +370,7 @@ Examples</h1>
 <li>Automatic argument parser (please, use a dedicated lib).</li>
 <li>Signal handling (WTF would you do that, anyway?).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 Build and tests</h1>
 <p>To use clutchlog, just include its header in your code and either ensure that the <code>NDEBUG</code> preprocessor variable is not set, either define the <code>WITH_CLUTCHLOG</code> preprocessor variable.</p>
 <p>If you're using CMake (or another modern build system), it will unset <code>NDEBUG</code> —and thus enable clutchlog— only for the "Debug" build type, which is usually what you want if you use clutchlog, anyway.</p>
@@ -373,15 +382,16 @@ Build and tests</h1>
 </div><!-- fragment --><p>There's a script that tests all the build types combinations: <code>./build_all.sh</code>. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
-<div class="ttc" id="agroup__UseMacros_html_gacfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="group__UseMacros.html#gacfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:286</div></div>
-<div class="ttc" id="agroup__UseMacros_html_ga6f86187e2b35e7e1907d688f504a197d"><div class="ttname"><a href="group__UseMacros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a></div><div class="ttdeci">#define CLUTCHLOG(LEVEL, WHAT)</div><div class="ttdoc">Log a message at the given level.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:79</div></div>
-<div class="ttc" id="agroup__UseMacros_html_ga45c4c964fad4ad1641d5c9c28c4645b9"><div class="ttname"><a href="group__UseMacros.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a></div><div class="ttdeci">#define CLUTCHLOG_DEFAULT_DEPTH_MARK</div><div class="ttdoc">Compile-time default mark for stack depth.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:242</div></div>
-<div class="ttc" id="agroup__UseMacros_html_ga2bb0fde65fcd264393e102314dd1610b"><div class="ttname"><a href="group__UseMacros.html#ga2bb0fde65fcd264393e102314dd1610b">clutchlog::fmt::style</a></div><div class="ttdeci">enum clutchlog::fmt::typo style</div><div class="ttdoc">Typographic style.</div></div>
-<div class="ttc" id="agroup__UseMacros_html_gae8911119d726a43b77f5781cb5a72813"><div class="ttname"><a href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a></div><div class="ttdeci">#define CLUTCHLOC</div><div class="ttdoc">Handy shortcuts to location.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:75</div></div>
-<div class="ttc" id="agroup__UseMacros_html_gaaf2e85e1153e6c88b458dd49e3c37c73"><div class="ttname"><a href="group__UseMacros.html#gaaf2e85e1153e6c88b458dd49e3c37c73">CLUTCHCODE</a></div><div class="ttdeci">#define CLUTCHCODE(LEVEL,...)</div><div class="ttdoc">Run any code if the scope matches.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:134</div></div>
-<div class="ttc" id="agroup__UseMacros_html_ga98f30d814d4913a8a7c93a8793f49adf"><div class="ttname"><a href="group__UseMacros.html#ga98f30d814d4913a8a7c93a8793f49adf">CLUTCHLOG_STRIP_CALLS</a></div><div class="ttdeci">#define CLUTCHLOG_STRIP_CALLS</div><div class="ttdoc">Compile-time number of call stack levels to remove from depth display by default.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:249</div></div>
-<div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:307</div></div>
-<div class="ttc" id="agroup__UseMacros_html_ga572e3aa19d8b39e3ed0b9e91961104c2"><div class="ttname"><a href="group__UseMacros.html#ga572e3aa19d8b39e3ed0b9e91961104c2">CLUTCHDUMP</a></div><div class="ttdeci">#define CLUTCHDUMP(LEVEL, CONTAINER, FILENAME)</div><div class="ttdoc">Dump the given container.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:96</div></div>
+<div class="ttc" id="agroup__UseMacros_html_ga6f86187e2b35e7e1907d688f504a197d"><div class="ttname"><a href="group__UseMacros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a></div><div class="ttdeci">#define CLUTCHLOG(LEVEL, WHAT)</div><div class="ttdoc">Log a message at the given level.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:81</div></div>
+<div class="ttc" id="aclassclutchlog_1_1fmt_html_a2bb0fde65fcd264393e102314dd1610b"><div class="ttname"><a href="classclutchlog_1_1fmt.html#a2bb0fde65fcd264393e102314dd1610b">clutchlog::fmt::style</a></div><div class="ttdeci">enum clutchlog::fmt::typo style</div><div class="ttdoc">Typographic style.</div></div>
+<div class="ttc" id="agroup__UseMacros_html_gae8911119d726a43b77f5781cb5a72813"><div class="ttname"><a href="group__UseMacros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a></div><div class="ttdeci">#define CLUTCHLOC</div><div class="ttdoc">Handy shortcuts to location.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:77</div></div>
+<div class="ttc" id="agroup__UseMacros_html_gaaf2e85e1153e6c88b458dd49e3c37c73"><div class="ttname"><a href="group__UseMacros.html#gaaf2e85e1153e6c88b458dd49e3c37c73">CLUTCHCODE</a></div><div class="ttdeci">#define CLUTCHCODE(LEVEL,...)</div><div class="ttdoc">Run any code if the scope matches.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:136</div></div>
+<div class="ttc" id="agroup__DefaultConfig_html_ga45c4c964fad4ad1641d5c9c28c4645b9"><div class="ttname"><a href="group__DefaultConfig.html#ga45c4c964fad4ad1641d5c9c28c4645b9">CLUTCHLOG_DEFAULT_DEPTH_MARK</a></div><div class="ttdeci">#define CLUTCHLOG_DEFAULT_DEPTH_MARK</div><div class="ttdoc">Compile-time default mark for stack depth.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:246</div></div>
+<div class="ttc" id="aclassclutchlog_html_acfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:291</div></div>
+<div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:309</div></div>
+<div class="ttc" id="agroup__DefaultConfig_html_ga98f30d814d4913a8a7c93a8793f49adf"><div class="ttname"><a href="group__DefaultConfig.html#ga98f30d814d4913a8a7c93a8793f49adf">CLUTCHLOG_STRIP_CALLS</a></div><div class="ttdeci">#define CLUTCHLOG_STRIP_CALLS</div><div class="ttdoc">Compile-time number of call stack levels to remove from depth display by default.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:253</div></div>
+<div class="ttc" id="agroup__UseMacros_html_ga572e3aa19d8b39e3ed0b9e91961104c2"><div class="ttname"><a href="group__UseMacros.html#ga572e3aa19d8b39e3ed0b9e91961104c2">CLUTCHDUMP</a></div><div class="ttdeci">#define CLUTCHDUMP(LEVEL, CONTAINER, FILENAME)</div><div class="ttdoc">Dump the given container.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:98</div></div>
+<div class="ttc" id="agroup__UseMacros_html_ga9f77cee4f853e582262930c9c17f90ae"><div class="ttname"><a href="group__UseMacros.html#ga9f77cee4f853e582262930c9c17f90ae">CLUTCHFUNC</a></div><div class="ttdeci">#define CLUTCHFUNC(LEVEL, FUNC,...)</div><div class="ttdoc">Call any function if the scope matches.</div><div class="ttdef"><b>Definition:</b> clutchlog.h:115</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

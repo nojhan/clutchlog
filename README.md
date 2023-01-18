@@ -190,7 +190,8 @@ Available tags are:
 - `{level_letter}`: the first letter of the current log level,
 - `{file}`: the current file (absolute path),
 - `{func}`: the current function,
-- `{line}`: the current line number.
+- `{line}`: the current line number,
+- `{level_fmt}`: the format of the current level (i.e. configured with `clutchlog::style`).
 
 Some tags are only available on POSIX operating systems as of now:
 - `{name}`: the name of the current binary,
