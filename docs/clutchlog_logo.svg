@@ -7,7 +7,7 @@
    viewBox="0 0 512 512"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2 (1:1.2.1+202207142221+cd75a1ee6d)"
+   inkscape:version="1.2.2 (1:1.2.2+202212051550+b0a8486541)"
    sodipodi:docname="clutchlog_logo.svg"
    inkscape:export-filename="clutchlog_logo.png"
    inkscape:export-xdpi="51.624424"
@@ -34,9 +34,9 @@
      inkscape:document-units="mm"
      showgrid="false"
      showguides="false"
-     inkscape:zoom="0.25439198"
-     inkscape:cx="585.71029"
-     inkscape:cy="1871.1282"
+     inkscape:zoom="0.3724553"
+     inkscape:cx="994.75025"
+     inkscape:cy="1388.086"
      inkscape:current-layer="layer1">
     <sodipodi:guide
        position="255.99999,255.99999"
@@ -152,7 +152,7 @@
        x2="299.34039"
        y2="194.53358"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-20.56712,1.1247969)" />
+       gradientTransform="matrix(1.2416244,0,0,1.2416244,-139.26568,-9.7350375)" />
     <filter
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
@@ -183,103 +183,104 @@
        sodipodi:nodetypes="cccccc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.93889px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:url(#linearGradient7257);fill-opacity:1;stroke:white;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
-       x="235.64035"
-       y="120.84676"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.13224px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:url(#linearGradient7257);fill-opacity:1;stroke:white;stroke-width:0.657027;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
+       x="178.84775"
+       y="138.91466"
        id="text7219"><tspan
          sodipodi:role="line"
          id="tspan7217"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="120.84676">[t-demo] Warning:  Log level not indicated, will default to xdebug</tspan><tspan
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="138.91466">[t-demo] Warning:  Log level not indicated, will default to xdebug</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="126.27955"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="145.66013"
          id="tspan7221">[t-demo] Progress:  Start something</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="131.71231"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="152.40559"
          id="tspan7223">[t-demo] Progress: 	 Initialize data structures...</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="137.1451"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="159.15106"
          id="tspan7225">[t-demo] Debug: 	 OK</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="142.57787"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="165.89653"
          id="tspan7227">[t-demo] Progress: 	 Initialize functors...</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="148.01065"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="172.642"
          id="tspan7229">[t-demo] Debug: 	 OK</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="153.44344"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="179.38747"
          id="tspan7231">[t-demo] Warning: 		 Input size &lt; 1</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="158.87621"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="186.13293"
          id="tspan7233">[t-demo] Note: 			 Filling up data of size: 0</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="164.30899"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="192.8784"
          id="tspan7235">[t-demo] Error: 			 Cannot parse input, I will reset stuff.</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="169.74176"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="199.62387"
          id="tspan7237">[t-demo] Progress: 				 Reset data structures...</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="175.17455"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="206.36935"
          id="tspan7239">[t-demo] Debug: 				 OK</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="180.60733"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="213.11482"
          id="tspan7241">[t-demo] Progress: 				 Reset functors...</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="186.0401"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="219.86029"
          id="tspan7243">[t-demo] Critical: 				 Impossible to reset, I cannot recover.</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="191.47289"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="226.60576"
          id="tspan7245">[t-demo] XDebug: 			 Last seen state: 0</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="196.90567"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="233.35123"
          id="tspan7247">[t-demo] Progress:  I have stopped</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.93889px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.529167"
-         x="235.64035"
-         y="202.33844"
+         style="font-size:6.13224px;fill:url(#linearGradient7257);fill-opacity:1;stroke:none;stroke-width:0.657027"
+         x="178.84775"
+         y="240.09669"
          id="tspan7249" /></text>
     <text
        xml:space="preserve"
        style="font-weight:bold;font-size:48.1045px;line-height:1.1;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono Bold';text-align:end;writing-mode:lr-tb;text-anchor:end;fill:none;stroke:white;stroke-width:2.64583;stroke-linecap:round;stroke-dasharray:none"
-       x="56.97028"
-       y="72.052231"
+       x="43.206051"
+       y="84.430527"
        id="text1151"><tspan
          sodipodi:role="line"
          id="tspan1149"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:48.1045px;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;text-anchor:start;fill:white;stroke:none;stroke-width:2.64583"
-         x="56.97028"
-         y="72.052231">Clutchlog</tspan></text>
+         x="43.206051"
+         y="84.430527">Clutchlog</tspan></text>
     <g
-       id="g6384">
+       id="g6384"
+       transform="matrix(0.8444502,0,0,0.8444502,0.50298885,78.685564)">
       <path
          id="path2894-9"
          style="fill:#04a;fill-opacity:1;stroke:#04a;stroke-width:2.79411;stroke-dasharray:none;filter:url(#filter5895)"
@@ -632,8 +633,8 @@
              height="22.531914"
              x="218.5654"
              y="174.48767"
-             rx="15.07203"
-             ry="15.073158" />
+             rx="17.848335"
+             ry="17.84967" />
           <path
              style="fill:none;stroke:white;stroke-width:3.53983;stroke-linecap:round;stroke-dasharray:none"
              d="M 240.12498,197.01958 L 234.08757,174.48767"
@@ -712,7 +713,8 @@
       </g>
     </g>
     <g
-       id="g6330">
+       id="g6330"
+       transform="matrix(0.8444502,0,0,0.8444502,0.50298885,78.685564)">
       <path
          id="path5632"
          style="fill:#04a;stroke:#04a;stroke-width:3.53983;stroke-linecap:round;filter:url(#filter5821)"
@@ -919,7 +921,7 @@
     </g>
     <g
        id="g6302"
-       transform="rotate(-45,319.95718,407.85787)">
+       transform="matrix(0.59711646,-0.59711646,0.59711646,0.59711646,-163.89946,370.61428)">
       <path
          id="path5582"
          style="fill:#04a;fill-opacity:1;stroke:#04a;stroke-width:3.53983;stroke-linecap:round;filter:url(#filter5591)"
@@ -946,8 +948,8 @@
       </g>
     </g>
     <path
-       style="fill:#06f;fill-opacity:1;stroke:white;stroke-width:2.64583;stroke-linecap:round;stroke-dasharray:2.64583, 10.5833;stroke-dashoffset:0"
-       d="M 14.062273,104.93557 L 61.406716,152.27978 M 131.94292,222.81563 L 146.61481,237.48744 M 211.97049,302.84279 L 287.16824,378.04015 M 293.23116,384.10305 L 385.87353,476.74494"
+       style="fill:#06f;fill-opacity:1;stroke:white;stroke-width:2.23427;stroke-linecap:round;stroke-dasharray:2.23427, 8.93707;stroke-dashoffset:0"
+       d="M 12.377878,167.29843 L 52.357903,207.27826 M 111.92221,266.84227 L 124.31189,279.23188 M 179.50151,334.42122 L 243.00227,397.92165 M 248.1221,403.04146 L 326.35397,481.27293"
        id="path5035"
        sodipodi:nodetypes="cccccccc" />
     <g
@@ -960,41 +962,42 @@
        transform="matrix(0.86556137,0,0,0.86550092,119.52825,114.48788)" />
     <g
        id="g6797"
-       style="stroke-width:1.000125;stroke-dasharray:none">
+       style="stroke-width:1.00013;stroke-dasharray:none"
+       transform="matrix(0.75222992,0,0,0.75222992,31.807883,114.38652)">
       <path
          style="fill:none;fill-opacity:1;stroke:white;stroke-width:1.00013;stroke-linecap:round;stroke-dasharray:1.00013, 3.00038;stroke-dashoffset:0"
-         d="M 385.59097,342.59101 L 423.78132,304.40066 L 423.78132,225.85408"
+         d="M 385.59097,342.59101 L 441.9654,282.37158 V 225.85408"
          id="path6440"
          sodipodi:nodetypes="ccc" />
       <path
          id="rect6548"
-         style="fill:none;stroke:white;stroke-width:1.000125;stroke-linecap:round;stroke-dasharray:1.00012505, 3.00037515;stroke-dashoffset:0"
+         style="fill:none;stroke:white;stroke-width:1.00013;stroke-linecap:round;stroke-dasharray:1.00013, 3.00038;stroke-dashoffset:0"
          d="M 367.86906,339.43238 L 375.09579,332.20565 L 395.69921,352.80908 L 388.52845,359.97984"
          sodipodi:nodetypes="cccc" />
     </g>
     <g
        id="g6793"
-       style="stroke-width:2.64583333;stroke-dasharray:none"
-       transform="translate(-40.784926)">
+       style="stroke-width:2.64583;stroke-dasharray:none"
+       transform="matrix(1.4222024,0,0,1.4222024,-237.78372,-38.441651)">
       <path
-         style="fill:none;fill-opacity:1;stroke:white;stroke-width:2.64583333;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
+         style="fill:none;fill-opacity:1;stroke:white;stroke-width:2.64583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
          d="M 403.41957,117.94138 V 161.04467 H 423.78132 H 444.14307 V 117.94138"
          id="path6777"
          sodipodi:nodetypes="ccccc" />
       <path
-         style="fill:none;fill-opacity:1;stroke:white;stroke-width:2.64583333;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
+         style="fill:none;fill-opacity:1;stroke:white;stroke-width:2.64583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
          d="M 403.41957,204.14796 V 161.04467 H 423.78132 H 444.14307 V 204.14796"
          id="path6783"
          sodipodi:nodetypes="ccccc"
          inkscape:transform-center-y="22.213105" />
       <path
-         style="fill:none;fill-opacity:1;stroke:white;stroke-width:2.64583333;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
+         style="fill:none;fill-opacity:1;stroke:white;stroke-width:2.64583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
          d="M 423.78132,204.14796 V 161.04467 H 444.14307 H 464.50482 V 204.14796"
          id="path6785"
          sodipodi:nodetypes="ccccc"
          inkscape:transform-center-y="22.213105" />
       <path
-         style="fill:none;fill-opacity:1;stroke:white;stroke-width:2.64583333;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
+         style="fill:none;fill-opacity:1;stroke:white;stroke-width:2.64583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
          d="M 423.78132,161.04467 V 117.94138"
          id="path6787" />
     </g>
@@ -1012,100 +1015,100 @@
          y="-456.41385">C++ logging header for debugging</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.9389px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
-       x="-114.50282"
-       y="364.354"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777778px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.752583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="-124.40454"
+       y="338.40585"
        id="text7404"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan7402"
-         style="stroke-width:0.529167"
-         x="-114.50282"
-         y="364.354">Critical</tspan></text>
+         style="stroke-width:0.752583;-inkscape-font-specification:'MesloLGS NF, Bold';font-family:'MesloLGS NF';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:9.87777778px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="-124.40454"
+         y="338.40585">Critical</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.9389px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
-       x="-114.41811"
-       y="384.69247"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777778px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.752583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="-124.28407"
+       y="367.33127"
        id="text7408"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan7406"
-         style="stroke-width:0.529167"
-         x="-114.41811"
-         y="384.69247">Error</tspan></text>
+         style="stroke-width:0.752583;-inkscape-font-specification:'MesloLGS NF, Bold';font-family:'MesloLGS NF';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:9.87777778px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="-124.28407"
+         y="367.33127">Error</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.9389px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
-       x="-113.49109"
-       y="405.61084"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777778px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.752583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="-122.96565"
+       y="397.08142"
        id="text7412"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan7410"
-         style="stroke-width:0.529167"
-         x="-113.49109"
-         y="405.61084">Warning</tspan></text>
+         style="stroke-width:0.752583;-inkscape-font-specification:'MesloLGS NF, Bold';font-family:'MesloLGS NF';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:9.87777778px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="-122.96565"
+         y="397.08142">Warning</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.9389px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
-       x="-208.23761"
-       y="363.75476"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777778px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.752583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="-257.71439"
+       y="337.55362"
        id="text7416"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan7414"
-         style="text-align:end;text-anchor:end;stroke-width:0.529167"
-         x="-208.23761"
-         y="363.75476">Progress</tspan></text>
+         style="text-align:end;text-anchor:end;stroke-width:0.752583;-inkscape-font-specification:'MesloLGS NF, Bold';font-family:'MesloLGS NF';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:9.87777778px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="-257.71439"
+         y="337.55362">Progress</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.9389px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:end;writing-mode:lr-tb;text-anchor:end;fill:white;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
-       x="-208.43536"
-       y="384.37616"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777778px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF, Bold';text-align:end;writing-mode:lr-tb;text-anchor:end;fill:white;fill-opacity:1;stroke:none;stroke-width:0.752583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="-257.99564"
+       y="366.88141"
        id="text7420"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan7418"
-         style="text-align:end;text-anchor:end;stroke-width:0.529167"
-         x="-208.43536"
-         y="384.37616">Note</tspan></text>
+         style="text-align:end;text-anchor:end;stroke-width:0.752583;-inkscape-font-specification:'MesloLGS NF, Bold';font-family:'MesloLGS NF';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:9.87777778px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="-257.99564"
+         y="366.88141">Note</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.9389px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
-       x="-208.4016"
-       y="404.6825"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777778px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.752583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="-257.9476"
+       y="395.76114"
        id="text7424"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan7422"
-         style="text-align:end;text-anchor:end;stroke-width:0.529167"
-         x="-208.4016"
-         y="404.6825">Info</tspan></text>
+         style="text-align:end;text-anchor:end;stroke-width:0.752583;-inkscape-font-specification:'MesloLGS NF, Bold';font-family:'MesloLGS NF';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:9.87777778px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="-257.9476"
+         y="395.76114">Info</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.9389px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
-       x="-208.30754"
-       y="424.79053"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777778px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:white;fill-opacity:1;stroke:none;stroke-width:0.752583;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="-257.81384"
+       y="424.35883"
        id="text7428"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan7426"
-         style="text-align:end;text-anchor:end;stroke-width:0.529167"
-         x="-208.30754"
-         y="424.79053">Debug</tspan></text>
+         style="text-align:end;text-anchor:end;stroke-width:0.752583;-inkscape-font-specification:'MesloLGS NF, Bold';font-family:'MesloLGS NF';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:9.87777778px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="-257.81384"
+         y="424.35883">Debug</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:23.4965px;line-height:1.1;font-family:'MesloLGS NF';-inkscape-font-specification:'MesloLGS NF Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;stroke:white;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0"
-       x="37.298744"
-       y="439.17142"
+       x="26.512325"
+       y="457.33154"
        id="text7645"
        transform="scale(1.0011568,0.99884453)"><tspan
          sodipodi:role="line"
          id="tspan7643"
          style="font-size:23.4965px;stroke-width:0.529167;stroke-dasharray:none"
-         x="37.298744"
-         y="439.17142">v0.9</tspan></text>
+         x="26.512325"
+         y="457.33154">v0.11</tspan></text>
     <path
        style="fill:#00112b;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0;filter:url(#filter8261)"
        d="M 1.5874998,23.875894 L 24.102351,1.5875025 V 23.517416 Z"
