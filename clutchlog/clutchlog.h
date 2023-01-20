@@ -854,9 +854,17 @@ class clutchlog
                     const size_t right_len = raw_row.size() - raw_hfill_pos - hfill_tag.size();
                     if(right_len+left_len > nb_columns) {
                         // The right part would go over the terminal width: add a new row.
-                        const std::string hfill(std::max((size_t)0, nb_columns-right_len), _hfill_char);
-                        const std::string hfill_styled = _hfill_fmt(hfill);
-                        row = replace(row, "\\{hfill\\}", "\n"+hfill_styled);
+                        if(right_len < nb_columns) {
+                            // There is room for the right part on a new line.
+                            const std::string hfill(std::max((size_t)0, nb_columns-right_len), _hfill_char);
+                            const std::string hfill_styled = _hfill_fmt(hfill);
+                            row = replace(row, "\\{hfill\\}", "\n"+hfill_styled);
+                        } else {
+                            // Right part still goes over columns: let it go.
+                            const std::string hfill(1, _hfill_char);
+                            const std::string hfill_styled = _hfill_fmt(hfill);
+                            row = replace(row, "\\{hfill\\}", "\n"+hfill_styled);
+                        }
                     } else {
                         // There is some space in between left and right parts.
                         const std::string hfill(std::max((size_t)0, nb_columns - (right_len+left_len)), _hfill_char);
