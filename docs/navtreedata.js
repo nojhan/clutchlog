@@ -39,17 +39,18 @@ var NAVTREE =
       [ "Advanced Usage", "index.html#autotoc_md10", [
         [ "More Output Configuration", "index.html#autotoc_md11", [
           [ "Dump Format", "index.html#autotoc_md12", null ],
-          [ "Marks", "index.html#autotoc_md13", null ],
-          [ "Stack Depth", "index.html#autotoc_md14", null ]
+          [ "Stack Depth Mark", "index.html#autotoc_md13", null ],
+          [ "Horizontal Filling", "index.html#autotoc_md14", null ],
+          [ "Stack Depth", "index.html#autotoc_md15", null ]
         ] ],
-        [ "Disabled calls", "index.html#autotoc_md15", null ],
-        [ "Low-level API", "index.html#autotoc_md16", null ],
-        [ "(De)clutch any function call", "index.html#autotoc_md17", null ],
-        [ "(De)clutch any code section", "index.html#autotoc_md18", null ]
+        [ "Disabled calls", "index.html#autotoc_md16", null ],
+        [ "Low-level API", "index.html#autotoc_md17", null ],
+        [ "(De)clutch any function call", "index.html#autotoc_md18", null ],
+        [ "(De)clutch any code section", "index.html#autotoc_md19", null ]
       ] ],
-      [ "Examples", "index.html#autotoc_md19", null ],
-      [ "Limitations", "index.html#autotoc_md20", null ],
-      [ "Build and tests", "index.html#autotoc_md26", null ]
+      [ "Examples", "index.html#autotoc_md20", null ],
+      [ "Limitations", "index.html#autotoc_md21", null ],
+      [ "Build and tests", "index.html#autotoc_md27", null ]
     ] ],
     [ "Modules", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fg_121',['fg',['../classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0',1,'clutchlog::fmt']]]
+  ['fg_123',['fg',['../classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0',1,'clutchlog::fmt']]]
 ];

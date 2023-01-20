@@ -36,6 +36,7 @@ var classclutchlog =
     [ "default_strip_calls", "classclutchlog.html#a1a8cb6411726133208f5a2f2cb42d468", null ],
     [ "default_hfill_char", "classclutchlog.html#a76eb34537b634aadb75e255f7887eeb6", null ],
     [ "default_hfill_max", "classclutchlog.html#ac95630bfe9cf547d2b7c4b3430eaedc1", null ],
+    [ "default_hfill_min", "classclutchlog.html#a5a9a98c3528117223ceff22bc6bee5f7", null ],
     [ "_strip_calls", "classclutchlog.html#a356df86455409193792b6ed550dfd09e", null ],
     [ "_level_word", "classclutchlog.html#ab1c377a376e6772fe1746ff7147c125f", null ],
     [ "_word_level", "classclutchlog.html#abd4625bf211bfbaa30d9c126fa3d7888", null ],

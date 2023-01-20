@@ -1,11 +1,11 @@
 var group___main =
 [
     [ "clutchlog", "classclutchlog.html", [
-      [ "System-dependent stack depth", "index.html#autotoc_md21", null ],
-      [ "System-dependent horizontal fill", "index.html#autotoc_md22", null ],
-      [ "Dependencies", "index.html#autotoc_md23", null ],
-      [ "Variable names within the CLUTCHLOG macro", "index.html#autotoc_md24", null ],
-      [ "Features", "index.html#autotoc_md25", null ],
+      [ "System-dependent stack depth", "index.html#autotoc_md22", null ],
+      [ "System-dependent horizontal fill", "index.html#autotoc_md23", null ],
+      [ "Dependencies", "index.html#autotoc_md24", null ],
+      [ "Variable names within the CLUTCHLOG macro", "index.html#autotoc_md25", null ],
+      [ "Features", "index.html#autotoc_md26", null ],
       [ "scope_t", "structclutchlog_1_1scope__t.html", [
         [ "scope_t", "structclutchlog_1_1scope__t.html#a0f1d865ffcf17f215e5559cdd2690572", null ],
         [ "matches", "structclutchlog_1_1scope__t.html#ae6c0e4ed20db797124ed1e5faa033ad9", null ],
@@ -47,6 +47,7 @@ var group___main =
       [ "default_strip_calls", "classclutchlog.html#a1a8cb6411726133208f5a2f2cb42d468", null ],
       [ "default_hfill_char", "classclutchlog.html#a76eb34537b634aadb75e255f7887eeb6", null ],
       [ "default_hfill_max", "classclutchlog.html#ac95630bfe9cf547d2b7c4b3430eaedc1", null ],
+      [ "default_hfill_min", "classclutchlog.html#a5a9a98c3528117223ceff22bc6bee5f7", null ],
       [ "_strip_calls", "classclutchlog.html#a356df86455409193792b6ed550dfd09e", null ],
       [ "_level_word", "classclutchlog.html#ab1c377a376e6772fe1746ff7147c125f", null ],
       [ "_word_level", "classclutchlog.html#abd4625bf211bfbaa30d9c126fa3d7888", null ],

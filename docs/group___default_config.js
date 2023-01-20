@@ -6,5 +6,5 @@ var group___default_config =
     [ "CLUTCHDUMP_DEFAULT_SEP", "group___default_config.html#ga54d29e956575e1c731eab5406135c5df", null ],
     [ "CLUTCHLOG_DEFAULT_DEPTH_MARK", "group___default_config.html#ga45c4c964fad4ad1641d5c9c28c4645b9", null ],
     [ "CLUTCHLOG_STRIP_CALLS", "group___default_config.html#ga98f30d814d4913a8a7c93a8793f49adf", null ],
-    [ "CLUTCHLOG_HFILL_MARK", "group___default_config.html#gad5fbbacf74b8e4669b8f9efdfe81bd25", null ]
+    [ "CLUTCHLOG_DEFAULT_HFILL_MARK", "group___default_config.html#ga4eda0c1bfded5df89351b8ce8b9c2805", null ]
 ];

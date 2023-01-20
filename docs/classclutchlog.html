@@ -28,7 +28,7 @@
   <td id="projectlogo"><img alt="Logo" src="clutchlog_logo.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">clutchlog
-   &#160;<span id="projectnumber">0.11.1</span>
+   &#160;<span id="projectnumber">0.12</span>
    </div>
   </td>
  </tr>
@@ -226,13 +226,17 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <tr class="memdesc:a1a8cb6411726133208f5a2f2cb42d468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of call stack levels to remove from depth display by default. <br /></td></tr>
 <tr class="separator:a1a8cb6411726133208f5a2f2cb42d468"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76eb34537b634aadb75e255f7887eeb6"><td class="memItemLeft" align="right" valign="top"><a id="a76eb34537b634aadb75e255f7887eeb6"></a>
-static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a76eb34537b634aadb75e255f7887eeb6">default_hfill_char</a> = <a class="el" href="group___default_config.html#gad5fbbacf74b8e4669b8f9efdfe81bd25">CLUTCHLOG_HFILL_MARK</a></td></tr>
+static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a76eb34537b634aadb75e255f7887eeb6">default_hfill_char</a> = <a class="el" href="group___default_config.html#ga4eda0c1bfded5df89351b8ce8b9c2805">CLUTCHLOG_DEFAULT_HFILL_MARK</a></td></tr>
 <tr class="memdesc:a76eb34537b634aadb75e255f7887eeb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default character used as a filling for right-align the right part of messages with "{hfill}". <br /></td></tr>
 <tr class="separator:a76eb34537b634aadb75e255f7887eeb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac95630bfe9cf547d2b7c4b3430eaedc1"><td class="memItemLeft" align="right" valign="top"><a id="ac95630bfe9cf547d2b7c4b3430eaedc1"></a>
-static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#ac95630bfe9cf547d2b7c4b3430eaedc1">default_hfill_max</a> = CLUTCHLOG_HFILL_MAX</td></tr>
-<tr class="memdesc:ac95630bfe9cf547d2b7c4b3430eaedc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default maximum number of character used as a filling for right-align the right part of messages with "{hfill}". <br /></td></tr>
+static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#ac95630bfe9cf547d2b7c4b3430eaedc1">default_hfill_max</a> = CLUTCHLOG_DEFAULT_HFILL_MAX</td></tr>
+<tr class="memdesc:ac95630bfe9cf547d2b7c4b3430eaedc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default maximum width (number of characters) for which to fill for right-aligning the right part of messages (using "{hfill}"). <br /></td></tr>
 <tr class="separator:ac95630bfe9cf547d2b7c4b3430eaedc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a9a98c3528117223ceff22bc6bee5f7"><td class="memItemLeft" align="right" valign="top"><a id="a5a9a98c3528117223ceff22bc6bee5f7"></a>
+static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a5a9a98c3528117223ceff22bc6bee5f7">default_hfill_min</a> = CLUTCHLOG_DEFAULT_HFILL_MIN</td></tr>
+<tr class="memdesc:a5a9a98c3528117223ceff22bc6bee5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default minimum width (number of characters) at which to fill for right-aligning the right part of messages (using "{hfill}"). <br /></td></tr>
+<tr class="separator:a5a9a98c3528117223ceff22bc6bee5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -346,7 +350,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a cla
 <p>Get the logger instance. </p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span>&amp; <a class="code" href="classclutchlog.html#a23dbb98f0d3c5cc21c232cde16cf317a">log</a> = <a class="code" href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a>();</div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l00291">291</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l00296">296</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
 
 </div>
 </div>
@@ -377,11 +381,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a cla
 <p>Return the log level tag corresponding to the given pre-configured name. </p>
 <dl class="section note"><dt>Note</dt><dd>This is case sensitive, see the pre-configured <code>_level_word</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l00606">606</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l00618">618</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l00493">_word_level</a>.</p>
+<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l00499">_word_level</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l00596">threshold()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l00608">threshold()</a>.</p>
 
 </div>
 </div>
@@ -424,11 +428,11 @@ template&lt;class ... FMT&gt; </div>
 <p>Set the style (color and typo) of the given log level. </p>
 <p>This version accept style arguments as if they were passed to <code><a class="el" href="classclutchlog_1_1fmt.html" title="Color and style formatter for ANSI terminal escape sequences.">clutchlog::fmt</a></code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l00640">640</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l00652">652</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l00640">style()</a>.</p>
+<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l00652">style()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l00640">style()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l00652">style()</a>.</p>
 
 </div>
 </div>
@@ -476,9 +480,9 @@ template&lt;class ... FMT&gt; </div>
 <div class="fragment"><div class="line"><a class="code" href="classclutchlog.html#a23dbb98f0d3c5cc21c232cde16cf317a">log</a>.replace(<span class="stringliteral">&quot;{greet} {world}&quot;</span>, <span class="stringliteral">&quot;\\{greet\\}&quot;</span>, <span class="stringliteral">&quot;hello&quot;</span>);</div>
 <div class="line"><span class="comment">// returns &quot;hello {world}&quot;</span></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l00729">729</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l00741">741</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l00916">dump()</a>, <a class="el" href="clutchlog_8h_source.html#l00805">format()</a>, and <a class="el" href="clutchlog_8h_source.html#l00794">replace()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l00928">dump()</a>, <a class="el" href="clutchlog_8h_source.html#l00817">format()</a>, and <a class="el" href="clutchlog_8h_source.html#l00806">replace()</a>.</p>
 
 </div>
 </div>
@@ -487,8 +491,8 @@ template&lt;class ... FMT&gt; </div>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassclutchlog_html_a23dbb98f0d3c5cc21c232cde16cf317a"><div class="ttname"><a href="classclutchlog.html#a23dbb98f0d3c5cc21c232cde16cf317a">clutchlog::log</a></div><div class="ttdeci">void log(const level &amp;stage, const std::string &amp;what, const std::string &amp;file, const std::string &amp;func, size_t line) const</div><div class="ttdoc">Print a log message IF the location matches the given one.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00891">clutchlog.h:891</a></div></div>
-<div class="ttc" id="aclassclutchlog_html_acfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00291">clutchlog.h:291</a></div></div>
+<div class="ttc" id="aclassclutchlog_html_a23dbb98f0d3c5cc21c232cde16cf317a"><div class="ttname"><a href="classclutchlog.html#a23dbb98f0d3c5cc21c232cde16cf317a">clutchlog::log</a></div><div class="ttdeci">void log(const level &amp;stage, const std::string &amp;what, const std::string &amp;file, const std::string &amp;func, size_t line) const</div><div class="ttdoc">Print a log message IF the location matches the given one.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00903">clutchlog.h:903</a></div></div>
+<div class="ttc" id="aclassclutchlog_html_acfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00296">clutchlog.h:296</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
