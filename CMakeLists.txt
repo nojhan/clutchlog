@@ -49,9 +49,9 @@ option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation 
 if(BUILD_DOCUMENTATION)
     find_package(Doxygen REQUIRED)
 
-    set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
+    set(DOXYGEN_CONFIG_DIR ${CMAKE_SOURCE_DIR}/doxygen)
+    set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/doxygen/doxyfile.cmake)
     set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
-
     configure_file(${doxyfile_in} ${doxyfile} @ONLY)
 
     add_custom_target( doc
