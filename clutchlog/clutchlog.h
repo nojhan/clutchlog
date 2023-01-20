@@ -255,21 +255,26 @@ class clutchlog
         //! Number of call stack levels to remove from depth display by default.
         static inline unsigned int default_strip_calls = CLUTCHLOG_STRIP_CALLS;
 
-        #ifndef CLUTCHLOG_HFILL_MARK
+        #ifndef CLUTCHLOG_DEFAULT_HFILL_MARK
             //! Character used as a filling for right-align the right part of messages with "{hfill}".
-            #define CLUTCHLOG_HFILL_MARK '.'
-        #endif // CLUTCHLOG_HFILL_MARK
+            #define CLUTCHLOG_DEFAULT_HFILL_MARK '.'
+        #endif // CLUTCHLOG_DEFAULT_HFILL_MARK
         //! Default character used as a filling for right-align the right part of messages with "{hfill}".
-        static inline char default_hfill_char = CLUTCHLOG_HFILL_MARK;
+        static inline char default_hfill_char = CLUTCHLOG_DEFAULT_HFILL_MARK;
 
 
         #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
-            #ifndef CLUTCHLOG_HFILL_MAX
-                #define CLUTCHLOG_HFILL_MAX 300
+            #ifndef CLUTCHLOG_DEFAULT_HFILL_MAX
+                #define CLUTCHLOG_DEFAULT_HFILL_MAX 300
+            #endif
+            #ifndef CLUTCHLOG_DEFAULT_HFILL_MIN
+                #define CLUTCHLOG_DEFAULT_HFILL_MIN 150
             #endif
         #endif
-        //! Default maximum number of character used as a filling for right-align the right part of messages with "{hfill}".
-        static inline size_t default_hfill_max = CLUTCHLOG_HFILL_MAX;
+        //! Default maximum width (number of characters) for which to fill for right-aligning the right part of messages (using "{hfill}").
+        static inline size_t default_hfill_max = CLUTCHLOG_DEFAULT_HFILL_MAX;
+        //! Default minimum width (number of characters) at which to fill for right-aligning the right part of messages (using "{hfill}").
+        static inline size_t default_hfill_min = CLUTCHLOG_DEFAULT_HFILL_MIN;
 
         // NOTE: there is no CLUTCHLOG_HFILL_STYLE for defaulting,
         // but you can still set `hfill_style(...)` on the logger singleton.
@@ -462,6 +467,7 @@ class clutchlog
                 _hfill_char(clutchlog::default_hfill_char),
                 _hfill_fmt(fmt::fg::none),
                 _hfill_max(clutchlog::default_hfill_max),
+                _hfill_min(clutchlog::default_hfill_min),
             #endif
             _out(&std::clog),
             #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
@@ -480,7 +486,7 @@ class clutchlog
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
             struct winsize w;
             ioctl(STDERR_FILENO, TIOCGWINSZ, &w);
-            _nb_columns = std::min((size_t)w.ws_col, default_hfill_max);
+            _nb_columns = std::max(std::min((size_t)w.ws_col, default_hfill_max), default_hfill_min);
 #endif
         }
 
@@ -502,8 +508,10 @@ class clutchlog
             char _hfill_char;
             /** Style of the filling. */
             fmt _hfill_fmt;
-            /** Maximum number of fill char. */
+            /** Maximum width for which to hfill. */
             size_t _hfill_max;
+            /** Minimum width at which to hfill. */
+            size_t _hfill_min;
         #endif
         /** Standard output. */
         std::ostream* _out;
@@ -584,10 +592,14 @@ class clutchlog
         void hfill_style(FMT... styles) { this->hfill_style(fmt(styles...)); }
         //! Get the character for the stretching hfill marker.
         fmt hfill_style() const {return _hfill_fmt;}
-        //! Set the maximum number of hfill characters. */
+        //! Set the maximum width for which to hfill. */
         void hfill_max(const size_t nmax) {_hfill_max = nmax;}
-        //! Get the maximum number of hfill characters. */
+        //! Get the maximum width for which to hfill. */
         size_t hfill_max() {return _hfill_max;}
+        //! Set the minimum width at which to hfill. */
+        void hfill_min(const size_t nmin) {_hfill_min = nmin;}
+        //! Get the minimum width at which to hfill. */
+        size_t hfill_min() {return _hfill_min;}
 #endif
 
         //! Set the log level (below which logs are not printed) with an identifier.
@@ -846,7 +858,7 @@ class clutchlog
             const std::string hfill_tag = "{hfill}";
             const size_t hfill_pos = row.find(hfill_tag);
             const size_t raw_hfill_pos = raw_row.find(hfill_tag);
-            const size_t nb_columns = std::min(_nb_columns, _hfill_max);
+            const size_t nb_columns = std::max(std::min((size_t)_nb_columns, _hfill_max), _hfill_min);
             if(hfill_pos != std::string::npos) {
                 assert(raw_hfill_pos != std::string::npos);
                 if(nb_columns > 0) {
@@ -1041,6 +1053,8 @@ class clutchlog
         char hfill_mark() const {}
         void hfill_fmt(fmt) {}
         fmt hfill_fmt() const {}
+        void hfill_min(const size_t) {}
+        size_t hfill_min() {}
         void hfill_max(const size_t) {}
         size_t hfill_max() {}
 #endif

@@ -309,7 +309,7 @@ clutchlog will not put the location-related tags in the message formats
 (i.e. `{file}` and `{line}`) when not in Debug builds.
 
 
-### Marks
+### Stack Depth Mark
 
 The mark used with the `{depth_marks}` tag can be configured with the `clutchlog::depth_mark` method,
 and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
@@ -317,22 +317,25 @@ and its default with the `CLUTCHLOG_DEFAULT_DEPTH_MARK` macro:
 log.depth_mark(CLUTCHLOG_DEFAULT_DEPTH_MARK); // Defaults to ">".
 ```
 
+### Horizontal Filling
+
 The character used with the `{hfill}` tag can be configured wth the `clutchlog::hfill_mark` method,
 and its default with the `CLUTCHLOG_DEFAULT_HFILL_MARK` macro:
 ```cpp
 log.hfill_mark(CLUTCHLOG_DEFAULT_HFILL_MARK); // Defaults to '.'.
 ```
 
-Clutchlog measures the width of the standard error channel.
-If it is redirected, it may be measured as very large.
-Thus, the `clutchlog::hfill_max` accessors allow to set a maximum width (in number of characters).
+Clutchlog measures the width of the *standard error* channel.
+If it is redirected, it may be measured as very large (or very small).
+Thus, the `clutchlog::hfill_min` `clutchlog::hfill_max` accessors allow
+to set a minimum and a maximum width (in number of characters).
 ```cpp
 log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MAX); // Defaults to 300.
+log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MIN); // Defaults to 150.
 ```
-Note: clutchlog will select the minimum between `clutchlog::hfill_max`
-and the measured number of columns in the terminal,
-so that you may use `clutchlog::hfill_max` as a way to constraint the output width
-in any cases.
+Note: clutchlog will use the measured width, unless
+it goes out of `[clutchlog::hfill_min,clutchlog::hfill_max]`,
+in which case it will be caped to those bounds.
 
 
 ### Stack Depth
