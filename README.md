@@ -331,7 +331,7 @@ Thus, the `clutchlog::hfill_min` `clutchlog::hfill_max` accessors allow
 to set a minimum and a maximum width (in number of characters).
 ```cpp
 log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MAX); // Defaults to 300.
-log.hfill_max(CLUTCHLOG_DEFAULT_HFILL_MIN); // Defaults to 150.
+log.hfill_min(CLUTCHLOG_DEFAULT_HFILL_MIN); // Defaults to 150.
 ```
 Note: clutchlog will use the measured width, unless
 it goes out of `[clutchlog::hfill_min,clutchlog::hfill_max]`,
