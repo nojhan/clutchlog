@@ -56,6 +56,12 @@ To configure the display, you indicate the three types of locations, for example
     log.func("(mul|add|sub|div)");         // Will match "multiply", for instance.
 ```
 
+Example of a real-life log session (as seen in the [frictionlesser](https://github.com/jdreo/frictionlesser) software):
+![A log screen capture with full details, showing colored messages and location.](https://github.com/nojhan/clutchlog/blob/main/demo.jpg?raw=true)
+
+Demo showing fancy styling:
+![A log screen capture showing fancy coloring of text lines.](https://github.com/nojhan/clutchlog/blob/main/demo.jpg?raw=true)
+
 For more detailled examples, see the "Usage" sections below and the `tests` directory.
 
 
