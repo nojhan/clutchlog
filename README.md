@@ -642,6 +642,11 @@ You can make portable code using something like:
 #endif 
 ```
 
+If you use unicode characters in your template, the horizontal width will not be
+computed properly, resulting in incorrectly right-aligned lines.
+Solving this would require the use of third-party libraries, making portability
+more difficult.
+
 
 ### Dependencies
 
