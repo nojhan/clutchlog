@@ -1,8 +1,8 @@
 Clutchlog — versatile (de)clutchable spatial logging
 ====================================================
 
-***Clutchlog is a *spatial* logging system that targets versatile debugging.***
-***It allows to (de)clutch messages for a given: log level, source code location or call stack depth.***
+**Clutchlog is a *spatial* logging system that targets versatile *debugging*.**
+**It allows to (de)clutch messages for a given: log level, source code location or call stack depth.**
 
 - [Project page on Github](https://github.com/nojhan/clutchlog)
 - [Documentation](https://nojhan.github.io/clutchlog/)
