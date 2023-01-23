@@ -835,6 +835,16 @@ class clutchlog
                 {level::debug   ,"Debug"},
                 {level::xdebug  ,"XDebug"}
             }),
+            _level_short({
+                {level::critical, "Crit"},
+                {level::error   , "Erro"},
+                {level::warning , "Warn"},
+                {level::progress, "Prog"},
+                {level::note    , "Note"},
+                {level::info    , "Info"},
+                {level::debug   , "Dbug"},
+                {level::xdebug  , "XDbg"}
+            }),
             _level_fmt({
                 {level::critical,fmt(fmt::fg::red,     fmt::typo::underline)},
                 {level::error   ,fmt(fmt::fg::red,     fmt::typo::bold)},
@@ -881,6 +891,8 @@ class clutchlog
         const std::map<level,std::string> _level_word;
         /** Dictionary of level string to their identifier. */
         std::map<std::string,level> _word_level;
+        /** dictionary of level identifier to their 4-letters representation. */
+        std::map<level,std::string> _level_short;
         /** Dictionary of level identifier to their format. */
         std::map<level,fmt> _level_fmt;
         /** Current format of the standard output. */
@@ -1222,6 +1234,8 @@ class clutchlog
             row = replace(row, "\\{level\\}", _level_word.at(stage));
             std::string letter(1, _level_word.at(stage).at(0)); // char -> string
             row = replace(row, "\\{level_letter\\}", letter);
+
+            row = replace(row, "\\{level_short\\}", _level_short.at(stage));
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
             row = replace(row, "\\{name\\}", name);

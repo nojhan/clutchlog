@@ -188,6 +188,7 @@ Available tags are:
 - `{msg}`: the logged message,
 - `{level}`: the current log level (i.e. `Critical`, `Error`, `Warning`, `Progress`, `Note`, `Info`, `Debug` or `XDebug`),
 - `{level_letter}`: the first letter of the current log level,
+- `{level_short}`: the current log level, printed in only four letters,
 - `{file}`: the current file (absolute path),
 - `{func}`: the current function,
 - `{line}`: the current line number,
