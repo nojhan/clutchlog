@@ -159,7 +159,9 @@ Example</h1>
 <div class="line">log.threshold(<span class="stringliteral">&quot;Info&quot;</span>); <span class="comment">// Log only &quot;info&quot;, &quot;warning&quot;, &quot;error&quot; or &quot;critical&quot; messages.</span></div>
 <div class="line">log.file(<span class="stringliteral">&quot;algebra/.*&quot;</span>);                <span class="comment">// Will match any file in the &quot;algebra&quot; directory.</span></div>
 <div class="line">log.func(<span class="stringliteral">&quot;(mul|add|sub|div)&quot;</span>);         <span class="comment">// Will match &quot;multiply&quot;, for instance.</span></div>
-</div><!-- fragment --><p>For more detailled examples, see the "Usage" sections below and the <code>tests</code> directory.</p>
+</div><!-- fragment --><p>Example of a real-life log session (as seen in the <a href="https://github.com/jdreo/frictionlesser">frictionlesser</a> software): <img src="https://github.com/nojhan/clutchlog/blob/main/demo.jpg?raw=true" alt="A log screen capture with full details, showing colored messages and location." class="inline"/></p>
+<p>Demo showing fancy styling: <img src="https://github.com/nojhan/clutchlog/blob/main/demo.jpg?raw=true" alt="A log screen capture showing fancy coloring of text lines." class="inline"/></p>
+<p>For more detailled examples, see the "Usage" sections below and the <code>tests</code> directory.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Rationale</h1>
 <p>Most of existing logging systems targets service events storage, like fast queuing of transactions in a round-robin database. Their aim is to provide a simple interface to efficiently store messages somewhere, which is appropriated when you have a well known service running and you want to be able to trace complex users interactions across its states.</p>
@@ -224,6 +226,7 @@ Output Configuration</h2>
 <li><code>{msg}</code>: the logged message,</li>
 <li><code>{level}</code>: the current log level (i.e. <code>Critical</code>, <code>Error</code>, <code>Warning</code>, <code>Progress</code>, <code>Note</code>, <code>Info</code>, <code>Debug</code> or <code>XDebug</code>),</li>
 <li><code>{level_letter}</code>: the first letter of the current log level,</li>
+<li><code>{level_short}</code>: the current log level, printed in only four letters,</li>
 <li><code>{file}</code>: the current file (absolute path),</li>
 <li><code>{func}</code>: the current function,</li>
 <li><code>{line}</code>: the current line number,</li>

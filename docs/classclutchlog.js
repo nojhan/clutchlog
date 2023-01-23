@@ -40,6 +40,7 @@ var classclutchlog =
     [ "_strip_calls", "classclutchlog.html#a356df86455409193792b6ed550dfd09e", null ],
     [ "_level_word", "classclutchlog.html#ab1c377a376e6772fe1746ff7147c125f", null ],
     [ "_word_level", "classclutchlog.html#abd4625bf211bfbaa30d9c126fa3d7888", null ],
+    [ "_level_short", "classclutchlog.html#a08e8a817a75a4e9f0159231c941e0dae", null ],
     [ "_level_fmt", "classclutchlog.html#ab805ac5c33885459f9f752518a4aa735", null ],
     [ "_format_log", "classclutchlog.html#a7c6e3fc082bc6f55d50131ed2b32e81e", null ],
     [ "_format_dump", "classclutchlog.html#a5f4ddb57ce42e8be86a7c7d269f7bae5", null ],

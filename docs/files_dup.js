@@ -5,6 +5,7 @@ var files_dup =
     [ "t-color.cpp", "t-color_8cpp_source.html", null ],
     [ "t-color16M.cpp", "t-color16_m_8cpp_source.html", null ],
     [ "t-color256.cpp", "t-color256_8cpp_source.html", null ],
+    [ "t-demo-extravagant.cpp", "t-demo-extravagant_8cpp_source.html", null ],
     [ "t-demo.cpp", "t-demo_8cpp_source.html", null ],
     [ "t-dump.cpp", "t-dump_8cpp_source.html", null ],
     [ "t-fmt-constructors.cpp", "t-fmt-constructors_8cpp_source.html", null ],

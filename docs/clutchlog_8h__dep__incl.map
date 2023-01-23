@@ -1,12 +1,13 @@
 <map id="clutchlog.h" name="clutchlog.h">
-<area shape="rect" id="node1" title=" " alt="" coords="489,5,575,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="599,5,684,32"/>
 <area shape="rect" id="node2" href="$t-assert_8cpp_source.html" title=" " alt="" coords="5,80,96,107"/>
 <area shape="rect" id="node3" href="$t-color_8cpp_source.html" title=" " alt="" coords="120,80,203,107"/>
 <area shape="rect" id="node4" href="$t-color16_m_8cpp_source.html" title=" " alt="" coords="227,80,335,107"/>
 <area shape="rect" id="node5" href="$t-color256_8cpp_source.html" title=" " alt="" coords="360,80,464,107"/>
-<area shape="rect" id="node6" href="$t-demo_8cpp_source.html" title=" " alt="" coords="489,80,575,107"/>
-<area shape="rect" id="node7" href="$t-dump_8cpp_source.html" title=" " alt="" coords="599,80,686,107"/>
-<area shape="rect" id="node8" href="$t-fmt-constructors_8cpp_source.html" title=" " alt="" coords="710,80,861,107"/>
-<area shape="rect" id="node9" href="$t-log_8cpp_source.html" title=" " alt="" coords="885,80,957,107"/>
-<area shape="rect" id="node10" href="$t-one-line-if_8cpp_source.html" title=" " alt="" coords="982,80,1093,107"/>
+<area shape="rect" id="node6" href="$t-demo-extravagant_8cpp_source.html" title=" " alt="" coords="489,80,647,107"/>
+<area shape="rect" id="node7" href="$t-demo_8cpp_source.html" title=" " alt="" coords="671,80,758,107"/>
+<area shape="rect" id="node8" href="$t-dump_8cpp_source.html" title=" " alt="" coords="782,80,869,107"/>
+<area shape="rect" id="node9" href="$t-fmt-constructors_8cpp_source.html" title=" " alt="" coords="893,80,1043,107"/>
+<area shape="rect" id="node10" href="$t-log_8cpp_source.html" title=" " alt="" coords="1068,80,1140,107"/>
+<area shape="rect" id="node11" href="$t-one-line-if_8cpp_source.html" title=" " alt="" coords="1165,80,1275,107"/>
 </map>
