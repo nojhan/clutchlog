@@ -309,10 +309,83 @@ class clutchlog
 
         /** Color and style formatter for ANSI terminal escape sequences.
          *
+         * The formatter supports typographic "styles" and colors.
+         * Typographic styles are available as named tag in `fmt::typo`.
+         *
+         * The formatter supports the three ANSI modes, which are automatically selected depending the argument types:
+         * - 16 colors (using named tags),
+         * - 256 colors (using integers),
+         * - 16 millions ("true") colors (using RGB integer triplets or web hex strings).
+         *
+         * For 16-colors mode, colors are named tag in:
+         * - `fmt::fg` for foreground colors.
+         * - `fmt::bg` for background colors.
+         *
+         * @note The order in which you pass foreground, background and style does not matter in 16-colors mode.
+         *
+         * The following colors are available for both foregrounds (see `fmt::fg`) and backgrounds (see `fmt::bg`):
+         * - none,
+         * - black,
+         * - red,
+         * - green,
+         * - yellow,
+         * - blue,
+         * - magenta,
+         * - cyan,
+         * - white,
+         * - bright_black (i.e. grey),
+         * - bright_red,
+         * - bright_green,
+         * - bright_yellow,
+         * - bright_blue,
+         * - bright_magenta,
+         * - bright_cyan,
+         * - bright_white.
+         *
+         * @note Some terminal are configured to display colored text set in bold
+         *       using the bright color counterpart.
+         *
+         * For 256-colors mode, colors are expected to be passed as integers in [-1,255]
+         * or the `fg::none` and `bg::none` tags.
+         *
+         * @note In 256-colors mode, if you want to only encode the background color,
+         *       you cannot just omit the foreground color,
+         *       you have to bass a `fg::none` tag as first argument.
+         *
+         * For 16M-colors mode, colors can be encoded as:
+         * - three integer arguments,
+         * - a "web color" hexadecimal triplet string, starting with a leading number sign (e.g. "#0055ff").
+         * - the `fg::none` and `bg::none` tags.
+         *
+         * @note In 16M-colors mode, if you want to only encode the background color,
+         *       you cannot just omit the foreground color,
+         *       you have to bass a `fg::none` tag as first argument.
+         *
          * @note All styles may not be supported by a given terminal/operating system.
          */
         class fmt {
             public:
+                //! ANSI code configuring the available number of colors.
+                enum class ansi {
+                    //! 16 colors mode.
+                    colors_16  = -1, // Not supposed to be casted.
+                    //! 256 colors mode.
+                    colors_256 = 5,  // Casted as short in color::operator<<.
+                    //! 16 millions ("true") colors mode.
+                    colors_16M = 2   // Casted as short in color::operator<<
+                } /** Current ANSI color mode. */ mode;
+
+                //! Typographic style codes.
+                enum class typo {
+                    reset     =  0,
+                    bold      =  1,
+                    underline =  4,
+                    inverse   =  7,
+                    none = -1
+                } /** Typographic style. */  style;
+
+                /** @addtogroup colors16 Colors management in 16 colors mode (4-bits ANSI).
+                 * @{ */
                 //! Foreground color codes.
                 enum class fg {
                     black   = 30,
@@ -323,8 +396,16 @@ class clutchlog
                     magenta = 35,
                     cyan    = 36,
                     white   = 37,
-                    none
-                } /** Foreground color */ fore;
+                    bright_black   = 90,
+                    bright_red     = 91,
+                    bright_green   = 92,
+                    bright_yellow  = 93,
+                    bright_blue    = 94,
+                    bright_magenta = 95,
+                    bright_cyan    = 96,
+                    bright_white   = 97,
+                    none = -1
+                } /** Foreground color. */ fore;
 
                 //! Background color codes.
                 enum class bg {
@@ -336,48 +417,351 @@ class clutchlog
                     magenta = 45,
                     cyan    = 46,
                     white   = 47,
-                    none
-                } /** Background color */ back;
+                    bright_black   = 100,
+                    bright_red     = 101,
+                    bright_green   = 102,
+                    bright_yellow  = 103,
+                    bright_blue    = 104,
+                    bright_magenta = 105,
+                    bright_cyan    = 106,
+                    bright_white   = 107,
+                    none = -1
+                } /** Background color. */ back;
 
-                //! Typographic style codes.
-                enum class typo {
-                    reset     =  0,
-                    bold      =  1,
-                    underline =  4,
-                    inverse   =  7,
-                    none
-                } /** Typographic style*/  style;
+            protected:
+                //! Output stream operator for a 3-tuple of 16-colors mode tags.
+                friend std::ostream& operator<<(std::ostream& os, const std::tuple<fg,bg,typo>& fbs)
+                {
+                    auto [f,b,s] = fbs;
+                        std::vector<short> codes; codes.reserve(3);
+                        if(f !=   fg::none) { codes.push_back(static_cast<short>(f));}
+                        if(b !=   bg::none) { codes.push_back(static_cast<short>(b));}
+                        if(s != typo::none) { codes.push_back(static_cast<short>(s));}
+                        if(codes.size() == 0) {
+                            return os;
 
-                //! Empty constructor, only useful for a no-op formatter.
-                fmt() : fore(fg::none), back(bg::none), style(typo::none) {}
+                        } else {
+                            os << "\033[";
+                            os << codes[0];
+                            for(size_t i=1; i < codes.size(); ++i) {
+                                os << ";" << codes[i];
+                            }
+                            os << "m";
+                        }
+                        return os;
+                }
 
-                /** @name All combination of constructors with different parameters orders.
+                //! Output stream operator for a typo tag alone, in 16-colors mode.
+                friend std::ostream& operator<<(std::ostream& os, const typo& s)
+                {
+                    if(s != typo::none) {
+                        os << "\033[" << static_cast<short>(s) << "m";
+                    }
+                    return os;
+                }
+
+                /** @} colors16 */
+
+            protected:
+                /** @addtogroup colors256_16M Internal colors management in 256 and 16M colors modes.
                  * @{ */
-                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : fore(f), back(b), style(s) {}
-                fmt(  fg f, typo s           ,   bg b =   bg::none) : fore(f), back(b), style(s) {}
-                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : fore(f), back(b), style(s) {}
-                fmt(  bg b, typo s           ,   fg f =   fg::none) : fore(f), back(b), style(s) {}
-                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : fore(f), back(b), style(s) {}
-                fmt(typo s,   bg b           ,   fg f =   fg::none) : fore(f), back(b), style(s) {}
+
+                /** Interface class for colors representation. */
+                struct color {
+                    ansi mode; // Not const to allow for the implicit copy assignemnt operator.
+
+                    //! Codes for representing foreground or background.
+                    enum class ground { // idem.
+                        fore = 38,
+                        back = 48
+                    } /** Type of color (foreground or background). */ type;
+
+                    /** Constructor.
+                     *
+                     * @param a ANSI mode (i.e. number of colors).
+                     * @param g Color type (i.e. foreground or background).
+                     */
+                    color(ansi a, ground g) : mode(a), type(g) {}
+
+                    //! Should return true if the underying representation encodes an existing color.
+                    virtual bool is_set() const = 0;
+
+                    //! Should print the underlying representation on the given stream.
+                    virtual std::ostream& print_on( std::ostream& os) const = 0;
+
+                    //! Print the actually encoded escaped color sequence on the given stream.
+                    friend std::ostream& operator<<(std::ostream& os, const color& c)
+                    {
+                        if(c.is_set()) {
+                            os << "\033[" << static_cast<short>(c.type) << ";" << static_cast<short>(c.mode) << ";";
+                            c.print_on(os);
+                            os << "m";
+                        }
+                        return os;
+                    }
+                };
+
+                // There is no color_16 because it would be the same as color_256, only with different indices,
+                // hence making it more complicated for the user to select the right constructor.
+                // Here, we just use enum for 16 colors, and indices for 256 colors.
+
+                //! Abstract base class for 256 colors objects (8-bits ANSI).
+                struct color_256 : public color {
+                    /** The encoded color index in 4-bits ANSI.
+                     *
+                     * "No color" is encoded as -1. */
+                    short index;
+
+                    /** Constructor
+                     *
+                     * @param t Foreground or background tag. */
+                    color_256(ground t) : color(ansi::colors_256, t), index(-1) {}
+
+                    /** Constructor
+                     *
+                     * @param t Foreground or background tag.
+                     * @param i Color index (within [-1,255], -1 being "no color").
+                     */
+                    color_256(ground t, const short i) : color(ansi::colors_256, t), index(i) {assert(-1 <= i and i <= 255);}
+
+                    //! Returns true if the underying representation encodes an existing color.
+                    bool is_set() const {return index > -1;}
+
+                    //! Print the color index on the given stream.
+                    std::ostream& print_on( std::ostream& os) const
+                    {
+                        os << index;
+                        return os;
+                    }
+                };
+
+                //! Foreground in 256-colors mode.
+                struct fg_256 : public color_256 {
+                    //! Empty constructor: no color.
+                    fg_256() : color_256(ground::fore) {}
+
+                    /** Constructor.
+                     *
+                     * @param f Foreground color index (within [-1,255], -1 being "no color"). */
+                    fg_256(const short f) : color_256(ground::fore, f) {}
+
+                    /** Conversion constructor from 16-colors mode.
+                     *
+                     * @warning Only encodes "no color", whatever is passed. */
+                    fg_256(const fg&) : color_256(ground::fore, -1) {}
+
+                } /** Current foreground in 256-colors mode. */ fore_256;
+
+                //! Background in 256-colors mode.
+                struct bg_256 : public color_256 {
+                    //! Empty constructor: no color.
+                    bg_256() : color_256(ground::back) {}
+
+                    /** Constructor.
+                     *
+                     * @param b Background color index (within [-1,255], -1 being "no color"). */
+                    bg_256(const short b) : color_256(ground::back, b) {}
+
+                    /** Conversion constructor from 16-colors mode.
+                     *
+                     * @warning Only encodes "no color", whatever is passed. */
+                    bg_256(const bg&) : color_256(ground::back, -1) {}
+
+                } /** Current background in 256-colors mode. */ back_256;
+
+                //! Abstract base class for 16M colors objects (24-bits ANSI).
+                struct color_16M : public color {
+                    /** The encoded RGB indices.
+                     *
+                     * "No color" is encoded as -1. */
+                    short red, green, blue;
+
+                    /** Constructor.
+                     *
+                     * @param t Foreground or background tag. */
+                    color_16M(ground t) : color(ansi::colors_16M, t), red(-1), green(-1), blue(-1) {}
+
+                    /** Numeric triplet constructor.
+                     *
+                     * @param t Foreground or background tag.
+                     * @param r Red color component.
+                     * @param g Green color component.
+                     * @param b Blue color component.
+                     */
+                    color_16M(ground t, short r, short g, short b)
+                        : color(ansi::colors_16M, t), red(r), green(g), blue(b) {}
+
+                    /** Hex triplet string constructor.
+                     *
+                     * @note If the given string is ill-formed, it will silently encode a "no color".
+                     *
+                     * @param t Foreground or background tag.
+                     * @param srgb A "web color" hexadecimal triplet of two characters, starting with a leading number sign (e.g. "#0055ff").
+                     */
+                    color_16M(ground t, const std::string& srgb) : color(ansi::colors_16M, t)
+                    {
+                        assert(srgb.size() == 7);
+                        if(srgb.size() != 7) {
+                            red = -1;
+                            green = -1;
+                            blue = -1;
+                        } else {
+                            char i = 0;
+                            if(srgb.at(0) == '#') {
+                                i = 1;
+                            }
+                            std::istringstream(srgb.substr(0+i,2)) >> std::hex >> red;
+                            std::istringstream(srgb.substr(2+i,2)) >> std::hex >> green;
+                            std::istringstream(srgb.substr(4+i,2)) >> std::hex >> blue;
+                        }
+                        assert(-1 <= red   and red   <= 255);
+                        assert(-1 <= green and green <= 255);
+                        assert(-1 <= blue  and blue  <= 255);
+                    }
+
+                    //! Returns true if the underying representation encodes an existing color.
+                    bool is_set() const {return red > -1 and green > -1 and blue > -1;}
+
+                    //! Print the color RGB triplet on the given stream.
+                    std::ostream& print_on( std::ostream& os) const
+                    {
+                        os << red << ";" << green << ";" << blue;
+                        return os;
+                    }
+                };
+
+                //! Foreground in 256-colors mode.
+                struct fg_16M : public color_16M {
+                    //! Empty constructor: no color.
+                    fg_16M() : color_16M(ground::fore) {}
+
+                    /** Numeric triplet constructor.
+                     *
+                     * Parameters are expected to be in [0,255].
+                     *
+                     * @param r Red color component.
+                     * @param g Green color component.
+                     * @param b Blue color component.
+                     */
+                    fg_16M(short r, short g, short b) : color_16M(ground::fore, r,g,b) {}
+
+                    /** Hex triplet string constructor.
+                     *
+                     * @note If the given string is ill-formed, it will silently encode a "no color".
+                     *
+                     * @param srgb A "web color" hexadecimal triplet of two characters, starting with a leading number sign (e.g. "#0055ff").
+                     */
+                    fg_16M(const std::string& srgb) : color_16M(ground::fore, srgb) {}
+
+                    /** Conversion constructor from 16-colors mode.
+                     *
+                     * @warning Only encodes "no color", whatever is passed. */
+                    fg_16M(const fg&) : color_16M(ground::fore, -1,-1,-1) {}
+
+                } /** Current foreground in 16M-colors mode. */ fore_16M;
+
+                //! background in 256-colors mode.
+                struct bg_16M : public color_16M {
+                    //! Empty constructor: no color.
+                    bg_16M() : color_16M(ground::back) {}
+
+                    /** Numeric triplet constructor.
+                     *
+                     * Parameters are expected to be in [0,255].
+                     *
+                     * @param r Red color component.
+                     * @param g Green color component.
+                     * @param b Blue color component.
+                     */
+                    bg_16M(short r, short g, short b) : color_16M(ground::back, r,g,b) {}
+
+                    /** Hex triplet string constructor.
+                     *
+                     * @note If the given string is ill-formed, it will silently encode a "no color".
+                     *
+                     * @param srgb A "web color" hexadecimal triplet of two characters, starting with a leading number sign (e.g. "#0055ff").
+                     */
+                    bg_16M(const std::string& srgb) : color_16M(ground::back, srgb) {}
+
+                    /** Conversion constructor from 16-colors mode.
+                     *
+                     * @warning Only encodes "no color", whatever is passed. */
+                    bg_16M(const bg&) : color_16M(ground::back, -1,-1,-1) {}
+
+                } /** Current background in 16M-colors mode. */ back_16M;
+
+                /** @} colors256_16M */
+
+            public:
+                //! Empty constructor, only useful for a no-op formatter.
+                fmt() : mode(ansi::colors_16), style(typo::none), fore(fg::none), back(bg::none) {}
+
+                /** @name All combination of 16-colors mode constructors with different parameters orders.
+                 * @{ */
+                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(  fg f, typo s           ,   bg b =   bg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(  bg b, typo s           ,   fg f =   fg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(typo s,   bg b           ,   fg f =   fg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                /** @} */
+
+                /** @name All combination of 256-colors mode constructors with different parameters orders.
+                 * @{ */
+                fmt(fg_256 f, bg_256 b, typo s = typo::none) : mode(ansi::colors_256), style(s), fore_256(f),        back_256(b) {}
+                fmt(fg_256 f, typo s = typo::none)           : mode(ansi::colors_256), style(s), fore_256(f),        back_256(bg::none) {}
+                fmt(fg, bg_256 b, typo s = typo::none)       : mode(ansi::colors_256), style(s), fore_256(fg::none), back_256(b) {}
+                /** @} */
+
+                /** @name All combination of 16M-colors mode constructors with different parameters orders.
+                 * @{ */
+                fmt(const short fr, const short fg, const short fb,
+                    const short gr, const short gg, const short gb,
+                    typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fr,fg,fb), back_16M(gr,gg,gb) {}
+                fmt(fg,
+                    const short gr, const short gg, const short gb,
+                    typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fg::none), back_16M(gr,gg,gb) {}
+                fmt(const short fr, const short fg, const short fb,
+                    bg, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fr,fg,fb), back_16M(bg::none) {}
+                fmt(const short fr, const short fg, const short fb,
+                    typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fr,fg,fb), back_16M(bg::none) {}
+
+                fmt(const std::string& f, const std::string& b, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(f), back_16M(b) {}
+                fmt(fg, const std::string& b, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fg::none), back_16M(b) {}
+                fmt(const std::string& f, bg, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(f), back_16M(bg::none) {}
+                fmt(const std::string& f, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(f), back_16M(bg::none) {}
                 /** @} */
 
             protected:
+
                 //! Print the currently encoded format escape code on the given output stream.
                 std::ostream& print_on( std::ostream& os) const
                 {
-                    std::vector<int> codes; codes.reserve(3);
-                    if(this->fore  !=   fg::none) { codes.push_back(static_cast<int>(this->fore ));}
-                    if(this->back  !=   bg::none) { codes.push_back(static_cast<int>(this->back ));}
-                    if(this->style != typo::none) { codes.push_back(static_cast<int>(this->style));}
-                    if(codes.size() == 0) {return os;}
+                    if(mode == ansi::colors_16) {
+                        // Print all in a single escape.
+                        os << std::make_tuple(fore,back,style);
 
-                    os << "\033[";
-                    assert(codes.size() > 0);
-                    os << codes[0];
-                    for(size_t i=1; i < codes.size(); ++i) {
-                        os << ";" << codes[i];
+                    } else {
+                        // 256 or 16M: always print separated escapes for foreground/background.
+                        if(mode == ansi::colors_256) {
+                            os << fore_256;
+                            os << back_256;
+
+                        } else if(mode == ansi::colors_16M) {
+                            os << fore_16M;
+                            os << back_16M;
+                        }
+                        // In any case, print the style separately.
+                        os << style;
                     }
-                    os << "m";
                     return os;
                 }
 
@@ -999,21 +1383,99 @@ class clutchlog
         enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
         class fmt {
             public:
-                enum class fg { black, red, green, yellow, blue, magenta, cyan, white, none } fore;
-                enum class bg { black, red, green, yellow, blue, magenta, cyan, white, none } back;
-                enum class typo { reset, bold, underline, inverse, none } style;
-                fmt() : fore(fg::none), back(bg::none), style(typo::none) {}
-                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : fore(f), back(b), style(s) {}
-                fmt(  fg f, typo s           ,   bg b =   bg::none) : fore(f), back(b), style(s) {}
-                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : fore(f), back(b), style(s) {}
-                fmt(  bg b, typo s           ,   fg f =   fg::none) : fore(f), back(b), style(s) {}
-                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : fore(f), back(b), style(s) {}
-                fmt(typo s,   bg b           ,   fg f =   fg::none) : fore(f), back(b), style(s) {}
+                enum class ansi { colors_16, colors_256,  colors_16M} mode;
+                enum class typo { reset, bold, underline, inverse, none} style;
+                enum class fg { black, red, green, yellow, blue, magenta, cyan, white, bright_black, bright_red, bright_green, bright_yellow, bright_blue, bright_magenta, bright_cyan, bright_white, none} fore;
+                enum class bg { black, red, green, yellow, blue, magenta, cyan, white, bright_black, bright_red, bright_green, bright_yellow, bright_blue, bright_magenta, bright_cyan, bright_white, none } back;
             protected:
-                std::ostream& print_on(std::ostream&) const {}
+                friend std::ostream& operator<<(std::ostream&, const std::tuple<fg,bg,typo>&) {}
+                friend std::ostream& operator<<(std::ostream&, const typo&) {}
+            protected:
+                struct color {
+                    ansi mode;
+                    enum class ground { fore, back } type;
+                    color(ansi a, ground g) : mode(a), type(g) {}
+                    virtual bool is_set() const = 0;
+                    virtual std::ostream& print_on( std::ostream&) const = 0;
+                    friend std::ostream& operator<<(std::ostream&, const color&) {}
+                };
+                struct color_256 : public color {
+                    short index;
+                    color_256(ground t) : color(ansi::colors_256, t), index(-1) {}
+                    color_256(ground t, const short i) : color(ansi::colors_256, t), index(i) {}
+                    bool is_set() const {}
+                    std::ostream& print_on( std::ostream&) const {}
+                };
+                struct fg_256 : public color_256 {
+                    fg_256() : color_256(ground::fore) {}
+                    fg_256(const short f) : color_256(ground::fore, f) {}
+                    fg_256(const fg&) : color_256(ground::fore, -1) {}
+                } fore_256;
+                struct bg_256 : public color_256 {
+                    bg_256() : color_256(ground::back) {}
+                    bg_256(const short b) : color_256(ground::back, b) {}
+                    bg_256(const bg&) : color_256(ground::back, -1) {}
+                } back_256;
+                struct color_16M : public color {
+                    short red, green, blue;
+                    color_16M(ground t) : color(ansi::colors_16M, t), red(-1), green(-1), blue(-1) {}
+                    color_16M(ground t, short r, short g, short b) : color(ansi::colors_16M, t), red(r), green(g), blue(b) {}
+                    color_16M(ground t, const std::string&) : color(ansi::colors_16M, t) {}
+                    bool is_set() const {return red > -1 and green > -1 and blue > -1;}
+                    std::ostream& print_on( std::ostream&) const {}
+                };
+                struct fg_16M : public color_16M {
+                    fg_16M() : color_16M(ground::fore) {}
+                    fg_16M(short r, short g, short b) : color_16M(ground::fore, r,g,b) {}
+                    fg_16M(const std::string& srgb) : color_16M(ground::fore, srgb) {}
+                    fg_16M(const fg&) : color_16M(ground::fore, -1,-1,-1) {}
+                } fore_16M;
+                struct bg_16M : public color_16M {
+                    bg_16M() : color_16M(ground::back) {}
+                    bg_16M(short r, short g, short b) : color_16M(ground::back, r,g,b) {}
+                    bg_16M(const std::string& srgb) : color_16M(ground::back, srgb) {}
+                    bg_16M(const bg&) : color_16M(ground::back, -1,-1,-1) {}
+                } back_16M;
+            public:
+                fmt() : mode(ansi::colors_16), style(typo::none), fore(fg::none), back(bg::none) {}
+                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(  fg f, typo s           ,   bg b =   bg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(  bg b, typo s           ,   fg f =   fg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(typo s,   bg b           ,   fg f =   fg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                fmt(fg_256 f, bg_256 b, typo s = typo::none) : mode(ansi::colors_256), style(s), fore_256(f),        back_256(b) {}
+                fmt(fg_256 f, typo s = typo::none)           : mode(ansi::colors_256), style(s), fore_256(f),        back_256(bg::none) {}
+                fmt(fg, bg_256 b, typo s = typo::none)       : mode(ansi::colors_256), style(s), fore_256(fg::none), back_256(b) {}
+                fmt(const short fr, const short fg, const short fb,
+                    const short gr, const short gg, const short gb,
+                    typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fr,fg,fb), back_16M(gr,gg,gb) {}
+                fmt(fg,
+                    const short gr, const short gg, const short gb,
+                    typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fg::none), back_16M(gr,gg,gb) {}
+                fmt(const short fr, const short fg, const short fb,
+                    bg, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fr,fg,fb), back_16M(bg::none) {}
+                fmt(const short fr, const short fg, const short fb,
+                    typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fr,fg,fb), back_16M(bg::none) {}
+
+                fmt(const std::string& f, const std::string& b, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(f), back_16M(b) {}
+                fmt(fg, const std::string& b, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(fg::none), back_16M(b) {}
+                fmt(const std::string& f, bg, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(f), back_16M(bg::none) {}
+                fmt(const std::string& f, typo s = typo::none)
+                    : mode(ansi::colors_16M), style(s), fore_16M(f), back_16M(bg::none) {}
+            protected:
+                std::ostream& print_on( std::ostream&) const {}
             public:
                 friend std::ostream& operator<<(std::ostream&, const fmt&) {}
-                std::string operator()(const std::string&) const {}
+                std::string operator()( const std::string&) const {}
+                std::string str() const {}
         };
     public:
         clutchlog(clutchlog const&)      = delete;

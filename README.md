@@ -217,9 +217,9 @@ Output style
 Output lines can be colored differently depending on the log level.
 ```cpp
 // Print error messages in bold red:
-log.style(clutchlog::level::error, // First, the log level.
-    clutchlog::fmt::fg::red,       // Then the styles, in any order...
-    clutchlog::fmt::typo::bold);
+log.style(level::error, // First, the log level.
+    fmt::fg::red,       // Then the styles, in any order...
+    fmt::typo::bold);
 ```
 
 Or, if you want to declare some semantics beforehand:
@@ -227,40 +227,32 @@ Or, if you want to declare some semantics beforehand:
 // Print warning messages in bold magenta:
 using fmt = clutchlog::fmt;
 fmt warn(fmt::fg::magenta, fmt::typo::bold);
-log.style(clutchlog::level::warning, warn);
+log.style(level::warning, warn);
 ```
 
 Note: this inserts a style marker at the very beginning of the line.
 If you add other styles later on the line, they will take precedence.
 
-Using the `clutchlog::fmt` class, you can style:
+Colors can be specified in several different ways.
+The ANSI color mode will be automatically detected,
+depending on the types of arguments passed to styling functions:
+- named tags from `clutchlog::fmt::fg` or `clutchlog::fmt::bg` will encode a 16-colors mode,
+- integers will encode a 256-colors mode,
+- numeric triplets or web hex strings will encode a 16 million ("true") colors mode,
+- `clutchlog::fg::none` and `clutchlog::bg::none` can be passed in all modes.
 
-- the foreground color, passing a `clutchlog::fmt::fg`,
-- the background color, passing a `clutchlog::fmt::bg`,
-- some typographic style, passing a `clutchlog::fmt::typo`.
-
-Any of the three arguments may be passed, in any order,
-if an argument is omitted, it defaults to no color/style.
-
-Available colors are:
-
-- black,
-- red,
-- green,
-- yellow,
-- blue,
-- magenta,
-- cyan,
-- white,
-- none.
-
-Available typographies:
-
-- reset (remove any style),
-- bold,
-- underline,
-- inverse,
-- none.
+For example, all the following lines encode
+a bright red foreground for the critical level:
+```cpp
+    log.style(level:critical,
+        fmt::fg::red); // 16-colors mode.
+    log.style(level:critical,
+        255); // 256-colors mode.
+    log.style(level:critical,
+        255,0,0); // 16M-colors mode.
+    log.style(level:critical,
+        "#ff0000"); // 16M-colors mode again.
+```
 
 You may use styling within the format message template itself, to add even more colors:
 ```cpp
@@ -279,11 +271,95 @@ You may want to set their style to `none` if you want to stay in control of inse
 The horizontal filling line (the `{hfill}` tag) can be configured separately with `clutchlog::hfill_style`,
 for example:
 ```cpp
-    log.hfill_style(clutchlog::fmt::fg::black);
+    log.hfill_style(fmt::fg::black);
 ```
 Note: this will actually reset any styling after the hfill,
 disabling any style you would have set for the whole message using `clutchlog::format`
 for the remaining of the message.
+
+
+### Typographic Style
+
+Available typographies:
+
+- reset (remove any style),
+- bold,
+- underline,
+- inverse,
+- none.
+
+Typographic styles are always passed with the named tag
+(see `clutchlog::fmt::typo`), whatever the color mode.
+
+
+### Colors
+
+#### 16-colors mode
+
+Using the `clutchlog::fmt` class, you can style:
+
+- the foreground color, passing a `clutchlog::fmt::fg`,
+- the background color, passing a `clutchlog::fmt::bg`.
+
+In 16-colors mode, any of the arguments may be passed, in any order,
+if an argument is omitted, it defaults to no color/style.
+
+Available colors are:
+
+- black,
+- red,
+- green,
+- yellow,
+- blue,
+- magenta,
+- cyan,
+- white,
+- bright_black,
+- bright_red,
+- bright_green,
+- bright_yellow,
+- bright_blue,
+- bright_magenta,
+- bright_cyan,
+- bright_white,
+- none.
+
+Note: some terminals allow the user to configure the actual encoding of
+those colors. You may thus notice some difference with the expected rendering
+of the same colors encoded in the other modes. Use the other color modes if you
+want to fully control the actual color rendering.
+
+
+#### 256-colors mode
+
+For 256-colors mode, colors are expected to be passed as integers in [-1,255]
+or the `fg::none` and `bg::none` tags.
+
+In 256-colors mode, if you want to only encode the background color,
+you cannot just omit the foreground color,
+you have to bass a `fg::none` tag as first argument.
+
+```cpp
+log.style(level::info, fg::none, 52); // No color over dark red.
+log.style(level::info, fg::none, 52, typo::bold); // No color over bold dark red.
+```
+
+
+#### 16 million colors mode (RGB)
+
+For 16M-colors mode, colors can be encoded as:
+- three integer arguments,
+- a "web color" hexadecimal triplet string, starting with a leading number sign (e.g. "#0055ff").
+- the `fg::none` and `bg::none` tags.
+
+In 16M-colors mode, if you want to only encode the background color,
+you cannot just omit the foreground color,
+you have to pass a `fg::none` tag as first argument.
+
+```cpp
+log.style(level::info, fg::none, 100,0,0); // No color over dark red.
+log.style(level::info, fg::none, 100,0,0, typo::bold); // No color over bold dark red.
+```
 
 
 Advanced Usage
@@ -489,6 +565,36 @@ And here are all the functions you may call to log something:
     // Declutchable asserts.
     #define ASSERT(...) { CLUTCHFUNC(critical, assert, __VA_ARGS__) }
     ASSERT(x>0);
+```
+
+Here what you would do to setup clutchlog with the default configuration
+using 16M-colors mode:
+```cpp
+    auto& log = clutchlog::logger();
+    log.out(std::clog);
+    // Location filtering.
+    log.depth(std::numeric_limits<size_t>::max());
+    log.threshold("Error");
+    log.file(".*");
+    log.func(".*");
+    log.line(".*");
+    // Colors of the 3 firsts levels.
+    log.style(clutchlog::level::critical, clutchlog::fmt(
+            "#ff0000",
+            clutchlog::fmt::typo::underline);
+    log.style(clutchlog::level::error, clutchlog::fmt(
+            "#ff0000",
+            clutchlog::fmt::typo::bold);
+    log.style(clutchlog::level::warning, clutchlog::fmt(
+            "#ff00ff",
+            clutchlog::fmt::typo::bold);
+    // Assuming you are on a POSIX system.
+    log.format("[{name}] {level_letter}:{depth_marks} {msg} {hfill} {func} @ {file}:{line}\n");
+    log.depth_mark(">");
+    log.strip_calls(5);
+    log.hfill_char('.');
+    log.hfill_max(300);
+    log.hfill_style(clutchlog::fmt::fg::none);
 ```
 
 
