@@ -1,0 +1,10 @@
+<map id="clutchlog::fmt" name="clutchlog::fmt">
+<area shape="rect" id="node1" title="Color and style formatter for ANSI terminal escape sequences." alt="" coords="679,81,780,108"/>
+<area shape="rect" id="node2" href="$structclutchlog_1_1fmt_1_1fg__256.html" title="Foreground in 256&#45;colors mode." alt="" coords="414,5,562,32"/>
+<area shape="rect" id="node3" href="$structclutchlog_1_1fmt_1_1color__256.html" title="Abstract base class for 256 colors objects (8&#45;bits ANSI)." alt="" coords="194,56,359,83"/>
+<area shape="rect" id="node5" href="$structclutchlog_1_1fmt_1_1bg__256.html" title="Background in 256&#45;colors mode." alt="" coords="413,56,563,83"/>
+<area shape="rect" id="node4" href="$structclutchlog_1_1fmt_1_1color.html" title="Interface class for colors representation." alt="" coords="5,83,143,109"/>
+<area shape="rect" id="node7" href="$structclutchlog_1_1fmt_1_1color__16_m.html" title="Abstract base class for 16M colors objects (24&#45;bits ANSI)." alt="" coords="192,107,361,133"/>
+<area shape="rect" id="node6" href="$structclutchlog_1_1fmt_1_1fg__16_m.html" title="Foreground in 256&#45;colors mode." alt="" coords="412,107,564,133"/>
+<area shape="rect" id="node8" href="$structclutchlog_1_1fmt_1_1bg__16_m.html" title="background in 256&#45;colors mode." alt="" coords="411,157,565,184"/>
+</map>

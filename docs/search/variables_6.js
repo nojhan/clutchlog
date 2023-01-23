@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['there_121',['there',['../structclutchlog_1_1scope__t.html#a7918e55cd3bac1bd30c69b8c711387ff',1,'clutchlog::scope_t']]]
+  ['red_163',['red',['../structclutchlog_1_1fmt_1_1color__16_m.html#a19e1517a9afb75a4e6224f718ed11c61',1,'clutchlog::fmt::color_16M']]]
 ];

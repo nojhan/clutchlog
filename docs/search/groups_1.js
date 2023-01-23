@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['formating_20tools_132',['Formating tools',['../group___formating.html',1,'']]]
+  ['default_20configuration_20management_183',['Default configuration management',['../group___default_config.html',1,'']]]
 ];

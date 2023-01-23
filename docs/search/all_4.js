@@ -1,11 +1,13 @@
 var searchData=
 [
-  ['fg_40',['fg',['../classclutchlog_1_1fmt.html#a4662a3ec3577c6a575a2c734636ed8a0',1,'clutchlog::fmt']]],
-  ['file_41',['file',['../classclutchlog.html#a10064493c22f5c03b502a42d814c5c5c',1,'clutchlog']]],
-  ['fmt_42',['fmt',['../classclutchlog_1_1fmt.html',1,'clutchlog::fmt'],['../classclutchlog_1_1fmt.html#a407506bc02ed3f91d88b3df630e54959',1,'clutchlog::fmt::fmt()']]],
-  ['fore_43',['fore',['../classclutchlog_1_1fmt.html#a8307a848fcf9ed929435b3e1f2b53401',1,'clutchlog::fmt']]],
-  ['format_44',['format',['../classclutchlog.html#a656c277e074b64728cca871f2b484d1c',1,'clutchlog::format(const std::string &amp;format)'],['../classclutchlog.html#afc53dbca51d0e2322a21899d0c571a80',1,'clutchlog::format() const'],['../classclutchlog.html#abd692cca9a2e772e7c9d6531bb3c7761',1,'clutchlog::format(std::string row, const std::string &amp;what, const level &amp;stage, const std::string &amp;file, const std::string &amp;func, const size_t line) const']]],
-  ['format_5fcomment_45',['format_comment',['../classclutchlog.html#a2144abe4ec6f630126b6490908b5f924',1,'clutchlog::format_comment(const std::string &amp;format)'],['../classclutchlog.html#aa8d0a569ed3623ce36c5e567ec2d1ad5',1,'clutchlog::format_comment() const']]],
-  ['formating_20tools_46',['Formating tools',['../group___formating.html',1,'']]],
-  ['func_47',['func',['../classclutchlog.html#ad32b5a0274dc03ee0004f67ba58b2447',1,'clutchlog']]]
+  ['default_5fdepth_5fmark_42',['default_depth_mark',['../classclutchlog.html#a229fd61519f1245282440120f2d45fb5',1,'clutchlog']]],
+  ['default_5fformat_43',['default_format',['../classclutchlog.html#a0c4ac57601e6f8d146fd5cc060968ecc',1,'clutchlog']]],
+  ['default_5fhfill_5fchar_44',['default_hfill_char',['../classclutchlog.html#a76eb34537b634aadb75e255f7887eeb6',1,'clutchlog']]],
+  ['default_5fhfill_5fmax_45',['default_hfill_max',['../classclutchlog.html#ac95630bfe9cf547d2b7c4b3430eaedc1',1,'clutchlog']]],
+  ['default_5fhfill_5fmin_46',['default_hfill_min',['../classclutchlog.html#a5a9a98c3528117223ceff22bc6bee5f7',1,'clutchlog']]],
+  ['default_5fstrip_5fcalls_47',['default_strip_calls',['../classclutchlog.html#a1a8cb6411726133208f5a2f2cb42d468',1,'clutchlog']]],
+  ['default_20configuration_20management_48',['Default configuration management',['../group___default_config.html',1,'']]],
+  ['dump_49',['dump',['../classclutchlog.html#a63308e8deae3cfec6801318203494143',1,'clutchlog']]],
+  ['dump_5fdefault_5fformat_50',['dump_default_format',['../classclutchlog.html#ace879554298e6e6e36dafef330c27be8',1,'clutchlog']]],
+  ['dump_5fdefault_5fsep_51',['dump_default_sep',['../classclutchlog.html#af898bffe23b125245e338d7495c76d45',1,'clutchlog']]]
 ];

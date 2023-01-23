@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['default_20configuration_20management_131',['Default configuration management',['../group___default_config.html',1,'']]]
+  ['colors_20management_20in_2016_20colors_20mode_20_284_2dbits_20ansi_29_2e_182',['Colors management in 16 colors mode (4-bits ANSI).',['../group__colors16.html',1,'']]]
 ];

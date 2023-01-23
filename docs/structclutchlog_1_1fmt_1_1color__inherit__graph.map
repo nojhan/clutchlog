@@ -1,0 +1,9 @@
+<map id="clutchlog::fmt::color" name="clutchlog::fmt::color">
+<area shape="rect" id="node1" title="Interface class for colors representation." alt="" coords="5,81,143,108"/>
+<area shape="rect" id="node2" href="$structclutchlog_1_1fmt_1_1color__16_m.html" title="Abstract base class for 16M colors objects (24&#45;bits ANSI)." alt="" coords="191,56,360,83"/>
+<area shape="rect" id="node5" href="$structclutchlog_1_1fmt_1_1color__256.html" title="Abstract base class for 256 colors objects (8&#45;bits ANSI)." alt="" coords="193,107,358,133"/>
+<area shape="rect" id="node3" href="$structclutchlog_1_1fmt_1_1bg__16_m.html" title="background in 256&#45;colors mode." alt="" coords="408,5,563,32"/>
+<area shape="rect" id="node4" href="$structclutchlog_1_1fmt_1_1fg__16_m.html" title="Foreground in 256&#45;colors mode." alt="" coords="409,56,561,83"/>
+<area shape="rect" id="node6" href="$structclutchlog_1_1fmt_1_1bg__256.html" title="Background in 256&#45;colors mode." alt="" coords="410,107,561,133"/>
+<area shape="rect" id="node7" href="$structclutchlog_1_1fmt_1_1fg__256.html" title="Foreground in 256&#45;colors mode." alt="" coords="411,157,559,184"/>
+</map>

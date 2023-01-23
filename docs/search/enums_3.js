@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['typo_125',['typo',['../classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89',1,'clutchlog::fmt']]]
+  ['ground_171',['ground',['../structclutchlog_1_1fmt_1_1color.html#ad4d10c015b3af3cc10d1cf40fe38e4f0',1,'clutchlog::fmt::color']]]
 ];

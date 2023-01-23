@@ -1,0 +1,5 @@
+<map id="clutchlog::fmt::fg_16M" name="clutchlog::fmt::fg_16M">
+<area shape="rect" id="node1" title="Foreground in 256&#45;colors mode." alt="" coords="14,155,166,181"/>
+<area shape="rect" id="node2" href="$structclutchlog_1_1fmt_1_1color__16_m.html" title="Abstract base class for 16M colors objects (24&#45;bits ANSI)." alt="" coords="5,80,175,107"/>
+<area shape="rect" id="node3" href="$structclutchlog_1_1fmt_1_1color.html" title="Interface class for colors representation." alt="" coords="21,5,159,32"/>
+</map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_20class_134',['Main class',['../group___main.html',1,'']]]
+  ['high_2dlevel_20api_20macros_185',['High-level API macros',['../group___use_macros.html',1,'']]]
 ];

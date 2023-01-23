@@ -1,11 +1,11 @@
 var group___main =
 [
     [ "clutchlog", "classclutchlog.html", [
-      [ "System-dependent stack depth", "index.html#autotoc_md22", null ],
-      [ "System-dependent horizontal fill", "index.html#autotoc_md23", null ],
-      [ "Dependencies", "index.html#autotoc_md24", null ],
-      [ "Variable names within the CLUTCHLOG macro", "index.html#autotoc_md25", null ],
-      [ "Features", "index.html#autotoc_md26", null ],
+      [ "System-dependent stack depth", "index.html#autotoc_md24", null ],
+      [ "System-dependent horizontal fill", "index.html#autotoc_md25", null ],
+      [ "Dependencies", "index.html#autotoc_md26", null ],
+      [ "Variable names within the CLUTCHLOG macro", "index.html#autotoc_md27", null ],
+      [ "Features", "index.html#autotoc_md28", null ],
       [ "scope_t", "structclutchlog_1_1scope__t.html", [
         [ "scope_t", "structclutchlog_1_1scope__t.html#a0f1d865ffcf17f215e5559cdd2690572", null ],
         [ "matches", "structclutchlog_1_1scope__t.html#ae6c0e4ed20db797124ed1e5faa033ad9", null ],

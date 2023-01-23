@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['file_77',['file',['../classclutchlog.html#a10064493c22f5c03b502a42d814c5c5c',1,'clutchlog']]],
-  ['fmt_78',['fmt',['../classclutchlog_1_1fmt.html#a407506bc02ed3f91d88b3df630e54959',1,'clutchlog::fmt']]],
-  ['format_79',['format',['../classclutchlog.html#a656c277e074b64728cca871f2b484d1c',1,'clutchlog::format(const std::string &amp;format)'],['../classclutchlog.html#afc53dbca51d0e2322a21899d0c571a80',1,'clutchlog::format() const'],['../classclutchlog.html#abd692cca9a2e772e7c9d6531bb3c7761',1,'clutchlog::format(std::string row, const std::string &amp;what, const level &amp;stage, const std::string &amp;file, const std::string &amp;func, const size_t line) const']]],
-  ['format_5fcomment_80',['format_comment',['../classclutchlog.html#a2144abe4ec6f630126b6490908b5f924',1,'clutchlog::format_comment(const std::string &amp;format)'],['../classclutchlog.html#aa8d0a569ed3623ce36c5e567ec2d1ad5',1,'clutchlog::format_comment() const']]],
-  ['func_81',['func',['../classclutchlog.html#ad32b5a0274dc03ee0004f67ba58b2447',1,'clutchlog']]]
+  ['color_108',['color',['../structclutchlog_1_1fmt_1_1color.html#a741d0165287350d8fcacb1f472ce5dac',1,'clutchlog::fmt::color']]],
+  ['color_5f16m_109',['color_16M',['../structclutchlog_1_1fmt_1_1color__16_m.html#aea10e881fb9b570267f5751fb67c4282',1,'clutchlog::fmt::color_16M::color_16M(ground t)'],['../structclutchlog_1_1fmt_1_1color__16_m.html#a36d9cf42044fec34b7858142d86137d3',1,'clutchlog::fmt::color_16M::color_16M(ground t, short r, short g, short b)'],['../structclutchlog_1_1fmt_1_1color__16_m.html#a55e39e7eb3ced3095c00914eff52470c',1,'clutchlog::fmt::color_16M::color_16M(ground t, const std::string &amp;srgb)']]],
+  ['color_5f256_110',['color_256',['../structclutchlog_1_1fmt_1_1color__256.html#a12fdff3c5c4edbf952aaa31519f0171c',1,'clutchlog::fmt::color_256::color_256(ground t)'],['../structclutchlog_1_1fmt_1_1color__256.html#a1b68065b35141c018b33c3f2c45f5726',1,'clutchlog::fmt::color_256::color_256(ground t, const short i)']]]
 ];

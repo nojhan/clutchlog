@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['replace_63',['replace',['../classclutchlog.html#a972f895c70edc335f3018a2c8971d59e',1,'clutchlog::replace(const std::string &amp;form, const std::string &amp;mark, const std::string &amp;tag) const'],['../classclutchlog.html#ae90d5a1a428587ad67b38b2ea4ca9fa2',1,'clutchlog::replace(const std::string &amp;form, const std::string &amp;mark, const size_t tag) const']]]
+  ['main_20class_77',['Main class',['../group___main.html',1,'']]],
+  ['matches_78',['matches',['../structclutchlog_1_1scope__t.html#ae6c0e4ed20db797124ed1e5faa033ad9',1,'clutchlog::scope_t']]],
+  ['mode_79',['mode',['../classclutchlog_1_1fmt.html#a0aa57cdd56ccc79c7750921ab534b205',1,'clutchlog::fmt']]]
 ];
