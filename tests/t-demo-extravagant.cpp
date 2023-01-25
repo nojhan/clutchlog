@@ -2,35 +2,56 @@
 
 #include "../clutchlog/clutchlog.h"
 
-void i()
+void dump_data()
+{
+    CLUTCHLOG(progress, "Dump parsed data...");
+    CLUTCHLOG(debug, "Write in `data_dump.csv`");
+    CLUTCHLOG(debug, "Data frame size: " << 0 << "x" << "150");
+    CLUTCHLOG(xdebug, "Resolution: " << 0);
+}
+
+void reset()
 {
     CLUTCHLOG(progress, "Reset data structures...");
     CLUTCHLOG(debug, "OK");
     CLUTCHLOG(info, "Reset functors...");
     CLUTCHLOG(critical, "Impossible to reset, I cannot recover.");
+    dump_data();
 }
 
-void h()
+void process()
 {
     CLUTCHLOG(note, "Filling up data of size: " << 0);
     CLUTCHLOG(error, "Cannot parse input, I will reset stuff.");
-    i();
+    reset();
     CLUTCHLOG(xdebug, "Last seen state: " << 0);
 }
 
-void g()
+void init_data()
 {
-    CLUTCHLOG(warning, "Input size < " << 1);
-    h();
+    CLUTCHLOG(debug, "Data frame size: " << 2 << "x" << "150");
+    CLUTCHLOG(xdebug, "Resolution: " << 0.001);
+    CLUTCHLOG(warning, "Input height < " << 3);
 }
 
-void f()
+void init_func()
+{
+    CLUTCHLOG(progress, "Allocate memory...");
+    CLUTCHLOG(warning, "Dimension: " << 12);
+    CLUTCHLOG(debug, "OK");
+}
+
+void init()
 {
     CLUTCHLOG(progress, "Initialize data structures...");
+    init_data();
     CLUTCHLOG(debug, "OK");
     CLUTCHLOG(progress, "Initialize functors...");
+    init_func();
     CLUTCHLOG(debug, "OK");
-    g();
+    CLUTCHLOG(progress, "Process...");
+    process();
+    CLUTCHLOG(debug, "OK");
 }
 
 int main(const int argc, char* argv[])
@@ -97,8 +118,8 @@ int main(const int argc, char* argv[])
         }
     }
 
-    CLUTCHLOG(progress,"Start something");
-    f();
+    CLUTCHLOG(progress,"Start analysis");
+    init();
     CLUTCHLOG(progress,"I have stopped");
 }
 
