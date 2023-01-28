@@ -200,12 +200,15 @@ Available tags are:
 - `{file}`: the current file (absolute path),
 - `{func}`: the current function,
 - `{line}`: the current line number,
-- `{level_fmt}`: the format of the current level (i.e. configured with `clutchlog::style`).
+- `{level_fmt}`: the style of the current level (i.e. configured with `clutchlog::style`),
+- `{filehash_fmt}`: a style for file names, which is value-dependant (see `clutchlog::filehash_styles`),
+- `{funchash_fmt}`: a style for function names, which is value-dependant (see `clutchlog::funchash_styles`).
 
 Some tags are only available on POSIX operating systems as of now:
 - `{name}`: the name of the current binary,
 - `{depth}`: the current depth of the call stack,
 - `{depth_marks}`: as many chevrons `>` as there is calls in the stack,
+- `{depth_fmt}`: a style depending on the current depth value (see `clutchlog::depth_styles`),
 - `{hfill}`: Inserts a sequence of characters that will stretch to fill the space available
   in the current terminal, between the rightmost and leftmost part of the log message.
 
@@ -220,10 +223,12 @@ clutchlog will not put the location-related tags in the message formats
 (i.e. `{name}`, `{func}`, and `{line}`) when not in Debug builds.
 
 
-Output style
-------------
+Output Styling
+--------------
 
-Output lines can be colored differently depending on the log level.
+Output lines can be styled differently depending on their content.
+
+For example, output lines can be colored differently depending on the log level.
 ```cpp
 // Print error messages in bold red:
 log.style(level::error, // First, the log level.
@@ -251,7 +256,8 @@ depending on the types of arguments passed to styling functions:
 - `clutchlog::fg::none` and `clutchlog::bg::none` can be passed in all modes.
 
 For example, all the following lines encode
-a bright red foreground for the critical level:
+a bright red foreground for the critical level
+(see the "Colors" section below):
 ```cpp
     log.style(level:critical,
         fmt::fg::red); // 16-colors mode.
@@ -368,6 +374,42 @@ you have to pass a `fg::none` tag as first argument.
 ```cpp
 log.style(level::info, fg::none, 100,0,0); // No color over dark red.
 log.style(level::info, fg::none, 100,0,0, typo::bold); // No color over bold dark red.
+```
+
+
+### Value-dependant Format Tags
+
+Some tags can be used to change the style of (part of) the output line,
+
+*depending on its content*.
+The `{filehash_fmt}` and `{funchash_fmt}` will introduce a styling sequence
+which depends on the current file name, and function name respectively.
+The chosen style is chosen at random among the candidate ones,
+but will always be the same for each value.
+
+The set of candidate styles can be configured with `clutchlog::filehash_styles`
+and `clutchlog::funchash_styles`, which both take a vector of `clutchlog::fmt`
+objects as argument:
+```cpp
+// Either one or the other color for filenames:
+log.filehash_styles( { fmt(fg::red),   fmt(fg::yellow) } );
+// This would fix the function name style to a single one:
+log.funchash_styles( { fmt(typo::bold) } );
+// Works with any `fmt` constructor
+// (here, shades of blues in 256-colors mode):
+log.funchash_styles( { fmt(33), fmt(27), fmt(39), fmt(45) } );
+```
+
+The same idea applies to `{depth_fmt}`.
+However, if `clutchlog::depth_styles` is configured,
+then the styles are chosen *in order*.
+That is, a depth of 1 would lead to the first style being chosen.
+If the current depth of the stack is larger than the number of configured
+styles, then the last one is used.
+For example:
+```cpp
+// Increasingly darker depth level colors (using the 256-colors mode).
+log.depth_styles({ fmt(255), fmt(250), fmt(245), fmt(240), fmt(235) });
 ```
 
 

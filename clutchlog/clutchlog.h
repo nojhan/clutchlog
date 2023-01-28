@@ -810,6 +810,16 @@ class clutchlog
                     this->print_on(os);
                     return os.str();
                 }
+
+                static fmt hash( const std::string& str, const std::vector<fmt> domain = {})
+                {
+                    size_t h = std::hash<std::string>{}(str);
+                    if(domain.size() == 0) {
+                        return fmt(static_cast<short>(h % 256));
+                    } else {
+                        return fmt(domain[h % domain.size()]);
+                    }
+                }
         }; // fmt class
 
         /** @} */
@@ -872,6 +882,10 @@ class clutchlog
             _in_file(".*"),
             _in_func(".*"),
             _in_line(".*")
+            // Empty vectors by default:
+            // _filehash_fmts
+            // _funchash_fmts
+            // _depth_fmts
         {
             // Reverse the level->word map into a word->level map.
             for(auto& lw : _level_word) {
@@ -926,9 +940,16 @@ class clutchlog
         /** Current line location filter. */
         std::regex _in_line;
 
+        /** List of candidate format objects for value-dependant file name styling. */
+        std::vector<fmt> _filehash_fmts;
+        /** List of candidate format objects for value-dependant function name styling. */
+        std::vector<fmt> _funchash_fmts;
+
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
         /** Maximum buffer size for backtrace message. */
         static const size_t _max_buffer = 4096;
+        /** Ordered list of format objects for value-dependant depth styling. */
+        std::vector<fmt> _depth_fmts;
 #endif
 
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
@@ -974,11 +995,11 @@ class clutchlog
         size_t strip_calls() const {return _strip_calls;}
 #endif
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
-        //! Set the character for the stretching hfill marker.
+        //! Set the character for the stretching `{hfill}` template tag marker.
         void hfill_mark(const char mark) {_hfill_char = mark;}
-        //! Get the character for the stretching hfill marker.
+        //! Get the character for the stretching `{hfill}` template tag marker.
         char hfill_mark() const {return _hfill_char;}
-        //! Set the style for the stretching hfill marker, with a `fmt` object.
+        //! Set the style for the stretching `{hfill}` template tag marker, with a `fmt` object.
         void hfill_style(fmt style) {_hfill_fmt = style;}
         /** Set the style for the stretching hfill marker.
          *
@@ -986,17 +1007,42 @@ class clutchlog
          */
         template<class ... FMT>
         void hfill_style(FMT... styles) { this->hfill_style(fmt(styles...)); }
-        //! Get the character for the stretching hfill marker.
+        //! Get the character for the stretching `{hfill}` template tag marker.
         fmt hfill_style() const {return _hfill_fmt;}
-        //! Set the maximum width for which to hfill. */
+        //! Set the maximum width for which to `{hfill}`.
         void hfill_max(const size_t nmax) {_hfill_max = nmax;}
-        //! Get the maximum width for which to hfill. */
+        //! Get the maximum width for which to `{hfill}`.
         size_t hfill_max() {return _hfill_max;}
-        //! Set the minimum width at which to hfill. */
+        //! Set the minimum width at which to `{hfill}`.
         void hfill_min(const size_t nmin) {_hfill_min = nmin;}
-        //! Get the minimum width at which to hfill. */
+        //! Get the minimum width at which to `{hfill}`.
         size_t hfill_min() {return _hfill_min;}
 #endif
+        /** Set the candidate styles for value-dependant file name formatting.
+         *
+         *   Style will be chosen based on the hash value of the filename
+         *   among the candidate ones.
+         *
+         *   See the `{filehash_fmt}` template tag.
+         */
+        void filehash_styles(std::vector<fmt> styles) {_filehash_fmts = styles;}
+        /** Set the candidate styles for value-dependant function name formatting.
+         *
+         *   Style will be chosen based on the hash value of the filename
+         *   among the candidate ones.
+         *
+         *   See the `{funchash_fmt}` template tag.
+         */
+        void funchash_styles(std::vector<fmt> styles) {_funchash_fmts = styles;}
+        /** Set the styles for value-dependant depth formatting.
+         *
+         *   The given list should be ordered, styles will be applied
+         *   for the corresponding depth level. If the actual depth is
+         *   larger than the number of styles, the last one is used.
+         *
+         *   See the `{depth_fmt}` template tag.
+         */
+        void depth_styles(std::vector<fmt> styles) {_depth_fmts = styles;}
 
         //! Set the log level (below which logs are not printed) with an identifier.
         void  threshold(level l) {_stage = l;}
@@ -1238,17 +1284,26 @@ class clutchlog
             row = replace(row, "\\{level_short\\}", _level_short.at(stage));
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
+            size_t actual_depth = depth - _strip_calls;
             row = replace(row, "\\{name\\}", name);
-            row = replace(row, "\\{depth\\}", depth - _strip_calls);
+            row = replace(row, "\\{depth\\}", actual_depth);
 
             std::ostringstream chevrons;
             for(size_t i = _strip_calls; i < depth; ++i) {
                 chevrons << _depth_mark;
             }
             row = replace(row, "\\{depth_marks\\}", chevrons.str());
-#endif
 
+            if(_depth_fmts.size() == 0) {
+                row = replace(row, "\\{depth_fmt\\}", fmt(actual_depth % 256).str() );
+            } else {
+                row = replace(row, "\\{depth_fmt\\}",
+                    _depth_fmts[std::min(actual_depth,_depth_fmts.size()-1)].str() );
+            }
+#endif
             row = replace(row, "\\{level_fmt\\}", _level_fmt.at(stage).str());
+            row = replace(row, "\\{filehash_fmt\\}", fmt::hash(file, _filehash_fmts).str() );
+            row = replace(row, "\\{funchash_fmt\\}", fmt::hash(func, _funchash_fmts).str() );
 
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
             // hfill is replaced last to allow for correct line width estimation.
@@ -1490,6 +1545,7 @@ class clutchlog
                 friend std::ostream& operator<<(std::ostream&, const fmt&) {}
                 std::string operator()( const std::string&) const {}
                 std::string str() const {}
+                static fmt hash( const std::string&, const std::vector<fmt>) {}
         };
     public:
         clutchlog(clutchlog const&)      = delete;
@@ -1534,6 +1590,9 @@ class clutchlog
         void hfill_max(const size_t) {}
         size_t hfill_max() {}
 #endif
+        void filehash_styles(std::vector<fmt> ) {}
+        void funchash_styles(std::vector<fmt> ) {}
+        void depth_styles(std::vector<fmt>) {}
 
         void  threshold(level) {}
         void  threshold(const std::string&) {}
