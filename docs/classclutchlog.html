@@ -28,7 +28,7 @@
   <td id="projectlogo"><img alt="Logo" src="clutchlog_logo.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">clutchlog
-   &#160;<span id="projectnumber">0.13</span>
+   &#160;<span id="projectnumber">0.14</span>
    </div>
   </td>
  </tr>
@@ -129,6 +129,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a6c6ab42a1df147e6c2d115bc36ec8266">out</a> ()</td></tr>
 <tr class="memdesc:a6c6ab42a1df147e6c2d115bc36ec8266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the output stream on which to print. <br /></td></tr>
 <tr class="separator:a6c6ab42a1df147e6c2d115bc36ec8266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae17db5808155fbc6dc48b4727d0c3abf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#ae17db5808155fbc6dc48b4727d0c3abf">filehash_styles</a> (std::vector&lt; <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt; styles)</td></tr>
+<tr class="memdesc:ae17db5808155fbc6dc48b4727d0c3abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the candidate styles for value-dependant file name formatting.  <a href="classclutchlog.html#ae17db5808155fbc6dc48b4727d0c3abf">More...</a><br /></td></tr>
+<tr class="separator:ae17db5808155fbc6dc48b4727d0c3abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb50f6306ebb3c8b0d1a52e7f327416"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#acbb50f6306ebb3c8b0d1a52e7f327416">funchash_styles</a> (std::vector&lt; <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt; styles)</td></tr>
+<tr class="memdesc:acbb50f6306ebb3c8b0d1a52e7f327416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the candidate styles for value-dependant function name formatting.  <a href="classclutchlog.html#acbb50f6306ebb3c8b0d1a52e7f327416">More...</a><br /></td></tr>
+<tr class="separator:acbb50f6306ebb3c8b0d1a52e7f327416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08310b92e86687349e70f56f9ac1d656"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a08310b92e86687349e70f56f9ac1d656">depth_styles</a> (std::vector&lt; <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt; styles)</td></tr>
+<tr class="memdesc:a08310b92e86687349e70f56f9ac1d656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the styles for value-dependant depth formatting.  <a href="classclutchlog.html#a08310b92e86687349e70f56f9ac1d656">More...</a><br /></td></tr>
+<tr class="separator:a08310b92e86687349e70f56f9ac1d656"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cb0e4f43a4cadf1966001ad7c9861f4"><td class="memItemLeft" align="right" valign="top"><a id="a3cb0e4f43a4cadf1966001ad7c9861f4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a3cb0e4f43a4cadf1966001ad7c9861f4">threshold</a> (<a class="el" href="classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928">level</a> l)</td></tr>
 <tr class="memdesc:a3cb0e4f43a4cadf1966001ad7c9861f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the log level (below which logs are not printed) with an identifier. <br /></td></tr>
@@ -317,6 +326,14 @@ std::regex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 std::regex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a41757198b29862832a14472a9e5e24c6">_in_line</a></td></tr>
 <tr class="memdesc:a41757198b29862832a14472a9e5e24c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current line location filter. <br /></td></tr>
 <tr class="separator:a41757198b29862832a14472a9e5e24c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a334e009533744b52f01ef240a59e9d"><td class="memItemLeft" align="right" valign="top"><a id="a2a334e009533744b52f01ef240a59e9d"></a>
+std::vector&lt; <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a2a334e009533744b52f01ef240a59e9d">_filehash_fmts</a></td></tr>
+<tr class="memdesc:a2a334e009533744b52f01ef240a59e9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of candidate format objects for value-dependant file name styling. <br /></td></tr>
+<tr class="separator:a2a334e009533744b52f01ef240a59e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a095e1545a2085ac623e4af19364fea7f"><td class="memItemLeft" align="right" valign="top"><a id="a095e1545a2085ac623e4af19364fea7f"></a>
+std::vector&lt; <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclutchlog.html#a095e1545a2085ac623e4af19364fea7f">_funchash_fmts</a></td></tr>
+<tr class="memdesc:a095e1545a2085ac623e4af19364fea7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of candidate format objects for value-dependant function name styling. <br /></td></tr>
+<tr class="separator:a095e1545a2085ac623e4af19364fea7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0906d74275cedcd403da94879764815e"><td class="memItemLeft" align="right" valign="top"><a id="a0906d74275cedcd403da94879764815e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>clutchlog</b> (<a class="el" href="classclutchlog.html">clutchlog</a> const &amp;)=delete</td></tr>
 <tr class="separator:a0906d74275cedcd403da94879764815e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -358,6 +375,106 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a cla
 
 </div>
 </div>
+<a id="ae17db5808155fbc6dc48b4727d0c3abf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae17db5808155fbc6dc48b4727d0c3abf">&#9670;&nbsp;</a></span>filehash_styles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clutchlog::filehash_styles </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt;&#160;</td>
+          <td class="paramname"><em>styles</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the candidate styles for value-dependant file name formatting. </p>
+<p>Style will be chosen based on the hash value of the filename among the candidate ones.</p>
+<p>See the <code>{filehash_fmt}</code> template tag. </p>
+
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l01028">1028</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+
+<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l00944">_filehash_fmts</a>.</p>
+
+</div>
+</div>
+<a id="acbb50f6306ebb3c8b0d1a52e7f327416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbb50f6306ebb3c8b0d1a52e7f327416">&#9670;&nbsp;</a></span>funchash_styles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clutchlog::funchash_styles </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt;&#160;</td>
+          <td class="paramname"><em>styles</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the candidate styles for value-dependant function name formatting. </p>
+<p>Style will be chosen based on the hash value of the filename among the candidate ones.</p>
+<p>See the <code>{funchash_fmt}</code> template tag. </p>
+
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l01036">1036</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+
+<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l00946">_funchash_fmts</a>.</p>
+
+</div>
+</div>
+<a id="a08310b92e86687349e70f56f9ac1d656"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08310b92e86687349e70f56f9ac1d656">&#9670;&nbsp;</a></span>depth_styles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clutchlog::depth_styles </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="classclutchlog_1_1fmt.html">fmt</a> &gt;&#160;</td>
+          <td class="paramname"><em>styles</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the styles for value-dependant depth formatting. </p>
+<p>The given list should be ordered, styles will be applied for the corresponding depth level. If the actual depth is larger than the number of styles, the last one is used.</p>
+<p>See the <code>{depth_fmt}</code> template tag. </p>
+
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l01045">1045</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+
+</div>
+</div>
 <a id="acebed8c9df9204f22bf8488e62e1cedd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acebed8c9df9204f22bf8488e62e1cedd">&#9670;&nbsp;</a></span>level_of()</h2>
 
@@ -385,11 +502,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a cla
 <p>Return the log level tag corresponding to the given pre-configured name. </p>
 <dl class="section note"><dt>Note</dt><dd>This is case sensitive, see the pre-configured <code>_level_word</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l01014">1014</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l01060">1060</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l00893">_word_level</a>.</p>
+<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l00907">_word_level</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l01004">threshold()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l01050">threshold()</a>.</p>
 
 </div>
 </div>
@@ -432,11 +549,11 @@ template&lt;class ... FMT&gt; </div>
 <p>Set the style (color and typo) of the given log level. </p>
 <p>This version accept style arguments as if they were passed to <code><a class="el" href="classclutchlog_1_1fmt.html" title="Color and style formatter for ANSI terminal escape sequences.">clutchlog::fmt</a></code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l01048">1048</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l01094">1094</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l01048">style()</a>.</p>
+<p class="reference">References <a class="el" href="clutchlog_8h_source.html#l01094">style()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l01048">style()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l01094">style()</a>.</p>
 
 </div>
 </div>
@@ -484,9 +601,9 @@ template&lt;class ... FMT&gt; </div>
 <div class="fragment"><div class="line"><a class="code" href="classclutchlog.html#a23dbb98f0d3c5cc21c232cde16cf317a">log</a>.replace(<span class="stringliteral">&quot;{greet} {world}&quot;</span>, <span class="stringliteral">&quot;\\{greet\\}&quot;</span>, <span class="stringliteral">&quot;hello&quot;</span>);</div>
 <div class="line"><span class="comment">// returns &quot;hello {world}&quot;</span></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l01137">1137</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clutchlog_8h_source.html#l01183">1183</a> of file <a class="el" href="clutchlog_8h_source.html">clutchlog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l01326">dump()</a>, <a class="el" href="clutchlog_8h_source.html#l01213">format()</a>, and <a class="el" href="clutchlog_8h_source.html#l01202">replace()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="clutchlog_8h_source.html#l01381">dump()</a>, <a class="el" href="clutchlog_8h_source.html#l01259">format()</a>, and <a class="el" href="clutchlog_8h_source.html#l01248">replace()</a>.</p>
 
 </div>
 </div>
@@ -495,7 +612,7 @@ template&lt;class ... FMT&gt; </div>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassclutchlog_html_a23dbb98f0d3c5cc21c232cde16cf317a"><div class="ttname"><a href="classclutchlog.html#a23dbb98f0d3c5cc21c232cde16cf317a">clutchlog::log</a></div><div class="ttdeci">void log(const level &amp;stage, const std::string &amp;what, const std::string &amp;file, const std::string &amp;func, size_t line) const</div><div class="ttdoc">Print a log message IF the location matches the given one.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l01301">clutchlog.h:1301</a></div></div>
+<div class="ttc" id="aclassclutchlog_html_a23dbb98f0d3c5cc21c232cde16cf317a"><div class="ttname"><a href="classclutchlog.html#a23dbb98f0d3c5cc21c232cde16cf317a">clutchlog::log</a></div><div class="ttdeci">void log(const level &amp;stage, const std::string &amp;what, const std::string &amp;file, const std::string &amp;func, size_t line) const</div><div class="ttdoc">Print a log message IF the location matches the given one.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l01356">clutchlog.h:1356</a></div></div>
 <div class="ttc" id="aclassclutchlog_html_acfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00296">clutchlog.h:296</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

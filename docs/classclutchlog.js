@@ -11,6 +11,9 @@ var classclutchlog =
     [ "format_comment", "classclutchlog.html#aa8d0a569ed3623ce36c5e567ec2d1ad5", null ],
     [ "out", "classclutchlog.html#a7fd7c7bd3668c537061c314a619a336d", null ],
     [ "out", "classclutchlog.html#a6c6ab42a1df147e6c2d115bc36ec8266", null ],
+    [ "filehash_styles", "classclutchlog.html#ae17db5808155fbc6dc48b4727d0c3abf", null ],
+    [ "funchash_styles", "classclutchlog.html#acbb50f6306ebb3c8b0d1a52e7f327416", null ],
+    [ "depth_styles", "classclutchlog.html#a08310b92e86687349e70f56f9ac1d656", null ],
     [ "threshold", "classclutchlog.html#a3cb0e4f43a4cadf1966001ad7c9861f4", null ],
     [ "threshold", "classclutchlog.html#a7a7738eaad114bfa870121412fe23ad9", null ],
     [ "threshold", "classclutchlog.html#ab45287cc9c14217904a13aff49573732", null ],
@@ -49,6 +52,8 @@ var classclutchlog =
     [ "_in_file", "classclutchlog.html#aded03528f34d9000f618419c482c5042", null ],
     [ "_in_func", "classclutchlog.html#a130c4f12eacbd2028102838fe16b734e", null ],
     [ "_in_line", "classclutchlog.html#a41757198b29862832a14472a9e5e24c6", null ],
+    [ "_filehash_fmts", "classclutchlog.html#a2a334e009533744b52f01ef240a59e9d", null ],
+    [ "_funchash_fmts", "classclutchlog.html#a095e1545a2085ac623e4af19364fea7f", null ],
     [ "level", "classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928", [
       [ "critical", "classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928af332f31a368c931f79b9b64d55fc7701", null ],
       [ "error", "classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928a023c3e8a55ddfd140d3e3268dd6221e9", null ],

@@ -22,6 +22,7 @@ var group___formating =
       [ "print_on", "classclutchlog_1_1fmt.html#a0b607e343b6813b99eafca1fdfec9cd0", null ],
       [ "operator()", "classclutchlog_1_1fmt.html#afeaedd18298498d1dcfcc15f5f17ac3c", null ],
       [ "str", "classclutchlog_1_1fmt.html#ab588e04e982b0b26ec979773d51ad41b", null ],
+      [ "hash", "classclutchlog_1_1fmt.html#a822ded10ae1b0c82f7330481aa4bb64f", null ],
       [ "operator<<", "group__colors16.html#ga5a697f5ad3326ea25b139e25252b4cf7", null ],
       [ "operator<<", "group__colors16.html#ga379b0af834c7c561edc5c1e3a3427a33", null ],
       [ "operator<<", "classclutchlog_1_1fmt.html#a96849ba427feac3a2eeaa1165e3845da", null ],

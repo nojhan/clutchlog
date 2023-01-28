@@ -28,7 +28,7 @@
   <td id="projectlogo"><img alt="Logo" src="clutchlog_logo.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">clutchlog
-   &#160;<span id="projectnumber">0.13</span>
+   &#160;<span id="projectnumber">0.14</span>
    </div>
   </td>
  </tr>
@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li class="level1"><a href="#autotoc_md29">Build and tests</a></li>
 </ul>
 </div>
-<div class="textblock"><p><em><b>Clutchlog is a <em>spatial</em> logging system that targets versatile debugging.</b></em> <em><b>It allows to (de)clutch messages for a given: log level, source code location or call stack depth.</b></em></p>
+<div class="textblock"><p><b>Clutchlog is a <em>spatial</em> logging system that targets versatile <em>debugging</em>.</b> <b>It allows to (de)clutch messages for a given: log level, source code location or call stack depth.</b></p>
 <ul>
 <li><a href="https://github.com/nojhan/clutchlog">Project page on Github</a></li>
 <li><a href="https://nojhan.github.io/clutchlog/">Documentation</a></li>
@@ -159,8 +159,10 @@ Example</h1>
 <div class="line">log.threshold(<span class="stringliteral">&quot;Info&quot;</span>); <span class="comment">// Log only &quot;info&quot;, &quot;warning&quot;, &quot;error&quot; or &quot;critical&quot; messages.</span></div>
 <div class="line">log.file(<span class="stringliteral">&quot;algebra/.*&quot;</span>);                <span class="comment">// Will match any file in the &quot;algebra&quot; directory.</span></div>
 <div class="line">log.func(<span class="stringliteral">&quot;(mul|add|sub|div)&quot;</span>);         <span class="comment">// Will match &quot;multiply&quot;, for instance.</span></div>
-</div><!-- fragment --><p>Example of a real-life log session (as seen in the <a href="https://github.com/jdreo/frictionlesser">frictionlesser</a> software): <img src="https://github.com/nojhan/clutchlog/blob/main/demo.jpg?raw=true" alt="A log screen capture with full details, showing colored messages and location." class="inline"/></p>
-<p>Demo showing fancy styling: <img src="https://github.com/nojhan/clutchlog/blob/main/demo.jpg?raw=true" alt="A log screen capture showing fancy coloring of text lines." class="inline"/></p>
+</div><!-- fragment --><p>Example of a real-life log session (as seen in the <a href="https://github.com/jdreo/frictionlesser">frictionlesser</a> software):</p>
+<p><img src="https://raw.githubusercontent.com/nojhan/clutchlog/master/demo.png" alt="A log screen capture with full details, showing colored messages and location." class="inline"/></p>
+<p>Demo showing fancy styling:</p>
+<p><img src="https://raw.githubusercontent.com/nojhan/clutchlog/master/demo-extra.png" alt="A log screen capture showing fancy coloring of text lines." class="inline"/></p>
 <p>For more detailled examples, see the "Usage" sections below and the <code>tests</code> directory.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Rationale</h1>
@@ -468,7 +470,8 @@ System-dependent horizontal fill</h3>
 <p>Clutchlog sets the <code>CLUTCHLOG_HAVE_UNIX_SYSIOCTL</code> to 1 if the headers are available, and to 0 if they are not. You can make portable code using something like: </p><div class="fragment"><div class="line"><span class="preprocessor">#if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1</span></div>
 <div class="line">    log.hfill_mark( <span class="charliteral">&#39;_&#39;</span> );</div>
 <div class="line"><span class="preprocessor">#endif </span></div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md26"></a>
+</div><!-- fragment --><p>If you use unicode characters in your template, the horizontal width will not be computed properly, resulting in incorrectly right-aligned lines. Solving this would require the use of third-party libraries, making portability more difficult.</p>
+<h3><a class="anchor" id="autotoc_md26"></a>
 Dependencies</h3>
 <p>Some colors/styles may not be supported by some exotic terminal emulators.</p>
 <p>Clutchlog needs <code>C++-17</code> with the <code>filesystem</code> feature. You may need to indicate <code>-std=c++17 -lstdc++fs</code> to some compilers.</p>

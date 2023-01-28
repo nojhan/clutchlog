@@ -1,5 +1,11 @@
 var NAVTREEINDEX1 =
 {
+"structclutchlog_1_1fmt_1_1color.html#ad4d10c015b3af3cc10d1cf40fe38e4f0":[1,5,0,6],
+"structclutchlog_1_1fmt_1_1color.html#ad4d10c015b3af3cc10d1cf40fe38e4f0a469bba0a564235dfceede42db14f17b0":[1,5,0,6,1],
+"structclutchlog_1_1fmt_1_1color.html#ad4d10c015b3af3cc10d1cf40fe38e4f0ae64e4c4fee28f9ca7301e4c7ff598e67":[1,5,0,6,0],
+"structclutchlog_1_1fmt_1_1color__16_m.html":[1,5,4],
+"structclutchlog_1_1fmt_1_1color__16_m.html#a19e1517a9afb75a4e6224f718ed11c61":[1,5,4,5],
+"structclutchlog_1_1fmt_1_1color__16_m.html#a36d9cf42044fec34b7858142d86137d3":[1,5,4,1],
 "structclutchlog_1_1fmt_1_1color__16_m.html#a55e39e7eb3ced3095c00914eff52470c":[1,5,4,2],
 "structclutchlog_1_1fmt_1_1color__16_m.html#a674910195e7bb14d78f0cf56c308a47e":[1,5,4,4],
 "structclutchlog_1_1fmt_1_1color__16_m.html#a780c11e42bb140732ffd37cf4eef9e1d":[1,5,4,3],
@@ -34,6 +40,7 @@ var NAVTREEINDEX1 =
 "t-demo_8cpp_source.html":[3,0,6],
 "t-dump_8cpp_source.html":[3,0,7],
 "t-fmt-constructors_8cpp_source.html":[3,0,8],
-"t-log_8cpp_source.html":[3,0,9],
-"t-one-line-if_8cpp_source.html":[3,0,10]
+"t-hash-color_8cpp_source.html":[3,0,9],
+"t-log_8cpp_source.html":[3,0,10],
+"t-one-line-if_8cpp_source.html":[3,0,11]
 };

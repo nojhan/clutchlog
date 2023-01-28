@@ -81,7 +81,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structclutchlog_1_1fmt_1_1color__16_m.html#a55e39e7eb3ced3095c00914eff52470c"
+"structclutchlog_1_1fmt_1_1color.html#ad4d10c015b3af3cc10d1cf40fe38e4f0"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
