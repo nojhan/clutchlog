@@ -76,21 +76,30 @@
 //! Handy shortcuts to location.
 #define CLUTCHLOC __FILE__, __FUNCTION__, __LINE__
 
-//! Log a message at the given level.
+//! Log a message at the given level and with a given depth delta.
 #ifndef NDEBUG
-    #define CLUTCHLOG( LEVEL, WHAT ) do {                                                \
-        auto& clutchlog__logger = clutchlog::logger();                                   \
-        std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT;                      \
-        clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), CLUTCHLOC); \
+    #define CLUTCHLOGD( LEVEL, WHAT, DEPTH_DELTA ) do {                                                   \
+        auto& clutchlog__logger = clutchlog::logger();                                                    \
+        std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT;                                       \
+        clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), CLUTCHLOC, DEPTH_DELTA);     \
     } while(0)
 #else // not Debug build.
-    #define CLUTCHLOG( LEVEL, WHAT ) do {                                                    \
-        if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) {               \
-            auto& clutchlog__logger = clutchlog::logger();                                   \
-            std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT;                      \
-            clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), CLUTCHLOC); \
-        }                                                                                    \
+    #define CLUTCHLOGD( LEVEL, WHAT, DEPTH_DELTA ) do {                                                   \
+        if(clutchlog::level::LEVEL <= CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG) {                            \
+            auto& clutchlog__logger = clutchlog::logger();                                                \
+            std::ostringstream clutchlog__msg ; clutchlog__msg << WHAT;                                   \
+            clutchlog__logger.log(clutchlog::level::LEVEL, clutchlog__msg.str(), CLUTCHLOC, DEPTH_DELTA); \
+        }                                                                                                 \
     } while(0)
+#endif // NDEBUG
+
+//! Log a message at the given level.
+#ifndef NDEBUG
+    #define CLUTCHLOG( LEVEL, WHAT ) \
+        CLUTCHLOGD(LEVEL, WHAT, 0)
+#else // not Debug build.
+    #define CLUTCHLOG( LEVEL, WHAT ) \
+        CLUTCHLOGD(LEVEL, WHAT, 0)
 #endif // NDEBUG
 
 //! Dump the given container.
@@ -1364,7 +1373,8 @@ class clutchlog
         void log(
                 const level& stage,
                 const std::string& what,
-                const std::string& file, const std::string& func, size_t line
+                const std::string& file, const std::string& func, const size_t line,
+                const size_t depth_delta = 0
             ) const
         {
             scope_t scope = locate(stage, file, func, line);
@@ -1373,12 +1383,11 @@ class clutchlog
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                 *_out << format(_format_log, what, basename(getenv("_")),
                                 stage, file, func,
-                                line, scope.depth );
+                                line, scope.depth + depth_delta );
 #else
                 *_out << format(_format_log, what,
                                 stage, file, func,
                                 line );
-
 #endif
                 _out->flush();
             } // if scopes.matches
@@ -1389,7 +1398,7 @@ class clutchlog
         void dump(
                 const level& stage,
                 const In container_begin, const In container_end,
-                const std::string& file, const std::string& func, size_t line,
+                const std::string& file, const std::string& func, const size_t line,
                 const std::string& filename_template = "dump_{n}.dat",
                 const std::string sep = dump_default_sep
             ) const

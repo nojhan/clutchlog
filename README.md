@@ -566,6 +566,23 @@ CLUTCHCODE(info,
 ```
 
 
+Manually Increase Stack Depth
+-----------------------------
+
+You may want to manually increase the stack depth for a given logging call,
+for instance to subdivise a single function in sections.
+To do so, you can use the `CLUTCHLOGD` macro, which take an additional argument,
+in the form of the number of additional (fake) stack depths you want:
+```cpp
+CLUTCHLOG( debug, "Call"); // Regular macro.
+CLUTCHLOGD(debug, "Sub call", 1); // Adds an additional (fake) stack depth.
+CLUTCHLOGD(debug, "Sub sub!", 2); // Adds two additional (fake) stack depths.
+```
+That way, the depth will be rendered to the actual depth, plus the additional
+depth delta. Note that the displayed function will stay the same. Any filtering
+on the stack depth will take into account the fake depth and not the real one.
+
+
 Examples
 ========
 
