@@ -412,6 +412,10 @@ For example:
 log.depth_styles({ fmt(255), fmt(250), fmt(245), fmt(240), fmt(235) });
 ```
 
+If `clutchlog::depth_styles` is set, the `{depth_marks}` template tag will render
+with each mark having each own style corresponding to its depth.
+Note: a depth of zero showing no mark, the first style in the list is never applied to marks.
+
 
 Advanced Usage
 ==============

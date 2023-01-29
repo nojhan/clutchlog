@@ -34,7 +34,7 @@ int main(/*const int argc, char* argv[]*/)
 
     fmt reset(typo::reset);
     std::ostringstream tpl;
-    tpl << "{level_fmt}Having a {level} {filehash_fmt}within {file} {funchash_fmt}calling {func} {depth_fmt}at level {depth}"
+    tpl << "{level_fmt}Having a {level} {filehash_fmt}within {file} {funchash_fmt}calling {func} {depth_fmt}at depth {depth_marks} {depth} "
         << reset << " : {msg}\n";
     log.format(tpl.str());
     log.threshold(clutchlog::level::xdebug);

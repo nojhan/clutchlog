@@ -83,21 +83,29 @@ int main(const int argc, char* argv[])
     log.hfill_mark('-');
 
     const short dark = 238;
-    const short lite = 250;
+    const short lite = 245;
+
+    std::vector<clutchlog::fmt> greys = {fmt(15)};
+    for(unsigned short i=255; i>231; i-=3) {
+        greys.push_back( fmt(i) );
+    }
+    log.depth_styles(greys);
 
     format
            << fmt(dark,lite) << "{name}"
-           << fmt(lite,dark) << ""
-           << fmt(fg::none,dark) << "{level_fmt}" << " {level_short} " << reset
-           << fmt(dark,bg::none) << "" << reset
-           << fmt(dark,bg::none) << "{depth_marks}" << reset
+           << fmt(fg::none,lite,typo::inverse) << "{level_fmt}"
+           << fmt(fg::none,bg::black,typo::inverse) << "{level_fmt}" << " {level_short} " << reset
+           << "{level_fmt} " << reset
+           << fmt(dark,bg::none) << "{depth_marks}" //<< reset
            << "{level_fmt}"
+           // << "{funchash_fmt}"
            << bold("{msg}")
-           << discreet(" {hfill} ")
+           // << discreet(" {hfill} ")
+           << "{depth_fmt} {hfill} "
            << fmt(dark,bg::none) << ""
-           << fmt(fg::none,dark) << "{level_fmt} {func} "
+           << fmt(fg::none,dark) << "{funchash_fmt}{func} "
            << fmt(lite,dark) << ""
-           << fmt(dark,lite) << "{file}" << reset
+           << fmt(dark,lite) << "{filehash_fmt}{file}" << reset
            << fmt(dark,lite) << ""
            << fmt(lite,dark) << "{line}" << reset
            << "\n";

@@ -1288,17 +1288,25 @@ class clutchlog
             row = replace(row, "\\{name\\}", name);
             row = replace(row, "\\{depth\\}", actual_depth);
 
-            std::ostringstream chevrons;
-            for(size_t i = _strip_calls; i < depth; ++i) {
-                chevrons << _depth_mark;
-            }
-            row = replace(row, "\\{depth_marks\\}", chevrons.str());
-
             if(_depth_fmts.size() == 0) {
                 row = replace(row, "\\{depth_fmt\\}", fmt(actual_depth % 256).str() );
+
+                std::ostringstream chevrons;
+                for(size_t i = 0; i < actual_depth; ++i) {
+                    chevrons << _depth_mark;
+                }
+                row = replace(row, "\\{depth_marks\\}", chevrons.str());
+
             } else {
                 row = replace(row, "\\{depth_fmt\\}",
                     _depth_fmts[std::min(actual_depth,_depth_fmts.size()-1)].str() );
+
+                std::ostringstream chevrons;
+                for(size_t i = 0; i < actual_depth; ++i) {
+                    chevrons << _depth_fmts[std::min(i+1,_depth_fmts.size()-1)].str()
+                             << _depth_mark;
+                }
+                row = replace(row, "\\{depth_marks\\}", chevrons.str());
             }
 #endif
             row = replace(row, "\\{level_fmt\\}", _level_fmt.at(stage).str());
