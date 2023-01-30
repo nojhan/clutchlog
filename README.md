@@ -197,7 +197,7 @@ Available tags are:
 - `{level}`: the current log level (i.e. `Critical`, `Error`, `Warning`, `Progress`, `Note`, `Info`, `Debug` or `XDebug`),
 - `{level_letter}`: the first letter of the current log level,
 - `{level_short}`: the current log level, printed in only four letters,
-- `{file}`: the current file (absolute path),
+- `{file}`: the current file name,
 - `{func}`: the current function,
 - `{line}`: the current line number,
 - `{level_fmt}`: the style of the current level (i.e. configured with `clutchlog::style`),
@@ -477,6 +477,32 @@ You can change this behaviour by defining the `CLUTCHLOG_STRIP_CALLS` macro,
 or calling `clutchlog::strip_calls`.
 ```cpp
 log.strip_calls(CLUTCHLOG_STRIP_CALLS); // Defaults to 5.
+```
+
+
+### Filename
+
+By default, the `{file}` template tag is rendered as the absolute path
+(which is usualy handy if your terminal detects paths
+and allows to run a command on click).
+
+You can change this behavior to display shorter names, using `clutchlog::filename`,
+and passing one of the following the shortening method:
+- `clutchlog::filename::base`: the file name itself,
+- `clutchlog::filename::dir`: the name of the single last directory containing the file,
+- `clutchlog::filename::dirbase`: the last directory and the file names,
+- `clutchlog::filename::stem`: the file name without its extension,
+- `clutchlog::filename::dirstem`: the last directory and the file without extension.
+- `clutchlog::filename::path`: the absolute path (the default).
+
+Example:
+```cpp
+log.filename(clutchlog::filename::path)    // /home/nojhan/code/clutchlog/tests/t-filename.cpp
+log.filename(clutchlog::filename::base)    // t-filename.cpp
+log.filename(clutchlog::filename::dir)     // tests
+log.filename(clutchlog::filename::dirbase) // tests/t-filename.cpp
+log.filename(clutchlog::filename::stem)    // t-filename
+log.filename(clutchlog::filename::dirstem) // tests/t-filename
 ```
 
 

@@ -312,6 +312,9 @@ class clutchlog
         //! Available log levels.
         enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
 
+        //! Available filename rendering methods.
+        enum filename {path, base, dir, dirbase, stem, dirstem};
+
         /** @} */
 
         /** @addtogroup Formating Formating tools
@@ -891,11 +894,12 @@ class clutchlog
             _stage(level::error),
             _in_file(".*"),
             _in_func(".*"),
-            _in_line(".*")
+            _in_line(".*"),
             // Empty vectors by default:
             // _filehash_fmts
             // _funchash_fmts
             // _depth_fmts
+            _filename(filename::path)
         {
             // Reverse the level->word map into a word->level map.
             for(auto& lw : _level_word) {
@@ -966,7 +970,10 @@ class clutchlog
         /** Current terminal size (for right-alignment). */
         size_t _nb_columns;
 #endif
-    /** @}*/
+
+        /** Filename rendering method. */
+        filename _filename;
+    /** @} Internal details */
 
     public:
 
@@ -1107,7 +1114,10 @@ class clutchlog
         //! Get the configured fmt instance of the given log level.
         fmt  style(level stage) const { return _level_fmt.at(stage); }
 
-        /** @} */
+        //! Sets the file naming scheme. */
+        void filename(filename f) {_filename = f;}
+
+        /** @} Configuration accessors */
 
     public:
 
@@ -1283,14 +1293,42 @@ class clutchlog
             ) const
         {
             row = replace(row, "\\{msg\\}", what);
-            row = replace(row, "\\{file\\}", file);
+
+            const std::filesystem::path filepath(file);
+            assert(filepath.is_absolute());
+            std::string filename;
+            std::filesystem::path::iterator ip = filepath.end();
+            std::advance(ip, -2);
+            switch(_filename) {
+                case filename::base:
+                    filename = filepath.filename().string();
+                    break;
+                case filename::dir:
+                    filename = ip->string();
+                    break;
+                case filename::dirbase:
+                    filename = (*ip / filepath.filename()).string();
+                    break;
+                case filename::stem:
+                    filename = filepath.stem().string();
+                    break;
+                case filename::dirstem:
+                    filename = (*ip / filepath.stem()).string();
+                    break;
+                case filename::path:
+                default:
+                    filename = file;
+                    break;
+            }
+            row = replace(row, "\\{file\\}", filename);
+
+
             row = replace(row, "\\{func\\}", func);
             row = replace(row, "\\{line\\}", line);
 
             row = replace(row, "\\{level\\}", _level_word.at(stage));
             std::string letter(1, _level_word.at(stage).at(0)); // char -> string
             row = replace(row, "\\{level_letter\\}", letter);
-
             row = replace(row, "\\{level_short\\}", _level_short.at(stage));
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
@@ -1468,6 +1506,7 @@ class clutchlog
     public:
         static clutchlog& logger() {}
         enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
+        enum filename {path, base, dir, dirbase, stem, dirstem};
         class fmt {
             public:
                 enum class ansi { colors_16, colors_256,  colors_16M} mode;
@@ -1635,6 +1674,7 @@ class clutchlog
         void style(level, FMT...) {}
         void style(level, fmt) {}
         fmt style(level) const {}
+        void filename(filename) {}
     public:
         std::string replace(
                 const std::string&,
