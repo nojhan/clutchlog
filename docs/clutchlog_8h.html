@@ -28,7 +28,7 @@
   <td id="projectlogo"><img alt="Logo" src="clutchlog_logo.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">clutchlog
-   &#160;<span id="projectnumber">0.14</span>
+   &#160;<span id="projectnumber">0.15</span>
    </div>
   </td>
  </tr>
@@ -114,8 +114,7 @@ $(document).ready(function(){initNavTree('clutchlog_8h.html',''); initResizable(
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="clutchlog_8h__dep__incl.svg" width="100%" height="384"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="clutchlog_8h__dep__incl.svg" width="100%" height="384"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="clutchlog_8h_source.html">Go to the source code of this file.</a></p>
@@ -179,8 +178,12 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___use_macros.html#gae8911119d726a43b77f5781cb5a72813">CLUTCHLOC</a>&#160;&#160;&#160;__FILE__, __FUNCTION__, __LINE__</td></tr>
 <tr class="memdesc:gae8911119d726a43b77f5781cb5a72813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handy shortcuts to location. <br /></td></tr>
 <tr class="separator:gae8911119d726a43b77f5781cb5a72813"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f86187e2b35e7e1907d688f504a197d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(LEVEL,  WHAT)</td></tr>
-<tr class="memdesc:ga6f86187e2b35e7e1907d688f504a197d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log a message at the given level.  <a href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">More...</a><br /></td></tr>
+<tr class="memitem:ga369d365b7c25ec270596c3ca6839cf2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___use_macros.html#ga369d365b7c25ec270596c3ca6839cf2c">CLUTCHLOGD</a>(LEVEL,  WHAT,  DEPTH_DELTA)</td></tr>
+<tr class="memdesc:ga369d365b7c25ec270596c3ca6839cf2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log a message at the given level and with a given depth delta.  <a href="group___use_macros.html#ga369d365b7c25ec270596c3ca6839cf2c">More...</a><br /></td></tr>
+<tr class="separator:ga369d365b7c25ec270596c3ca6839cf2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6f86187e2b35e7e1907d688f504a197d"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(LEVEL,  WHAT)&#160;&#160;&#160;<a class="el" href="group___use_macros.html#ga369d365b7c25ec270596c3ca6839cf2c">CLUTCHLOGD</a>(LEVEL, WHAT, 0)</td></tr>
+<tr class="memdesc:ga6f86187e2b35e7e1907d688f504a197d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log a message at the given level. <br /></td></tr>
 <tr class="separator:ga6f86187e2b35e7e1907d688f504a197d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga572e3aa19d8b39e3ed0b9e91961104c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___use_macros.html#ga572e3aa19d8b39e3ed0b9e91961104c2">CLUTCHDUMP</a>(LEVEL,  CONTAINER,  FILENAME)</td></tr>
 <tr class="memdesc:ga572e3aa19d8b39e3ed0b9e91961104c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump the given container.  <a href="group___use_macros.html#ga572e3aa19d8b39e3ed0b9e91961104c2">More...</a><br /></td></tr>

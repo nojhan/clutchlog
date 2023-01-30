@@ -34,26 +34,28 @@ var NAVTREE =
         [ "Output Configuration", "index.html#autotoc_md7", [
           [ "Log Format", "index.html#autotoc_md8", null ]
         ] ],
-        [ "Output style", "index.html#autotoc_md9", [
+        [ "Output Styling", "index.html#autotoc_md9", [
           [ "Typographic Style", "index.html#autotoc_md10", null ],
-          [ "Colors", "index.html#autotoc_md11", null ]
+          [ "Colors", "index.html#autotoc_md11", null ],
+          [ "Value-dependant Format Tags", "index.html#autotoc_md12", null ]
         ] ]
       ] ],
-      [ "Advanced Usage", "index.html#autotoc_md12", [
-        [ "More Output Configuration", "index.html#autotoc_md13", [
-          [ "Dump Format", "index.html#autotoc_md14", null ],
-          [ "Stack Depth Mark", "index.html#autotoc_md15", null ],
-          [ "Horizontal Filling", "index.html#autotoc_md16", null ],
-          [ "Stack Depth", "index.html#autotoc_md17", null ]
+      [ "Advanced Usage", "index.html#autotoc_md13", [
+        [ "More Output Configuration", "index.html#autotoc_md14", [
+          [ "Dump Format", "index.html#autotoc_md15", null ],
+          [ "Stack Depth Mark", "index.html#autotoc_md16", null ],
+          [ "Horizontal Filling", "index.html#autotoc_md17", null ],
+          [ "Stack Depth", "index.html#autotoc_md18", null ]
         ] ],
-        [ "Disabled calls", "index.html#autotoc_md18", null ],
-        [ "Low-level API", "index.html#autotoc_md19", null ],
-        [ "(De)clutch any function call", "index.html#autotoc_md20", null ],
-        [ "(De)clutch any code section", "index.html#autotoc_md21", null ]
+        [ "Disabled calls", "index.html#autotoc_md19", null ],
+        [ "Low-level API", "index.html#autotoc_md20", null ],
+        [ "(De)clutch any function call", "index.html#autotoc_md21", null ],
+        [ "(De)clutch any code section", "index.html#autotoc_md22", null ],
+        [ "Manually Increase Stack Depth", "index.html#autotoc_md23", null ]
       ] ],
-      [ "Examples", "index.html#autotoc_md22", null ],
-      [ "Limitations", "index.html#autotoc_md23", null ],
-      [ "Build and tests", "index.html#autotoc_md29", null ]
+      [ "Examples", "index.html#autotoc_md24", null ],
+      [ "Limitations", "index.html#autotoc_md25", null ],
+      [ "Build and tests", "index.html#autotoc_md31", null ]
     ] ],
     [ "Modules", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [
@@ -81,7 +83,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structclutchlog_1_1fmt_1_1color.html#ad4d10c015b3af3cc10d1cf40fe38e4f0"
+"structclutchlog_1_1fmt_1_1color.html#a826e3d3eba925608442439d6bc3a95a6"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

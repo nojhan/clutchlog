@@ -7,6 +7,7 @@ var clutchlog_8h =
     [ "WITH_CLUTCHLOG", "clutchlog_8h.html#a5c126962abcc7a40e504a6fc3abdfcc4", null ],
     [ "CLUTCHLOG_DEFAULT_DEPTH_BUILT_NODEBUG", "group___default_config.html#ga8564be479b948ee3052b61783c66d415", null ],
     [ "CLUTCHLOC", "group___use_macros.html#gae8911119d726a43b77f5781cb5a72813", null ],
+    [ "CLUTCHLOGD", "group___use_macros.html#ga369d365b7c25ec270596c3ca6839cf2c", null ],
     [ "CLUTCHLOG", "group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d", null ],
     [ "CLUTCHDUMP", "group___use_macros.html#ga572e3aa19d8b39e3ed0b9e91961104c2", null ],
     [ "CLUTCHFUNC", "group___use_macros.html#ga9f77cee4f853e582262930c9c17f90ae", null ],

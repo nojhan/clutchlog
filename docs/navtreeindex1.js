@@ -1,5 +1,9 @@
 var NAVTREEINDEX1 =
 {
+"structclutchlog_1_1fmt_1_1color.html#a826e3d3eba925608442439d6bc3a95a6":[1,5,0,3],
+"structclutchlog_1_1fmt_1_1color.html#a96d7161ef1e7cc631ae670cd3f364603":[1,5,0,1],
+"structclutchlog_1_1fmt_1_1color.html#aa75e958436afe333924b6db3e5f0821f":[1,5,0,2],
+"structclutchlog_1_1fmt_1_1color.html#aacbc3cd9447fdb7d51e02b29b5028a6b":[1,5,0,4],
 "structclutchlog_1_1fmt_1_1color.html#ad4d10c015b3af3cc10d1cf40fe38e4f0":[1,5,0,6],
 "structclutchlog_1_1fmt_1_1color.html#ad4d10c015b3af3cc10d1cf40fe38e4f0a469bba0a564235dfceede42db14f17b0":[1,5,0,6,1],
 "structclutchlog_1_1fmt_1_1color.html#ad4d10c015b3af3cc10d1cf40fe38e4f0ae64e4c4fee28f9ca7301e4c7ff598e67":[1,5,0,6,0],
@@ -38,9 +42,10 @@ var NAVTREEINDEX1 =
 "t-color_8cpp_source.html":[3,0,2],
 "t-demo-extravagant_8cpp_source.html":[3,0,5],
 "t-demo_8cpp_source.html":[3,0,6],
-"t-dump_8cpp_source.html":[3,0,7],
-"t-fmt-constructors_8cpp_source.html":[3,0,8],
-"t-hash-color_8cpp_source.html":[3,0,9],
-"t-log_8cpp_source.html":[3,0,10],
-"t-one-line-if_8cpp_source.html":[3,0,11]
+"t-depth-delta_8cpp_source.html":[3,0,7],
+"t-dump_8cpp_source.html":[3,0,8],
+"t-fmt-constructors_8cpp_source.html":[3,0,9],
+"t-hash-color_8cpp_source.html":[3,0,10],
+"t-log_8cpp_source.html":[3,0,11],
+"t-one-line-if_8cpp_source.html":[3,0,12]
 };

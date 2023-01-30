@@ -28,7 +28,7 @@
   <td id="projectlogo"><img alt="Logo" src="clutchlog_logo.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">clutchlog
-   &#160;<span id="projectnumber">0.14</span>
+   &#160;<span id="projectnumber">0.15</span>
    </div>
   </td>
  </tr>
@@ -173,55 +173,63 @@ $(document).ready(function(){initNavTree('t-demo-extravagant_8cpp_source.html','
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    log.hfill_mark(<span class="charliteral">&#39;-&#39;</span>);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">short</span> dark = 238;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">short</span> lite = 250;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">short</span> lite = 245;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    format</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;           &lt;&lt; fmt(dark,lite) &lt;&lt; <span class="stringliteral">&quot;{name}&quot;</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;           &lt;&lt; fmt(lite,dark) &lt;&lt; <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;           &lt;&lt; fmt(fg::none,dark) &lt;&lt; <span class="stringliteral">&quot;{level_fmt}&quot;</span> &lt;&lt; <span class="stringliteral">&quot; {level_short} &quot;</span> &lt;&lt; reset</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;           &lt;&lt; fmt(dark,bg::none) &lt;&lt; <span class="stringliteral">&quot;&quot;</span> &lt;&lt; reset</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;           &lt;&lt; fmt(dark,bg::none) &lt;&lt; <span class="stringliteral">&quot;{depth_marks}&quot;</span> &lt;&lt; reset</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;{level_fmt}&quot;</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;           &lt;&lt; bold(<span class="stringliteral">&quot;{msg}&quot;</span>)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;           &lt;&lt; discreet(<span class="stringliteral">&quot; {hfill} &quot;</span>)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;           &lt;&lt; fmt(dark,bg::none) &lt;&lt; <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;           &lt;&lt; fmt(fg::none,dark) &lt;&lt; <span class="stringliteral">&quot;{level_fmt} {func} &quot;</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;           &lt;&lt; fmt(lite,dark) &lt;&lt; <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;           &lt;&lt; fmt(dark,lite) &lt;&lt; <span class="stringliteral">&quot;{file}&quot;</span> &lt;&lt; reset</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;           &lt;&lt; fmt(dark,lite) &lt;&lt; <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;           &lt;&lt; fmt(lite,dark) &lt;&lt; <span class="stringliteral">&quot;{line}&quot;</span> &lt;&lt; reset</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    log.format(format.str());</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    log.out(std::clog);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    log.strip_calls(4);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">if</span>(argc &lt;= 2) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(warning, <span class="stringliteral">&quot;Log level not indicated, will default to xdebug&quot;</span>);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        log.threshold(level::xdebug);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            log.threshold(log.level_of(argv[1]));</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        } <span class="keywordflow">catch</span>(std::out_of_range&amp; err) {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <a class="code" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(critical,err.what());</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            exit(100);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(progress,<span class="stringliteral">&quot;Start analysis&quot;</span>);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    init();</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(progress,<span class="stringliteral">&quot;I have stopped&quot;</span>);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    std::vector&lt;clutchlog::fmt&gt; greys = {fmt(15)};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> i=255; i&gt;231; i-=3) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        greys.push_back( fmt(i) );</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    log.depth_styles(greys);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    format</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;           &lt;&lt; fmt(dark,lite) &lt;&lt; <span class="stringliteral">&quot;{name}&quot;</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;           &lt;&lt; fmt(fg::none,lite,typo::inverse) &lt;&lt; <span class="stringliteral">&quot;{level_fmt}&quot;</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;           &lt;&lt; fmt(fg::none,bg::black,typo::inverse) &lt;&lt; <span class="stringliteral">&quot;{level_fmt}&quot;</span> &lt;&lt; <span class="stringliteral">&quot; {level_short} &quot;</span> &lt;&lt; reset</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;{level_fmt} &quot;</span> &lt;&lt; reset</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;           &lt;&lt; fmt(dark,bg::none) &lt;&lt; <span class="stringliteral">&quot;{depth_marks}&quot;</span> <span class="comment">//&lt;&lt; reset</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;{level_fmt}&quot;</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;           <span class="comment">// &lt;&lt; &quot;{funchash_fmt}&quot;</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;           &lt;&lt; bold(<span class="stringliteral">&quot;{msg}&quot;</span>)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;           <span class="comment">// &lt;&lt; discreet(&quot; {hfill} &quot;)</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;{depth_fmt} {hfill} &quot;</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;           &lt;&lt; fmt(dark,bg::none) &lt;&lt; <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;           &lt;&lt; fmt(fg::none,dark) &lt;&lt; <span class="stringliteral">&quot;{funchash_fmt}{func} &quot;</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;           &lt;&lt; fmt(lite,dark) &lt;&lt; <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;           &lt;&lt; fmt(dark,lite) &lt;&lt; <span class="stringliteral">&quot;{filehash_fmt}{file}&quot;</span> &lt;&lt; reset</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;           &lt;&lt; fmt(dark,lite) &lt;&lt; <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;           &lt;&lt; fmt(lite,dark) &lt;&lt; <span class="stringliteral">&quot;{line}&quot;</span> &lt;&lt; reset</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;           &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    log.format(format.str());</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    log.out(std::clog);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    log.strip_calls(4);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">if</span>(argc &lt;= 2) {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <a class="code" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(warning, <span class="stringliteral">&quot;Log level not indicated, will default to xdebug&quot;</span>);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        log.threshold(level::xdebug);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            log.threshold(log.level_of(argv[1]));</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        } <span class="keywordflow">catch</span>(std::out_of_range&amp; err) {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <a class="code" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(critical,err.what());</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            exit(100);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(progress,<span class="stringliteral">&quot;Start analysis&quot;</span>);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    init();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a>(progress,<span class="stringliteral">&quot;I have stopped&quot;</span>);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassclutchlog_html_a10fd25a1b51c8c95bd6d876ce1b4b928"><div class="ttname"><a href="classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928">clutchlog::level</a></div><div class="ttdeci">level</div><div class="ttdoc">Available log levels.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00303">clutchlog.h:303</a></div></div>
-<div class="ttc" id="aclassclutchlog_html_acfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00296">clutchlog.h:296</a></div></div>
-<div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00366">clutchlog.h:366</a></div></div>
-<div class="ttc" id="agroup__colors16_html_ga1cf3e27e4041250ffea0a6d58010da1e"><div class="ttname"><a href="group__colors16.html#ga1cf3e27e4041250ffea0a6d58010da1e">clutchlog::fmt::bg</a></div><div class="ttdeci">bg</div><div class="ttdoc">Background color codes.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00411">clutchlog.h:411</a></div></div>
-<div class="ttc" id="agroup___use_macros_html_ga6f86187e2b35e7e1907d688f504a197d"><div class="ttname"><a href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a></div><div class="ttdeci">#define CLUTCHLOG(LEVEL, WHAT)</div><div class="ttdoc">Log a message at the given level.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00081">clutchlog.h:81</a></div></div>
-<div class="ttc" id="aclassclutchlog_1_1fmt_html_a932f47b78fb7b10590d5613a1c4eab89"><div class="ttname"><a href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">clutchlog::fmt::typo</a></div><div class="ttdeci">typo</div><div class="ttdoc">Typographic style codes.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00379">clutchlog.h:379</a></div></div>
-<div class="ttc" id="agroup__colors16_html_ga4662a3ec3577c6a575a2c734636ed8a0"><div class="ttname"><a href="group__colors16.html#ga4662a3ec3577c6a575a2c734636ed8a0">clutchlog::fmt::fg</a></div><div class="ttdeci">fg</div><div class="ttdoc">Foreground color codes.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00390">clutchlog.h:390</a></div></div>
+<div class="ttc" id="aclassclutchlog_html_a10fd25a1b51c8c95bd6d876ce1b4b928"><div class="ttname"><a href="classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928">clutchlog::level</a></div><div class="ttdeci">level</div><div class="ttdoc">Available log levels.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00313">clutchlog.h:313</a></div></div>
+<div class="ttc" id="aclassclutchlog_html_acfaceb77da01503b432644a3efaee4fa"><div class="ttname"><a href="classclutchlog.html#acfaceb77da01503b432644a3efaee4fa">clutchlog::logger</a></div><div class="ttdeci">static clutchlog &amp; logger()</div><div class="ttdoc">Get the logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00306">clutchlog.h:306</a></div></div>
+<div class="ttc" id="aclassclutchlog_1_1fmt_html"><div class="ttname"><a href="classclutchlog_1_1fmt.html">clutchlog::fmt</a></div><div class="ttdoc">Color and style formatter for ANSI terminal escape sequences.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00376">clutchlog.h:376</a></div></div>
+<div class="ttc" id="agroup__colors16_html_ga1cf3e27e4041250ffea0a6d58010da1e"><div class="ttname"><a href="group__colors16.html#ga1cf3e27e4041250ffea0a6d58010da1e">clutchlog::fmt::bg</a></div><div class="ttdeci">bg</div><div class="ttdoc">Background color codes.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00421">clutchlog.h:421</a></div></div>
+<div class="ttc" id="agroup___use_macros_html_ga6f86187e2b35e7e1907d688f504a197d"><div class="ttname"><a href="group___use_macros.html#ga6f86187e2b35e7e1907d688f504a197d">CLUTCHLOG</a></div><div class="ttdeci">#define CLUTCHLOG(LEVEL, WHAT)</div><div class="ttdoc">Log a message at the given level.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00098">clutchlog.h:98</a></div></div>
+<div class="ttc" id="aclassclutchlog_1_1fmt_html_a932f47b78fb7b10590d5613a1c4eab89"><div class="ttname"><a href="classclutchlog_1_1fmt.html#a932f47b78fb7b10590d5613a1c4eab89">clutchlog::fmt::typo</a></div><div class="ttdeci">typo</div><div class="ttdoc">Typographic style codes.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00389">clutchlog.h:389</a></div></div>
+<div class="ttc" id="agroup__colors16_html_ga4662a3ec3577c6a575a2c734636ed8a0"><div class="ttname"><a href="group__colors16.html#ga4662a3ec3577c6a575a2c734636ed8a0">clutchlog::fmt::fg</a></div><div class="ttdeci">fg</div><div class="ttdoc">Foreground color codes.</div><div class="ttdef"><b>Definition:</b> <a href="clutchlog_8h_source.html#l00400">clutchlog.h:400</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
