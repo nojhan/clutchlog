@@ -166,6 +166,7 @@
 #else // not WITH_CLUTCHLOG
     // Disabled macros can still be called in Release builds.
     #define CLUTCHLOG(  LEVEL, WHAT )                do {/*nothing*/} while(0)
+    #define CLUTCHLOGD( LEVEL, WHAT, DEPTH_DELTA )   do {/*nothing*/} while(0)
     #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) do {/*nothing*/} while(0)
     #define CLUTCHFUNC( LEVEL, FUNC, ... )           do {/*nothing*/} while(0)
     #define CLUTCHCODE( LEVEL, CODE )                do {/*nothing*/} while(0)
