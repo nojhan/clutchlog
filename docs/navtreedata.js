@@ -45,17 +45,18 @@ var NAVTREE =
           [ "Dump Format", "index.html#autotoc_md15", null ],
           [ "Stack Depth Mark", "index.html#autotoc_md16", null ],
           [ "Horizontal Filling", "index.html#autotoc_md17", null ],
-          [ "Stack Depth", "index.html#autotoc_md18", null ]
+          [ "Stack Depth", "index.html#autotoc_md18", null ],
+          [ "Filename", "index.html#autotoc_md19", null ]
         ] ],
-        [ "Disabled calls", "index.html#autotoc_md19", null ],
-        [ "Low-level API", "index.html#autotoc_md20", null ],
-        [ "(De)clutch any function call", "index.html#autotoc_md21", null ],
-        [ "(De)clutch any code section", "index.html#autotoc_md22", null ],
-        [ "Manually Increase Stack Depth", "index.html#autotoc_md23", null ]
+        [ "Disabled calls", "index.html#autotoc_md20", null ],
+        [ "Low-level API", "index.html#autotoc_md21", null ],
+        [ "(De)clutch any function call", "index.html#autotoc_md22", null ],
+        [ "(De)clutch any code section", "index.html#autotoc_md23", null ],
+        [ "Manually Increase Stack Depth", "index.html#autotoc_md24", null ]
       ] ],
-      [ "Examples", "index.html#autotoc_md24", null ],
-      [ "Limitations", "index.html#autotoc_md25", null ],
-      [ "Build and tests", "index.html#autotoc_md31", null ]
+      [ "Examples", "index.html#autotoc_md25", null ],
+      [ "Limitations", "index.html#autotoc_md26", null ],
+      [ "Build and tests", "index.html#autotoc_md32", null ]
     ] ],
     [ "Modules", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [
@@ -83,7 +84,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structclutchlog_1_1fmt_1_1color.html#a826e3d3eba925608442439d6bc3a95a6"
+"structclutchlog_1_1fmt_1_1bg__16_m.html#a68f8cb4ab78a1cfb3b7b8e1e95bee11d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

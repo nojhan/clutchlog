@@ -26,6 +26,7 @@ var classclutchlog =
     [ "style", "classclutchlog.html#ac3ec55057b9c734b66f169bf43dbd591", null ],
     [ "style", "classclutchlog.html#ad1cfa9945c3f7f98fe8ce724c627d0d6", null ],
     [ "style", "classclutchlog.html#a4831f44fd5ade102e57320632095934d", null ],
+    [ "filename", "classclutchlog.html#a82b9375728af2d962831a743d95f4ae7", null ],
     [ "locate", "classclutchlog.html#a4ebdfcded6c56262676bf6926d63fc96", null ],
     [ "replace", "classclutchlog.html#a972f895c70edc335f3018a2c8971d59e", null ],
     [ "replace", "classclutchlog.html#ae90d5a1a428587ad67b38b2ea4ca9fa2", null ],
@@ -54,6 +55,7 @@ var classclutchlog =
     [ "_in_line", "classclutchlog.html#a41757198b29862832a14472a9e5e24c6", null ],
     [ "_filehash_fmts", "classclutchlog.html#a2a334e009533744b52f01ef240a59e9d", null ],
     [ "_funchash_fmts", "classclutchlog.html#a095e1545a2085ac623e4af19364fea7f", null ],
+    [ "_filename", "classclutchlog.html#a0431616914dbbecb908a794f5b46dada", null ],
     [ "level", "classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928", [
       [ "critical", "classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928af332f31a368c931f79b9b64d55fc7701", null ],
       [ "error", "classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928a023c3e8a55ddfd140d3e3268dd6221e9", null ],
@@ -63,5 +65,13 @@ var classclutchlog =
       [ "info", "classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928aa1ea607f2bfe5db06f1cf2bd991f7dc1", null ],
       [ "debug", "classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928a911f5ef324f37061f68a239577e0d0bd", null ],
       [ "xdebug", "classclutchlog.html#a10fd25a1b51c8c95bd6d876ce1b4b928abba74b810831c7753777e6dcc0c0f4e2", null ]
+    ] ],
+    [ "filename", "classclutchlog.html#a822062ffa857bd16ff488f9c749ff20e", [
+      [ "path", "classclutchlog.html#a822062ffa857bd16ff488f9c749ff20ea19ebb39c0f117afbe6658bbc9bea68a4", null ],
+      [ "base", "classclutchlog.html#a822062ffa857bd16ff488f9c749ff20ead79ddc78294d362c22ba917cba2cd3ef", null ],
+      [ "dir", "classclutchlog.html#a822062ffa857bd16ff488f9c749ff20ea35cf5f272267d9656cfcfe52243f4841", null ],
+      [ "dirbase", "classclutchlog.html#a822062ffa857bd16ff488f9c749ff20ea9534ecbf6a632833ca32ea5bb33f7eea", null ],
+      [ "stem", "classclutchlog.html#a822062ffa857bd16ff488f9c749ff20ea04548b133168127416623d51dd3b9338", null ],
+      [ "dirstem", "classclutchlog.html#a822062ffa857bd16ff488f9c749ff20ea5b96778dd84a50c1b288b31a5200df4d", null ]
     ] ]
 ];

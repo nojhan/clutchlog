@@ -9,6 +9,7 @@ var files_dup =
     [ "t-demo.cpp", "t-demo_8cpp_source.html", null ],
     [ "t-depth-delta.cpp", "t-depth-delta_8cpp_source.html", null ],
     [ "t-dump.cpp", "t-dump_8cpp_source.html", null ],
+    [ "t-filename.cpp", "t-filename_8cpp_source.html", null ],
     [ "t-fmt-constructors.cpp", "t-fmt-constructors_8cpp_source.html", null ],
     [ "t-hash-color.cpp", "t-hash-color_8cpp_source.html", null ],
     [ "t-log.cpp", "t-log_8cpp_source.html", null ],

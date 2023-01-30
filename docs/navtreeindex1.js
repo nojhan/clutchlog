@@ -1,5 +1,15 @@
 var NAVTREEINDEX1 =
 {
+"structclutchlog_1_1fmt_1_1bg__16_m.html#a68f8cb4ab78a1cfb3b7b8e1e95bee11d":[1,5,6,3],
+"structclutchlog_1_1fmt_1_1bg__16_m.html#ace018922ae99f32b48bf5cacaec91501":[1,5,6,1],
+"structclutchlog_1_1fmt_1_1bg__16_m.html#adcd5bd1e69e76e3b36015cf687693c97":[1,5,6,2],
+"structclutchlog_1_1fmt_1_1bg__256.html":[1,5,3],
+"structclutchlog_1_1fmt_1_1bg__256.html#a096d302be7373acaaf225644683408bd":[1,5,3,2],
+"structclutchlog_1_1fmt_1_1bg__256.html#a0d244a542b6b98a373f8b1f9e92a6a90":[1,5,3,0],
+"structclutchlog_1_1fmt_1_1bg__256.html#a83c663b1a9f00ba7ba7649c9c5605fad":[1,5,3,1],
+"structclutchlog_1_1fmt_1_1color.html":[1,5,0],
+"structclutchlog_1_1fmt_1_1color.html#a3fd18c290567bd5c4971663a1aed12ae":[1,5,0,5],
+"structclutchlog_1_1fmt_1_1color.html#a741d0165287350d8fcacb1f472ce5dac":[1,5,0,0],
 "structclutchlog_1_1fmt_1_1color.html#a826e3d3eba925608442439d6bc3a95a6":[1,5,0,3],
 "structclutchlog_1_1fmt_1_1color.html#a96d7161ef1e7cc631ae670cd3f364603":[1,5,0,1],
 "structclutchlog_1_1fmt_1_1color.html#aa75e958436afe333924b6db3e5f0821f":[1,5,0,2],
@@ -44,8 +54,9 @@ var NAVTREEINDEX1 =
 "t-demo_8cpp_source.html":[3,0,6],
 "t-depth-delta_8cpp_source.html":[3,0,7],
 "t-dump_8cpp_source.html":[3,0,8],
-"t-fmt-constructors_8cpp_source.html":[3,0,9],
-"t-hash-color_8cpp_source.html":[3,0,10],
-"t-log_8cpp_source.html":[3,0,11],
-"t-one-line-if_8cpp_source.html":[3,0,12]
+"t-filename_8cpp_source.html":[3,0,9],
+"t-fmt-constructors_8cpp_source.html":[3,0,10],
+"t-hash-color_8cpp_source.html":[3,0,11],
+"t-log_8cpp_source.html":[3,0,12],
+"t-one-line-if_8cpp_source.html":[3,0,13]
 };

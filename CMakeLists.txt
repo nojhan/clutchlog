@@ -6,7 +6,7 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 project("clutchlog"
-    VERSION 0.16
+    VERSION 0.17
     DESCRIPTION "A logging system which targets versatile debugging")
 
 enable_language(CXX) # C++
