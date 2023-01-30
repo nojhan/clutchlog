@@ -1363,7 +1363,7 @@ class clutchlog
 
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL
             // hfill is replaced last to allow for correct line width estimation.
-            const std::string raw_row = replace(row, "\\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]", "");
+            const std::string raw_row = replace(row, "(\\x9B|\\x1B\\[)[0-?]*[ -\\/]*[@-~]", "");
             const std::string hfill_tag = "{hfill}";
             const size_t hfill_pos = row.find(hfill_tag);
             const size_t raw_hfill_pos = raw_row.find(hfill_tag);

@@ -78,8 +78,6 @@ int main(const int argc, char* argv[])
     fmt bold(fmt::typo::bold);
 
     log.depth_mark("| ");
-    log.hfill_min(400);
-    log.hfill_max(500);
     log.hfill_mark('-');
 
     const short dark = 238;
@@ -95,17 +93,18 @@ int main(const int argc, char* argv[])
            << fmt(dark,lite) << "{name}"
            << fmt(fg::none,lite,typo::inverse) << "{level_fmt}"
            << fmt(fg::none,bg::black,typo::inverse) << "{level_fmt}" << " {level_short} " << reset
-           << "{level_fmt} " << reset
-           << fmt(dark,bg::none) << "{depth_marks}" //<< reset
-           << "{level_fmt}"
+           <<  "{level_fmt} " << reset
+           << fmt(dark,bg::none, typo::bold) << "{depth_marks}" << reset
            // << "{funchash_fmt}"
+           << "{level_fmt}"
            << bold("{msg}")
            // << discreet(" {hfill} ")
-           << "{depth_fmt} {hfill} "
-           << fmt(dark,bg::none) << ""
-           << fmt(fg::none,dark) << "{funchash_fmt}{func} "
+           << fmt(dark,bg::none) << "     ·" << ""
+           << fmt(fg::none,dark) << "{funchash_fmt}-{hfill}"
+           << fmt(fg::none,dark) << " {funchash_fmt}{func} "
            << fmt(lite,dark) << ""
-           << fmt(dark,lite) << "{filehash_fmt}{file}" << reset
+           // << fmt(dark,lite) << "{filehash_fmt}{file}" << reset
+           << fmt(dark,lite) << "{file}" << reset
            << fmt(dark,lite) << ""
            << fmt(lite,dark) << "{line}" << reset
            << "\n";
@@ -113,6 +112,7 @@ int main(const int argc, char* argv[])
 
     log.out(std::clog);
     log.strip_calls(4);
+    log.filename(clutchlog::filename::dirstem);
 
     if(argc <= 2) {
         CLUTCHLOG(warning, "Log level not indicated, will default to xdebug");
