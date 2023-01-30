@@ -35,8 +35,8 @@
      showgrid="false"
      showguides="false"
      inkscape:zoom="0.3724553"
-     inkscape:cx="387.96602"
-     inkscape:cy="1388.086"
+     inkscape:cx="187.94202"
+     inkscape:cy="1280.6906"
      inkscape:current-layer="layer1">
     <sodipodi:guide
        position="255.99999,255.99999"
@@ -1108,7 +1108,7 @@
          id="tspan7643"
          style="font-size:23.4965px;stroke-width:0.529167;stroke-dasharray:none"
          x="26.512325"
-         y="457.33154">v0.12</tspan></text>
+         y="457.33154">v0.16</tspan></text>
     <path
        style="fill:#00112b;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:0;filter:url(#filter8261)"
        d="M 1.5874998,23.875894 L 24.102351,1.5875025 V 23.517416 Z"
