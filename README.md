@@ -34,7 +34,7 @@ for instance debug messages in "Release" builds.
 Additional features:
 
 - **Templated log format**, to easily design your own format.
-- **Colored log**. By default only important ones are colored (critical and error in red, warning in magenta).
+- **Powerful Styling**. Clutchlog comes with many options to color its output, for example by using colors with a semantic meaning, so that visually parse the logs is easy.
 - **Macro to dump the content of a container in a file** with automatic naming (yes, it is useful for fast debugging).
 - **Generic clutching wrapper**, to wrap any function call. Useful to (de)clutch *asserts* for example.
 
