@@ -13,6 +13,7 @@
     namespace fs = std::filesystem;
 #endif
 
+#include <iterator>
 #include <iostream>
 #include <sstream>
 #include <fstream>
