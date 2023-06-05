@@ -1296,7 +1296,6 @@ class clutchlog
             row = replace(row, "\\{msg\\}", what);
 
             const std::filesystem::path filepath(file);
-            assert(filepath.is_absolute());
             std::string filename;
             std::filesystem::path::iterator ip = filepath.end();
             std::advance(ip, -2);
