@@ -832,7 +832,7 @@ class clutchlog
                     if(domain.size() == 0) {
                         return fmt(static_cast<short>(h % 256));
                     } else {
-                        return fmt(domain[h % domain.size()]);
+                        return domain[h % domain.size()];
                     }
                 }
         }; // fmt class
