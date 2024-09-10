@@ -1,6 +1,6 @@
 var clutchlog_8h =
 [
-    [ "scope_t", "structclutchlog_1_1scope__t.html", "structclutchlog_1_1scope__t" ],
+    [ "clutchlog::scope_t", "structclutchlog_1_1scope__t.html", "structclutchlog_1_1scope__t" ],
     [ "CLUTCHLOG_H", "clutchlog_8h.html#a0acf7d306292cdee864356f0b433cc16", null ],
     [ "CLUTCHLOG_HAVE_UNIX_SYSINFO", "clutchlog_8h.html#a6bbcf13504687db4dbe0474931d867fb", null ],
     [ "CLUTCHLOG_HAVE_UNIX_SYSIOCTL", "clutchlog_8h.html#a6bddd1e1be320823da0d6b1d5cef7817", null ],
