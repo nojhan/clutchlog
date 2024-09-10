@@ -791,3 +791,21 @@ ctest
 
 There's a script that tests all the build types combinations: `./build_all.sh`.
 
+
+Usage as a Git submodule
+========================
+
+If you are using Git and CMake, it is easy to include Clutchlog as a dependency.
+
+First, add Clutchlog as a submodule of your repository:
+```sh
+git submodule add git@github.com:nojhan/clutchlog.git external/
+git commit -m "Add clutchlog as a submodule dependency"
+```
+
+Then, in your `CMakeLists.txt` file, add:
+```cmake
+include_directories(external/clutchlog)
+```
+
+And that's it.
