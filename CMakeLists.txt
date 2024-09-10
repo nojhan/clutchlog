@@ -35,7 +35,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(WITH_CLUTCHLOG "Define WITH_CLUTCHLOG, whatever the build type." OFF)
 if(WITH_CLUTCHLOG)
-    add_definitions(-DWITH_CLUTCHLOG)
+    add_compile_definitions(WITH_CLUTCHLOG)
 endif()
 
 # Do not build documentation by default.
