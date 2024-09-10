@@ -1603,9 +1603,9 @@ class clutchlog
             protected:
                 std::ostream& print_on( std::ostream&) const {}
             public:
-                friend std::ostream& operator<<(std::ostream&, const fmt&) {}
-                std::string operator()( const std::string&) const {}
-                std::string str() const {}
+                friend std::ostream& operator<<(std::ostream& os, const fmt&) { return os; }
+                std::string operator()( const std::string& msg) const { return msg; }
+                std::string str() const { return ""; }
                 static fmt hash( const std::string&, const std::vector<fmt>) {}
         };
     public:
@@ -1624,32 +1624,32 @@ class clutchlog
         {}
     public:
         void format(const std::string&) {}
-        std::string format() const {}
+        std::string format() const { return ""; }
 
         void format_comment(const std::string&) {}
-        std::string format_comment() const {}
+        std::string format_comment() const { return ""; }
 
         void out(std::ostream&) {}
         std::ostream& out() {}
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
         void depth(size_t) {}
-        size_t depth() const {}
+        size_t depth() const { return 0; }
 
         void depth_mark(const std::string) {}
-        std::string depth_mark() const {}
+        std::string depth_mark() const { return ""; }
         void strip_calls(const size_t) {}
-        size_t strip_calls() const {}
+        size_t strip_calls() const { return 0; }
 #endif
 #if CLUTCHLOG_HAVE_UNIX_SYSIOCTL == 1
         void hfill_mark(const char) {}
-        char hfill_mark() const {}
+        char hfill_mark() const { return '\0'; }
         void hfill_fmt(fmt) {}
-        fmt hfill_fmt() const {}
+        fmt hfill_fmt() const { return fmt(); }
         void hfill_min(const size_t) {}
-        size_t hfill_min() {}
+        size_t hfill_min() { return 0; }
         void hfill_max(const size_t) {}
-        size_t hfill_max() {}
+        size_t hfill_max() { return 0; }
 #endif
         void filehash_styles(std::vector<fmt> ) {}
         void funchash_styles(std::vector<fmt> ) {}
@@ -1657,9 +1657,9 @@ class clutchlog
 
         void  threshold(level) {}
         void  threshold(const std::string&) {}
-        level threshold() const {}
+        level threshold() const { return level::error; }
         const std::map<std::string,level> levels() const {}
-        level level_of(const std::string) {}
+        level level_of(const std::string) { return level::error; }
 
         void file(std::string) {}
         void func(std::string) {}
@@ -1677,25 +1677,29 @@ class clutchlog
         template<class ... FMT>
         void style(level, FMT...) {}
         void style(level, fmt) {}
-        fmt style(level) const {}
+        fmt style(level) const { return fmt(); }
         void filename(filename) {}
     public:
         std::string replace(
-                const std::string&,
+                const std::string& form,
                 const std::string&,
                 const std::string&
             ) const
-        {}
+        {
+            return form;
+        }
 
         std::string replace(
-                const std::string&,
+                const std::string& form,
                 const std::string&,
                 const size_t
             ) const
-        {}
+        {
+            return form;
+        }
 
         std::string format(
-                std::string,
+                std::string row,
                 const std::string&,
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
                 const std::string&,
@@ -1709,7 +1713,9 @@ class clutchlog
                 const size_t
 #endif
             ) const
-        {}
+        {
+            return row;
+        }
 
         void log(
                 const level&,
