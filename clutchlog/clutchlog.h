@@ -1505,7 +1505,10 @@ class clutchlog
 class clutchlog
 {
     public:
-        static clutchlog& logger() {}
+        static clutchlog& logger() {
+            static clutchlog instance;
+            return instance;
+        }
         enum level {critical=0, error=1, warning=2, progress=3, note=4, info=5, debug=6, xdebug=7};
         enum filename {path, base, dir, dirbase, stem, dirstem};
         class fmt {
