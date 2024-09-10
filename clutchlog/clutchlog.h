@@ -712,45 +712,46 @@ class clutchlog
 
                 /** @name All combination of 16-colors mode constructors with different parameters orders.
                  * @{ */
-                fmt(  fg f,   bg b = bg::none, typo s = typo::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
-                fmt(  fg f, typo s           ,   bg b =   bg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
-                fmt(  bg b,   fg f = fg::none, typo s = typo::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
-                fmt(  bg b, typo s           ,   fg f =   fg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
-                fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
-                fmt(typo s,   bg b           ,   fg f =   fg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                explicit fmt(  fg f,   bg b = bg::none, typo s = typo::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                explicit fmt(  fg f, typo s           ,   bg b =   bg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                explicit fmt(  bg b,   fg f = fg::none, typo s = typo::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                explicit fmt(  bg b, typo s           ,   fg f =   fg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                explicit fmt(typo s,   fg f = fg::none,   bg b =   bg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
+                explicit fmt(typo s,   bg b           ,   fg f =   fg::none) : mode(ansi::colors_16), style(s), fore(f), back(b) {}
                 /** @} */
 
                 /** @name All combination of 256-colors mode constructors with different parameters orders.
                  * @{ */
-                fmt(fg_256 f, bg_256 b, typo s = typo::none) : mode(ansi::colors_256), style(s), fore_256(f),        back_256(b) {}
-                fmt(fg_256 f, typo s = typo::none)           : mode(ansi::colors_256), style(s), fore_256(f),        back_256(bg::none) {}
-                fmt(fg, bg_256 b, typo s = typo::none)       : mode(ansi::colors_256), style(s), fore_256(fg::none), back_256(b) {}
+                explicit fmt(const short f, const short b, typo s = typo::none) : mode(ansi::colors_256), style(s), fore_256(f),        back_256(b) {}
+                explicit fmt(const short f, typo s = typo::none)                : mode(ansi::colors_256), style(s), fore_256(f),        back_256(bg::none) {}
+                explicit fmt(fg, const short b, typo s = typo::none)            : mode(ansi::colors_256), style(s), fore_256(fg::none), back_256(b) {}
+                explicit fmt(const short f, bg, typo s = typo::none)           : mode(ansi::colors_256), style(s), fore_256(f),       back_256(bg::none) {}
                 /** @} */
 
                 /** @name All combination of 16M-colors mode constructors with different parameters orders.
                  * @{ */
-                fmt(const short fr, const short fg, const short fb,
+                explicit fmt(const short fr, const short fg, const short fb,
                     const short gr, const short gg, const short gb,
                     typo s = typo::none)
                     : mode(ansi::colors_16M), style(s), fore_16M(fr,fg,fb), back_16M(gr,gg,gb) {}
-                fmt(fg,
+                explicit fmt(fg,
                     const short gr, const short gg, const short gb,
                     typo s = typo::none)
                     : mode(ansi::colors_16M), style(s), fore_16M(fg::none), back_16M(gr,gg,gb) {}
-                fmt(const short fr, const short fg, const short fb,
+                explicit fmt(const short fr, const short fg, const short fb,
                     bg, typo s = typo::none)
                     : mode(ansi::colors_16M), style(s), fore_16M(fr,fg,fb), back_16M(bg::none) {}
-                fmt(const short fr, const short fg, const short fb,
+                explicit fmt(const short fr, const short fg, const short fb,
                     typo s = typo::none)
                     : mode(ansi::colors_16M), style(s), fore_16M(fr,fg,fb), back_16M(bg::none) {}
 
-                fmt(const std::string& f, const std::string& b, typo s = typo::none)
+                explicit fmt(const std::string& f, const std::string& b, typo s = typo::none)
                     : mode(ansi::colors_16M), style(s), fore_16M(f), back_16M(b) {}
-                fmt(fg, const std::string& b, typo s = typo::none)
+                explicit fmt(fg, const std::string& b, typo s = typo::none)
                     : mode(ansi::colors_16M), style(s), fore_16M(fg::none), back_16M(b) {}
-                fmt(const std::string& f, bg, typo s = typo::none)
+                explicit fmt(const std::string& f, bg, typo s = typo::none)
                     : mode(ansi::colors_16M), style(s), fore_16M(f), back_16M(bg::none) {}
-                fmt(const std::string& f, typo s = typo::none)
+                explicit fmt(const std::string& f, typo s = typo::none)
                     : mode(ansi::colors_16M), style(s), fore_16M(f), back_16M(bg::none) {}
                 /** @} */
 
