@@ -1333,7 +1333,10 @@ class clutchlog
             row = replace(row, "\\{level_short\\}", _level_short.at(stage));
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
-            size_t actual_depth = depth - _strip_calls;
+            size_t actual_depth = 0;
+            if( _strip_calls < depth) {
+                actual_depth = depth - _strip_calls;
+            }
             row = replace(row, "\\{name\\}", name);
             row = replace(row, "\\{depth\\}", actual_depth);
 
@@ -1358,6 +1361,7 @@ class clutchlog
                 row = replace(row, "\\{depth_marks\\}", chevrons.str());
             }
 #endif
+
             row = replace(row, "\\{level_fmt\\}", _level_fmt.at(stage).str());
             row = replace(row, "\\{filehash_fmt\\}", fmt::hash(file, _filehash_fmts).str() );
             row = replace(row, "\\{funchash_fmt\\}", fmt::hash(func, _funchash_fmts).str() );
