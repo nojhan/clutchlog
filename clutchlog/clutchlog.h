@@ -32,6 +32,7 @@
     #define CLUTCHLOG_HAVE_UNIX_SYSINFO 1
 #else
     #define CLUTCHLOG_HAVE_UNIX_SYSINFO 0
+    // #pragma message("[clutchlog] no POSIX SYSINFO header")
 #endif
 
 //! True if the system can handle the `hfill` feature.
@@ -42,6 +43,7 @@
     #define CLUTCHLOG_HAVE_UNIX_SYSIOCTL 1
 #else
     #define CLUTCHLOG_HAVE_UNIX_SYSIOCTL 0
+    // #pragma message("[clutchlog] no POSIX SYSIOCTL header")
 #endif
 
 
@@ -52,7 +54,12 @@
     #ifndef NDEBUG
         //! Actually enable clutchlog features.
         #define WITH_CLUTCHLOG
+        // #pragma message("[clutchlog] automatically enabled")
+    // #else
+        // #pragma message("[clutchlog] automatically disabled")
     #endif
+// #else
+    // #pragma message("[clutchlog] manually enabled")
 #endif
 
 /**********************************************************************
@@ -171,6 +178,7 @@
     #define CLUTCHDUMP( LEVEL, CONTAINER, FILENAME ) do {/*nothing*/} while(0)
     #define CLUTCHFUNC( LEVEL, FUNC, ... )           do {/*nothing*/} while(0)
     #define CLUTCHCODE( LEVEL, CODE )                do {/*nothing*/} while(0)
+    // #pragma message("[clutchlog] fully disabled")
 #endif // WITH_CLUTCHLOG
 
 /**********************************************************************
@@ -999,7 +1007,9 @@ class clutchlog
 
 #if CLUTCHLOG_HAVE_UNIX_SYSINFO == 1
         //! Set the stack depth above which logs are not printed.
-        void depth(size_t d) {_depth = d;}
+        void depth(size_t d) {
+            _depth = std::min(d, std::numeric_limits<size_t>::max() - _strip_calls);
+        }
         //! Get the stack depth above which logs are not printed.
         size_t depth() const {return _depth;}
 
